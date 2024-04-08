@@ -1,0 +1,211 @@
+.slider-price {
+    margin-left: 30px !important;
+    width: 30%;
+}
+
+.btn-register {
+    width: 125px;
+    height: 45px;
+    border-radius: 30px;
+    background-color: #F35047;
+    color: #FFFFFF;
+}
+
+.title-descriptions {
+    margin-top: 5rem !important;
+    width: 600px;
+
+    h1 {
+        font-size: 50px;
+        font-weight: bold;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .lead {
+        font-size: 20px;
+        font-weight: 400;
+        font-family: 'Poppins', sans-serif;
+    }
+}
+
+.img-introduction {
+    width: 40rem;
+    max-width: 610px;
+    height: 35rem;
+    max-height: 600px;
+}
+
+.container {
+    max-width: 1200px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: 15rem;
+    margin-left: 9rem;
+}
+
+.frame_3 {
+    width: 1100px;
+}
+
+.btn-white {
+    border-radius: 20px;
+    border-color: #C2C2C2;
+    background-color: #FFFFFF;
+    color: #000 !important;
+    margin-right: 1rem;
+}
+
+
+.btn-green {
+    border-radius: 20px;
+    border-color: #C2C2C2;
+    background-color: #426B1F;
+    color: #FFFFFF !important;
+    margin-right: 1rem;
+}
+
+.imageHotGym {
+    width: 335px;
+}
+
+.imageLastestNews {
+    width: 235px;
+    padding: 2rem;
+    padding-top: 0;
+    text-align: center;
+}
+
+.text-section {
+    h5 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #000;
+    }
+
+    h6 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #426B1F;
+    }
+
+    p {
+        font-size: 16px;
+        font-weight: 400;
+        color: #6D6D6D;
+    }
+}
+
+.button-view-all {
+    width: 200px;
+    height: 40px;
+    color: #FFFFFF;
+    background-color: #AC1929;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+}
+
+.imageHotTopic {
+    width: 850px;
+    height: 390px;
+}
+
+.image-section {
+    position: relative;
+}
+
+.text-middle {
+    position: absolute;
+    top: 50%;
+    left: 85%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+}
+
+.padding-3{
+    padding: 0 3rem;
+}
+
+.star-rating i {
+  color: gold;
+}
+
+.lesson-student{
+    span{
+        width: 95px;
+        height: 40px;
+        color: #0E0D0D;
+    }
+}
+
+.desc{
+    color: #878686;
+}
+
+.discount{
+    margin-right: 10px;
+    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.price{
+    margin-right: 10px;
+    color: #7A7575;
+    font-size: 20px;
+    font-weight: 600;
+    margin-right: 130px;
+    text-decoration: line-through; /* Thêm thuộc tính text-decoration với giá trị line-through */
+
+}
+
+.price-discount{
+    display: flex;
+    margin-top: 10px;
+}
+
+.lesson-student{
+    display: flex;
+}
+
+.text-section{
+    p{
+        margin-bottom: 5px !important;
+        margin-top: 5px;
+    }
+}
+
+.lessons{
+    padding: 10px;
+}
+
+.students{
+    padding: 10px;
+}
+
+.btn-color-2 {
+    background-color: #23A6F0;
+    border-radius: 5px;
+    width: 100px;
+    height: 34px;
+    color: #ffffff;
+    font-size: 14px;
+    padding: 7px;
+    font-weight: 700;
+    font-family: 'Roboto Slab', serif;
+    margin-left: 15px;
+}
+
+#productType{
+    width: 130px;
+    height: 34px;
+    color: #DDDDDD;
+    background-color: #F9F9F9;
+    margin-top: 1px;
+}
+
+.product-footer{
+    display: flex;
+}

@@ -1,0 +1,37 @@
+.nav-container {
+    display: flex;
+    width: 100%;
+    height: 8vh;
+    align-items: center;
+}
+
+.navigation-bar {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-item {
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+}
+
+.navbar-brand {
+    margin-left: 10%;
+    width: 10%;
+}
+
+img {
+    margin-top: 0.2rem;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.user-info {
+    display: flex;
+}
+
+.user-info:hover {
+    cursor: pointer;
+}

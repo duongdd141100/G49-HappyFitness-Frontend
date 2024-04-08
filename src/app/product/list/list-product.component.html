@@ -1,0 +1,79 @@
+<main>
+  <section class="section">
+    <div class="container-fluid mt-5">
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow" *ngIf="listProduct">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col-10">
+                  <h3 class="mb-0">Products List</h3>
+                </div>
+                <div class="col-2 text-right">
+                  <button style="font-size: 13px;" type="button" class="btn btn-primary mt-1" (click)="add()">+
+                    Add new product
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive" style="min-height: 300px;">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="listProduct">
+                  <tr *ngFor="let product of listProduct">
+                    <td>
+                      <img [src]="product.imagePath" alt="Product Image">
+                    </td>
+                    <td>
+                      {{product.name}}
+                    </td>
+                    <td>
+                      {{product.category}}
+                    </td>
+                    <td>
+                      {{product.price}}
+                    </td>
+                    <td class="text-center">
+                      <div class="button-action">
+                        <div>
+                          <button class="button button-edit" aria-label="Edit" (click)="edit(product.code)">
+                            <span class="icon-container">
+                              Edit
+                            </span>
+                          </button>
+                        </div>
+                        <div>
+                          <button *ngIf="product.status !== 'Vô hiệu hóa'" class="button button-delete" aria-label="Delete" (click)="delete(product.productId)">
+                            <span class="icon-container">
+                              Delete
+                            </span>
+                          </button>
+                          <button *ngIf="product.status === 'Vô hiệu hóa'" class="button button-delete" aria-label="Delete" (click)="active(product.productId)">
+                            <span class="icon-container">
+                              Active
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
