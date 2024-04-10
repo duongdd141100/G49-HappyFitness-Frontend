@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Import CommonModule ở đây
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/services/api.service';
 
 
 @Component({
@@ -14,36 +15,24 @@ export class ListTicketAdComponent implements OnInit {
   focus: any;
   focus1: any;
   value = '';
-  listProduct: any;
+  listProduct: any = [];
 
   constructor(
     private router: Router,
-
+    private apiService: ApiService,
   ) { }
 
   ngOnInit() {
+    this.apiService.getSticketAdmin().subscribe({
+      next: (res) => {
+        if (res.body?.length <= 0) return this.listProduct = [];
+        this.listProduct = res.body
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+      }, // errorHandler
+    })
     this.value = 'default';
-    this.listProduct = [
-      {
-        productId: 1,
-        imageUrl: 'url_to_your_image_1',
-        name: 'Product 1',
-        category: 'Category 1',
-        price: 10.99,
-        piece: 5,
-        availableColor: 'Red'
-      },
-      {
-        productId: 2,
-        imageUrl: 'url_to_your_image_2',
-        name: 'Product 2',
-        category: 'Category 2',
-        price: 15.99,
-        piece: 3,
-        availableColor: 'Blue'
-      },
-      // Add more products as needed
-    ];
   }
 
   selectedOption(string: string) {
