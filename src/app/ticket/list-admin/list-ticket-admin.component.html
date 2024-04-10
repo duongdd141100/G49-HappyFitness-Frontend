@@ -4,7 +4,7 @@
       <!-- Table -->
       <div class="row mt-5">
         <div class="col">
-          <div class="card shadow" *ngIf="listProduct.length > 0 ">
+          <div class="card shadow" *ngIf="listTickets.length > 0 ">
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col-10">
@@ -30,32 +30,32 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let product of listProduct">
+                  <tr *ngFor="let ticket of listTickets">
                     <th scope="row">
                       <div class="media align-items-center">
                         <div class="media-body">
-                          <span class="mb-0 text-sm">{{product.code}}</span>
+                          <span class="mb-0 text-sm">{{ticket.code}}</span>
                         </div>
                       </div>
                     </th>
                     
                     <td>
-                      {{product.name}}
+                      {{ticket.name}}
                     </td>
                  
                     <td>
-                      {{product.price}}
+                      {{ticket.price}}
                     </td>
                     <td>
-                      {{product.createdBy}}
+                      {{ticket.createdBy}}
                     </td>
                     <td>
-                      {{product.status}}
+                      {{ticket.status}}
                     </td>
                     <td class="text-center">
                       <div class="button-action">
                         <div>
-                          <button class="button-edit" aria-label="Delete" (click)="delete(product.productId)">
+                          <button class="button-edit" aria-label="Delete" (click)="delete(ticket.productId)">
                             <span class="icon-container">
                               <img src="assets/img/pencil-write.png" class="" style="width: 20px; height: 20px;"
                                 alt=" ...">
@@ -63,7 +63,7 @@
                           </button>
                         </div>
                         <div>
-                          <button class="button-delete" aria-label="Edit" (click)="edit(product.productId)">
+                          <button class="button-delete" aria-label="Edit" (click)="edit(ticket.productId)">
                             <span class="icon-container">
                               <img src="assets/img/bin.png" class="" style="width: 20px; height: 20px;" alt=" ...">
                             </span>

@@ -15,7 +15,7 @@ export class ListTicketAdComponent implements OnInit {
   focus: any;
   focus1: any;
   value = '';
-  listProduct: any = [];
+  listTickets: any = [];
 
   constructor(
     private router: Router,
@@ -25,8 +25,8 @@ export class ListTicketAdComponent implements OnInit {
   ngOnInit() {
     this.apiService.getSticketAdmin().subscribe({
       next: (res) => {
-        if (res.body?.length <= 0) return this.listProduct = [];
-        this.listProduct = res.body
+        if (res.body?.length <= 0) return this.listTickets = [];
+        this.listTickets = res.body
       }, // nextHandler
       error: (err) => {
         console.info(err)
