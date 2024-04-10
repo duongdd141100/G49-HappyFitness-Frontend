@@ -58,7 +58,7 @@ export class ApiService {
 
   private getHeadersWithToken(): HttpHeaders {
     const token = sessionStorage.getItem('token');
-    return new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return new HttpHeaders().set('Authorization', token ? 'Bearer ' + token : '');
   }
   getUsers(): Observable<any> {
     const headers = this.getHeadersWithToken();
