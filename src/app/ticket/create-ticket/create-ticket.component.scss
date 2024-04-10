@@ -173,7 +173,11 @@
     margin-top: 1rem !important;
 }
 
-
+.card-footer {
+    display: flex;
+    justify-content: end;
+    gap: 5px;
+}
 .ticket_input {
         width: 100%; /* Ensure the container takes up the full width */
     }

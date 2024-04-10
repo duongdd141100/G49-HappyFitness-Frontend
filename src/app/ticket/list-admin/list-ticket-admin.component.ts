@@ -52,6 +52,6 @@ export class ListTicketAdComponent implements OnInit {
   }
 
   add() {
-    this.router.navigate(['/list-product']);
+    this.router.navigate(['/ticket-add']);
   }
 }

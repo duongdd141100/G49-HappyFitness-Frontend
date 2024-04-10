@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AppRoutingModule } from "./app.routing";
 
@@ -48,6 +48,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { EditTicketComponent } from "./ticket/edit-ticket/edit-ticket.component";
 import { CreateTicketComponent } from "./ticket/create-ticket/create-ticket.component";
 import { ListTicketAdComponent } from "./ticket/list-admin/list-ticket-admin.component";
+import { InputDirectivesModule } from "./directives/directives.module";
 
 // import { FormsModule } from '@angular/forms';
 
@@ -98,6 +99,8 @@ import { ListTicketAdComponent } from "./ticket/list-admin/list-ticket-admin.com
     MatTabsModule,
     MatIconModule,
     CommonModule,
+    InputDirectivesModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot({
       timeOut: 30000, // 15 seconds
       closeButton: true,
