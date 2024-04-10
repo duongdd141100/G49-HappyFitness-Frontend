@@ -59,15 +59,20 @@
                       {{product.avaialeColor}}
                     </td>
                     <td class="text-center">
-                      <div class="button-action">
+                     <div class="button-action">
                         <div>
-                          <button class="btn btn-primary" aria-label="Delete" (click)="delete(product.productId)">
-                              <i class="fa-solid fa-pen-to-square f-20"></i>
+                          <button class="button-edit" aria-label="Delete" (click)="delete(ticket.productId)">
+                            <span class="icon-container">
+                              <img src="assets/img/pencil-write.png" class="" style="width: 20px; height: 20px;"
+                                alt=" ...">
+                            </span>
                           </button>
                         </div>
                         <div>
-                          <button class="btn btn-danger" aria-label="Edit" (click)="edit(product.productId)">
-                            <i class="fa-solid fa-trash-can"></i>
+                          <button class="button-delete" aria-label="Edit" (click)="edit(ticket.productId)">
+                            <span class="icon-container">
+                              <img src="assets/img/bin.png" class="" style="width: 20px; height: 20px;" alt=" ...">
+                            </span>
                           </button>
                         </div>
                       </div>
