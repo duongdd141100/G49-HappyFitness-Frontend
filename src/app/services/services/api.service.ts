@@ -36,6 +36,7 @@ export class ApiService {
   private DASHBOARD = this.baseUrl + "/dashboard/info";
   private REVENUE = this.baseUrl + "/dashboard/revenue";
   private CREATEORD = this.baseUrl + "/orders/create";
+  private CREATE_TICKET = this.baseUrl + "tickets/create";
   private FINDORD = this.baseUrl + "/orders";
   private DETAILORD = this.baseUrl + "/orders/15";
   private GETPRO = this.baseUrl + "/products/P_20240221045126123a?facilityId=2";
@@ -183,7 +184,10 @@ export class ApiService {
     const headers = this.getHeadersWithToken();
     return this.http.post<any>(`${this.UPDATE_FACILITY_PRODUCT}?productId=${productId}&facilityId=${facility}`, nextFacilityProduct, { headers });
   }
-
+  public createTicketAdmin(ticketNew): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.CREATE_TICKET}`, ticketNew, { headers });
+  }
   public getProductByCode(code: string, facilityId): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.get<any>(`${this.GET_PRODUCT}/${code}?facilityId=${facilityId}`, { headers });
