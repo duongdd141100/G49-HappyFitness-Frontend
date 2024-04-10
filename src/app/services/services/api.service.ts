@@ -31,7 +31,7 @@ export class ApiService {
   // 1?voucherCode = VOUCHER_1
   private TICKETHISTORY = this.baseUrl + "/user-ticket";
   private ADDTICKET = this.baseUrl + "/cart/add";
-  private FACILITYTICKET = this.baseUrl + "/api/tickets?facilityId=1";
+  private FACILITYTICKET = this.baseUrl + "tickets";
   private DETAILTICKET = this.baseUrl + "/api/tickets/5";
   private DASHBOARD = this.baseUrl + "/dashboard/info";
   private REVENUE = this.baseUrl + "/dashboard/revenue";
@@ -158,7 +158,10 @@ export class ApiService {
     const headers = this.getHeadersWithToken();
     return this.http.get<any>(`${this.GET_PRODUCT}?facilityId=${facilityId}`, { headers });
   }
-
+  public getSticketAdmin(facilityId = 1): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.get<any>(`${this.FACILITYTICKET}?facilityId=${facilityId}`, { headers });
+  }
   public getAllFacility(): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.get<any>(`${this.GET_ALL_FACILITY}`, { headers });
