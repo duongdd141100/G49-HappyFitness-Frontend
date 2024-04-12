@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   password: string;
   isCacheCleared = false;
   account_wrong = false;
+  roleLogin: any;
   constructor(
     private router: Router,
     private toastr: ToastrService,
@@ -29,15 +30,38 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authService.signin(this.account_name, this.password).subscribe({
-      next: (res) => {
-        this.router.navigate(["/home"]);
+      next: async (res) => {
+        if(res.code != 200) return this.toastr.error('Đăng nhập thất bại!');
+        this.checkRoleAccountAndNavigate();
       }, // nextHandler
       error: (err) => {
         console.log(err);
+        this.toastr.error('Đăng nhập thất bại!');
       }, // errorHandler
     });
   }
+  checkRoleAccountAndNavigate() {
+    this.authService.getOwnInfo().subscribe({
+      next: (res) => {
+        if (res.code != 200 || !res.body.role) {
+          this.roleLogin = null
+          return this.toastr.error('Đăng nhập thất bại!');
+        }
+        this.roleLogin = res.body.role;
+        if(this.roleLogin.id == 3) {
+          this.router.navigate(["/home"]);
+        } else {
+          this.router.navigate(["/admin/dashboard"]); 
+        }
+        this.toastr.success('Đăng nhập thành công');
 
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+        this.toastr.error('Đăng nhập thất bại!');
+      }, // errorHandler
+    })
+  }
   signUp(){
     this.router.navigate(["/register"]);
   }

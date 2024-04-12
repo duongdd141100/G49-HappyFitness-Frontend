@@ -31,7 +31,23 @@ import { ProductDetailComponent } from "./product/detail/product-detail.componen
 
 
 const routes: Routes = [
+  //admin
+  { path: 'admin/dashboard', component: DashboardComponent },
+  { path: 'admin/products', component: ListProductComponent },
+  { path: 'admin/create-product', component: CreateProductComponent },
+  { path: 'admin/edit-product/:code', component: EditProductComponent },
+  { path: 'admin/create-account', component: CreateAccountComponent },
+  { path: 'admin/edit-account', component: EditAccountComponent },
+  { path: 'admin/accounts', component: ListAccountComponent },
+  { path: 'admin/create-ticket', component: CreateTicketComponent },
+  { path: 'admin/edit-ticket', component: EditTicketComponent },
+  { path: 'admin/tickets', component: ListTicketAdComponent },
 
+
+
+
+
+  //customer
   { path: 'register', component: SignupComponent },
   { path: 'home', component: IntroductionComponent },
   { path: 'product-detail/:code', component: ProductDetailComponent},
@@ -41,23 +57,15 @@ const routes: Routes = [
   { path: 'support-help', component: SupportHelpComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'list-product', component: ListProductComponent },
   { path: 'products', component: ListCustomerProductComponent },
-  { path: 'create-product', component: CreateProductComponent },
-  { path: 'edit-product/:code', component: EditProductComponent },
-  { path: 'create-account', component: CreateAccountComponent },
-  { path: 'edit-account', component: EditAccountComponent },
-  { path: 'list-account', component: ListAccountComponent },
   { path: 'order-checkout', component: OrderCheckoutComponent },
   { path: 'order-detail', component: OrderDetailComponent },
   { path: 'order-home', component: OrderHomeComponent },
   { path: 'order-history', component: OrderHistoryComponent },
-  { path: 'ticket-list', component: TicketListComponent },
+  { path: 'tickets', component: TicketListComponent },
   { path: 'ticket-detail', component: TicketDetailComponent },
-  { path: 'ticket-add', component: CreateTicketComponent },
-  { path: 'ticket-update', component: EditTicketComponent },
-  { path: 'ticket-list-ad', component: ListTicketAdComponent },
+
+
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

@@ -159,9 +159,10 @@ export class ApiService {
     const headers = this.getHeadersWithToken();
     return this.http.get<any>(`${this.GET_PRODUCT}?facilityId=${facilityId}`, { headers });
   }
-  public getSticketAdmin(facilityId = 1): Observable<any> {
+  public getSticketAdmin(facilityId = null): Observable<any> {
     const headers = this.getHeadersWithToken();
-    return this.http.get<any>(`${this.FACILITYTICKET}?facilityId=${facilityId}`, { headers });
+    let url = facilityId ? `${this.FACILITYTICKET}?facilityId=${facilityId}` : this.FACILITYTICKET
+    return this.http.get<any>(url, { headers });
   }
   public getAllFacility(): Observable<any> {
     const headers = this.getHeadersWithToken();
