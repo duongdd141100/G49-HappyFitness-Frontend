@@ -10,11 +10,19 @@
                 <div class="col-10">
                   <h3 class="mb-0">Danh sách vé </h3>
                 </div>
-                <div class="col-2 text-right">
-                  <button style="font-size: 13px;" type="button" class="btn btn-primary mt-1" (click)="add()">+
-                    Thêm vé
-                  </button>
+              </div>  
+              <div class="col-12 text-right d-flex align-items-center justify-content-between pl-0" >
+                <div class="form-group mb-0">
+                  <select class="form-control" name="" id="" (change)="handleSelectFacility($event)">
+                    <option [value]="'all'" [selected]="facilitySelect == null">Tất cả</option>
+                    <option *ngFor="let facility of facilityList" [value]="facility.id" [selected]="facility.id == +facilitySelect">
+                      {{facility.name}}
+                    </option>
+                  </select>
                 </div>
+                <button style="font-size: 13px;" type="button mt-0" class="btn btn-primary mt-1" (click)="add()">+
+                  Thêm vé
+                </button>
               </div>
             </div>
             <div class="table-responsive" style="min-height: 300px;">
@@ -25,6 +33,7 @@
                     <th scope="col">Tên vé</th>
                     <th scope="col">Giá</th>
                     <th scope="col">Người tạo</th>
+                    <th scope="col">Cơ sở</th>
                     <th scope="col">Trạng thái</th>
                     <th scope="col">Tác vụ</th>
                   </tr>
@@ -50,23 +59,21 @@
                       {{ticket.createdBy}}
                     </td>
                     <td>
-                      {{ticket.status}}
+                      {{ticket.facility.name}}
+                    </td>
+                    <td>
+                      {{ticket.status ? 'Hoạt động' : 'Không hoạt động'}}
                     </td>
                     <td class="text-center">
                      <div class="button-action">
                         <div>
-                          <button class="button-edit" aria-label="Delete" (click)="delete(ticket.productId)">
-                            <span class="icon-container">
-                              <img src="assets/img/pencil-write.png" class="" style="width: 20px; height: 20px;"
-                                alt=" ...">
-                            </span>
+                          <button class="btn btn-primary mr-2" aria-label="Delete" (click)="delete(ticket.productId)">
+                            <i class="fa-solid fa-pen-to-square"></i>
                           </button>
                         </div>
                         <div>
-                          <button class="button-delete" aria-label="Edit" (click)="edit(ticket.productId)">
-                            <span class="icon-container">
-                              <img src="assets/img/bin.png" class="" style="width: 20px; height: 20px;" alt=" ...">
-                            </span>
+                          <button class="btn btn-danger" aria-label="Edit" (click)="edit(ticket.productId)">
+                            <i class="fa-solid fa-trash-can"></i>
                           </button>
                         </div>
                       </div>
