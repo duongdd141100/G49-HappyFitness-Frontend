@@ -11,6 +11,7 @@ import { Router, NavigationEnd } from "@angular/router";
 import { DOCUMENT } from "@angular/common";
 import { Location } from "@angular/common";
 import { filter, Observable, Subscription } from "rxjs";
+import { ROUTES2 } from "./shared/sidebar/sidebar.component";
 
 var didScroll;
 var lastScrollTop = 0;
@@ -26,12 +27,12 @@ export class AppComponent implements OnInit {
   private _router: Subscription;
   customerNavbar = true;
   guestNavbar = true;
-  managerNavbar = false;
+  managerNavbar = true;
   isAuthenticated = false;
   isAuthenticated$: Observable<boolean>;
   username: any;
   id: any;
-
+  listTitles: any[];
   constructor(
     private renderer: Renderer2,
     private router: Router,
@@ -70,7 +71,19 @@ export class AppComponent implements OnInit {
 
     lastScrollTop = st;
   }
+  getTitle() {
+    var titlee = this.location.path();
+    for (var item = 0; item < this.listTitles.length; item++) {
+      if (this.listTitles[item].path === titlee) {
+        return this.listTitles[item].title;
+      }
+    }
+    return "";
+  }
   ngOnInit() {
+    if (this.managerNavbar) {
+      this.listTitles = ROUTES2.filter((listTitle) => listTitle);
+    }
     var navbar: HTMLElement =
       this.element.nativeElement.children[0].children[0];
     this._router = this.router.events
