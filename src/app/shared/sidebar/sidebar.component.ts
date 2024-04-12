@@ -10,13 +10,13 @@ declare interface RouteInfoManager {
 
 export const ROUTES2: RouteInfoManager[] = [
   { path: '/admin/dashboard', title: 'Thống kê', icon: 'ni-tv-2', class: '' },
-  { path: '/admin/list-account', title: 'Tài khoản', icon: 'ni-tv-2', class: '' },
+  { path: '/admin/accounts', title: 'Tài khoản', icon: 'ni-tv-2', class: '' },
   { path: '/order', title: 'Đơn đặt', icon: 'ni-tv-2', class: '' },
-  { path: '/admin/list-product', title: 'Sản phẩm', icon: 'ni-tv-2', class: '' },
+  { path: '/admin/products', title: 'Sản phẩm', icon: 'ni-tv-2', class: '' },
   { path: '/report', title: 'Báo cáo', icon: 'ni-tv-2', class: '' },
   { path: '/term', title: 'Điều khoản', icon: 'ni-tv-2', class: '' },
   { path: '/system', title: 'Cơ sở', icon: 'ni-tv-2', class: '' },
-  { path: '/admin/ticket-list-ad', title: 'Vé', icon: 'ni-tv-2', class: '' },
+  { path: '/admin/tickets', title: 'Vé', icon: 'ni-tv-2', class: '' },
   // { path: '/list-customer', title: 'Danh sách nhân viên', icon: 'ni-bullet-list-67 text-red', class: '' },
   // { path: '/booking-management', title: 'Quản lý dịch vụ', icon: 'ni-bullet-list-67 text-red', class: '' },
 ];

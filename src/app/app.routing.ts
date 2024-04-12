@@ -33,15 +33,15 @@ import { ProductDetailComponent } from "./product/detail/product-detail.componen
 const routes: Routes = [
   //admin
   { path: 'admin/dashboard', component: DashboardComponent },
-  { path: 'admin/list-product', component: ListProductComponent },
+  { path: 'admin/products', component: ListProductComponent },
   { path: 'admin/create-product', component: CreateProductComponent },
   { path: 'admin/edit-product/:code', component: EditProductComponent },
   { path: 'admin/create-account', component: CreateAccountComponent },
   { path: 'admin/edit-account', component: EditAccountComponent },
-  { path: 'admin/list-account', component: ListAccountComponent },
-  { path: 'admin/ticket-add', component: CreateTicketComponent },
-  { path: 'admin/ticket-update', component: EditTicketComponent },
-  { path: 'admin/ticket-list-ad', component: ListTicketAdComponent },
+  { path: 'admin/accounts', component: ListAccountComponent },
+  { path: 'admin/create-ticket', component: CreateTicketComponent },
+  { path: 'admin/edit-ticket', component: EditTicketComponent },
+  { path: 'admin/tickets', component: ListTicketAdComponent },
 
 
 
@@ -62,7 +62,7 @@ const routes: Routes = [
   { path: 'order-detail', component: OrderDetailComponent },
   { path: 'order-home', component: OrderHomeComponent },
   { path: 'order-history', component: OrderHistoryComponent },
-  { path: 'ticket-list', component: TicketListComponent },
+  { path: 'tickets', component: TicketListComponent },
   { path: 'ticket-detail', component: TicketDetailComponent },
 
 

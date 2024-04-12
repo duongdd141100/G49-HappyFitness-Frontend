@@ -71,6 +71,6 @@ export class ListTicketAdComponent implements OnInit {
   }
 
   add() {
-    this.router.navigate(['/admin/ticket-add']);
+    this.router.navigate(['/admin/create-ticket']);
   }
 }
