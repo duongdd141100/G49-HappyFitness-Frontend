@@ -59,7 +59,7 @@ export class CreateTicketComponent implements OnInit {
         next: (res) => {
           if (res.code !== 200)  return this.toastr.error('Tạo vé thất bại!');
           this.toastr.success('Tạo vé thành công!');
-          this.router.navigate(['/ticket-list-ad']);
+          this.router.navigate(['/admin/ticket-list-ad']);
         }, // nextHandler
         error: (err) => {
           console.info(err)
