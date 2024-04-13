@@ -206,18 +206,19 @@ cursor: pointer;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
 .product-card:hover {
   cursor: pointer;
-  border: 0.2px solid black;
+  border: 0.2px solid rgb(192, 183, 183);
 }
 
 .product-row {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  margin-bottom: 18px;
   background-color: #eff0f1;
 }
 
@@ -237,16 +238,17 @@ cursor: pointer;
 
 .product-meta {
   width: calc(100% - 1rem);
-  display: flex;
   justify-content: flex-start;
   margin: 0rem 0.5rem 0rem 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .price {
-  font-size: 1.7rem;
+  font-size: 1rem;
   font-weight: bold;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 
 .row {
@@ -260,10 +262,32 @@ cursor: pointer;
   padding: 0;
   margin: 0;
 }
-
+.title-filter {
+  font-weight: 600;
+}
+.list-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  .block-item {
+    padding: 10px;
+    background-color: #d9e9e5d4;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .select{
+    background-color: #41524e !important;
+    color: #fff !important;
+  }
+}
+.facility-select {
+  background-color: #41524e !important;
+    color: #fff !important;
+}
 .filter-container {
   width: 20%;
-  padding-left: 1rem;
+  padding: 30px;
+
 }
 
 .section {
