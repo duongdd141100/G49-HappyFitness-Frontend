@@ -20,7 +20,7 @@ export class ApiService {
   private ME = this.baseUrl + "/auth/me";
   private FORGETPASS = this.baseUrl + "/auth/forget-password/";
   private VIEWCART = this.baseUrl + "/cart";
-  private ADDCART = this.baseUrl + "/cart/add";
+  private ADDCART = this.baseUrl + "cart/add";
   private GET_PRODUCT = this.baseUrl + "products";
   private GET_ALL_FACILITY = this.baseUrl + "facilities";
   private GET_ALL_CATEGORY = this.baseUrl + "categories";
@@ -102,9 +102,9 @@ export class ApiService {
     return this.http.post<any>(`${this.FORGETPASS}/${mail}`, { headers });
   }
 
-  public addCart(mail: string): Observable<any> {
+  public addCart(dataCart: {quantity: number, facilityProduct: {id: number}}): Observable<any> {
     const headers = this.getHeadersWithToken();
-    return this.http.post<any>(`${this.ADDCART}`, { headers });
+    return this.http.post<any>(`${this.ADDCART}`, dataCart , { headers });
   }
 
   public ticket(mail: string): Observable<any> {

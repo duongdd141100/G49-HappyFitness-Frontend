@@ -3,25 +3,34 @@
     <div class="container-fluid mt-5">
       <div class="filter-container">
         <div class="input-group radio-column">
-          <p>Category: </p>
-          <div *ngFor="let category of categories">
-            <input type="radio" name="category" [value]="category.name" [(ngModel)]="selectedCategory" (click)="onCategoryClicked(category.name)">
-            <label for="{{category.name}}">{{ category.name }}</label>
+          <h5 class="title-filter">Danh mục </h5>
+          <div class="list-block">
+            <div class="block-item" [ngClass]="{'select': !selectedCategory}" (click)="onCategoryClicked()">
+              Tất cả
+            </div>
+            <div class="block-item" [ngClass]="{'select': selectedCategory == category.name}" *ngFor="let category of categories" (click)="onCategoryClicked(category.name)">
+              {{ category.name }}
+            </div>
           </div>
         </div>
         <div class="input-group radio-column">
-          <label for="suppliers">Nhà cung cấp:</label>
-          <div *ngFor="let supplier of suppliers">
-            <input type="radio" name="supplier" id="{{supplier.id}}" [value]="supplier.id" [(ngModel)]="selectedSupplier" (click)="onSupplierClicked(supplier.id)">
-            <label for="{{supplier.id}}">{{supplier.name}}</label>
+          <h5 for="suppliers" class="title-filter">Nhà cung cấp</h5>
+          <div class="list-block">
+            <div class="block-item" [ngClass]="{'select': !selectedSupplier}" (click)="onSupplierClicked()">
+              Tất cả
+            </div>
+            <div class="block-item" [ngClass]="{'select': selectedSupplier == supplier.id}" *ngFor="let supplier of suppliers" (click)="onSupplierClicked(supplier.id)">
+              {{supplier.name}}
+            </div>
           </div>
         </div>
         <div class="input-group radio-column">
-          <p>Trung tâm: </p>
-          <select [(ngModel)]="selectedFacility" id="selectedFacility" style="padding-left: 1rem;"
-            aria-describedby="productType-help" title="Cơ sở" (change)="onFacilityChange($event.target.value)">
-            <option *ngFor="let facility of facilities" [value]="facility.id" [selected]="facility.id === facilities[0].id" >{{ facility.name }}</option>
-          </select>
+          <div class="form-group">
+            <h5 for="facility" class="title-filter">Cơ sở</h5>
+            <select [(ngModel)]="selectedFacility" (change)="onFacilityChange($event.target.value)" class="form-control facility-select" name="facility" id="facility">
+              <option *ngFor="let facility of facilities" [value]="facility.id" [selected]="facility.id === facilities[0].id" >{{ facility.name }}</option>
+            </select>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -30,18 +39,17 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col-10">
-                  <h3 class="mb-0">Products List</h3>
+                  <h3 class="mb-0">Sản phẩm</h3>
                 </div>
               </div>
             </div>
-            <div class="underline"></div>
             <div style="padding-top: 1rem; background-color: #eff0f1">
               <div class="products-container">
                 <div class="product-row" *ngFor="let row of productsByRow">
                   <div class="product-card" *ngFor="let product of row" (click)="handleCardClick(product.code)">
                     <img class="card-image" [src]="product.imagePath">
                     <div class="product-meta">{{product.name}}</div>
-                    <div class="product-meta price">{{product.price}}đ</div>
+                    <div class="product-meta price d-flex justify-content-between align-items-center"><span>{{product.price | currency:'VND':'symbol':null:'vi-VN'}}</span> <span style="font-size: 12px;">{{product.status}}</span></div>
                   </div>
                 </div>
               </div>

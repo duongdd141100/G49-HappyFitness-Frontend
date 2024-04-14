@@ -56,7 +56,7 @@ export class ListCustomerProductComponent implements OnInit {
       }, // errorHandler
     })
     const initFacility = this.selectedFacility ? this.selectedFacility : 1
-    this.resetProduct(initFacility)
+    this.onGetProduct(initFacility)
   }
 
   seperateProductByRows (products, rowSize) {
@@ -68,10 +68,10 @@ export class ListCustomerProductComponent implements OnInit {
   }
 
   onFacilityChange(value) {
-    this.resetProduct(value)
+    this.onGetProduct(value)
   }
 
-  resetProduct(facility) {
+  onGetProduct(facility) {
     this.apiService.getProduct(facility).subscribe({
       next: (res) => {
         this.listProduct = res.body
@@ -83,26 +83,27 @@ export class ListCustomerProductComponent implements OnInit {
     })
   }
 
-  onSupplierClicked(supplierId) {
-    if (this.selectedSupplier == supplierId) {
+  onSupplierClicked(supplierId?) {
+    if (!supplierId) {
       this.selectedSupplier = null
       this.productsByRow = this.seperateProductByRows(this.listProduct, 4)
       return
     }
+    this.selectedSupplier = supplierId;
     this.filterBySupplier(supplierId)
   }
 
-  onCategoryClicked (categoryId) {
-    if (this.selectedCategory == categoryId) {
-      this.selectedCategory = null
-      this.productsByRow = this.seperateProductByRows(this.listProduct, 4)
-      return
+  onCategoryClicked (categoryName?) {
+    if(!categoryName) {
+      this.selectedCategory = null;
+      return this.productsByRow = this.seperateProductByRows(this.listProduct, 4)
     }
-    this.filterByCategory(categoryId)
+    this.selectedCategory = categoryName;
+    this.filterByCategory(categoryName)
   }
 
-  filterByCategory (categoryId) {
-    const productsByCategory = this.listProduct.filter(item => item.category == categoryId)
+  filterByCategory (categoryName) {
+    const productsByCategory = this.listProduct.filter(item => item.category == categoryName)
     this.productsByRow = this.seperateProductByRows(productsByCategory, 4)
   }
 

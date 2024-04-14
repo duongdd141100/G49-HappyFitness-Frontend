@@ -46,10 +46,11 @@ export class NavbarCustomerComponent implements OnInit {
   takeOwnInfo() {
     this.authService.getOwnInfo().subscribe({
       next: (res) => {
-        if (res.body.role && (res.body.role.id !== 1 && res.body.role.id !== 2)) {
-          this.router.navigate([`/home`])
-          return
-        }
+        //cho admin có thể xem chi tiết sản phẩm 
+        // if (res.body.role && (res.body.role.id !== 1 && res.body.role.id !== 2)) {
+        //   this.router.navigate([`/home`])
+        //   return
+        // }
 
         this.roleNumber = res.body.role.id
         this.userName = res.body.username
