@@ -8,11 +8,11 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col-10">
-                  <h3 class="mb-0">Products List</h3>
+                  <h3 class="mb-0">Danh sách sản phẩm</h3>
                 </div>
                 <div class="col-2 text-right">
                   <button style="font-size: 13px;" type="button" class="btn btn-primary mt-1" (click)="add()">+
-                    Add new product
+                    Thêm sản phẩm
                   </button>
                 </div>
               </div>
@@ -21,10 +21,10 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">Image</th>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Price</th>
+                    <th scope="col">Ảnh</th>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Thể loại</th>
+                    <th scope="col">Giá</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -45,22 +45,16 @@
                     <td class="text-center">
                       <div class="button-action">
                         <div>
-                          <button class="button button-edit" aria-label="Edit" (click)="edit(product.code)">
-                            <span class="icon-container">
-                              Edit
-                            </span>
+                          <button class="btn btn-primary mr-2" aria-label="Edit" (click)="edit(product.code)">
+                            <i class="fa-solid fa-pen-to-square"></i>
                           </button>
                         </div>
                         <div>
-                          <button *ngIf="product.status !== 'Vô hiệu hóa'" class="button button-delete" aria-label="Delete" (click)="delete(product.productId)">
-                            <span class="icon-container">
-                              Delete
-                            </span>
+                          <button *ngIf="product.status !== 'Vô hiệu hóa'" class="btn btn-danger" aria-label="Delete" (click)="delete(product.productId)">
+                            <i class="fa-solid fa-trash-can"></i>
                           </button>
-                          <button *ngIf="product.status === 'Vô hiệu hóa'" class="button button-delete" aria-label="Delete" (click)="active(product.productId)">
-                            <span class="icon-container">
-                              Active
-                            </span>
+                          <button *ngIf="product.status === 'Vô hiệu hóa'" class="btn btn-success" aria-label="Delete" (click)="active(product.productId)">
+                            <i class="fa-solid fa-check"></i>
                           </button>
                         </div>
                       </div>
