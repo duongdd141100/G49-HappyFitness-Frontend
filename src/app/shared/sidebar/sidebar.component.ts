@@ -9,14 +9,13 @@ declare interface RouteInfoManager {
 }
 
 export const ROUTES2: RouteInfoManager[] = [
-  { path: '/admin/dashboard', title: 'Thống kê', icon: 'ni-tv-2', class: '' },
-  { path: '/admin/accounts', title: 'Tài khoản', icon: 'ni-tv-2', class: '' },
-  { path: '/order', title: 'Đơn đặt', icon: 'ni-tv-2', class: '' },
-  { path: '/admin/products', title: 'Sản phẩm', icon: 'ni-tv-2', class: '' },
-  { path: '/report', title: 'Báo cáo', icon: 'ni-tv-2', class: '' },
+  { path: '/admin/dashboard', title: 'Thống kê', icon: 'fa-solid fa-chart-line', class: '' },
+  { path: '/admin/accounts', title: 'Tài khoản', icon: 'fa-solid fa-user', class: '' },
+  { path: '/admin/order', title: 'Đơn đặt', icon: 'fa-solid fa-cart-shopping', class: '' },
+  { path: '/admin/products', title: 'Sản phẩm', icon: 'fa-solid fa-dumbbell', class: '' },
+  { path: '/admin/facilities', title: 'Cơ sở', icon: 'fa-solid fa-house', class: '' },
+  { path: '/admin/tickets', title: 'Vé', icon: 'fa-solid fa-ticket', class: '' },
   { path: '/term', title: 'Điều khoản', icon: 'ni-tv-2', class: '' },
-  { path: '/admin/facilities', title: 'Cơ sở', icon: 'ni-tv-2', class: '' },
-  { path: '/admin/tickets', title: 'Vé', icon: 'ni-tv-2', class: '' },
   // { path: '/list-customer', title: 'Danh sách nhân viên', icon: 'ni-bullet-list-67 text-red', class: '' },
   // { path: '/booking-management', title: 'Quản lý dịch vụ', icon: 'ni-bullet-list-67 text-red', class: '' },
 ];
