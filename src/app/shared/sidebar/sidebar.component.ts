@@ -15,7 +15,7 @@ export const ROUTES2: RouteInfoManager[] = [
   { path: '/admin/products', title: 'Sản phẩm', icon: 'ni-tv-2', class: '' },
   { path: '/report', title: 'Báo cáo', icon: 'ni-tv-2', class: '' },
   { path: '/term', title: 'Điều khoản', icon: 'ni-tv-2', class: '' },
-  { path: '/system', title: 'Cơ sở', icon: 'ni-tv-2', class: '' },
+  { path: '/admin/facilities', title: 'Cơ sở', icon: 'ni-tv-2', class: '' },
   { path: '/admin/tickets', title: 'Vé', icon: 'ni-tv-2', class: '' },
   // { path: '/list-customer', title: 'Danh sách nhân viên', icon: 'ni-bullet-list-67 text-red', class: '' },
   // { path: '/booking-management', title: 'Quản lý dịch vụ', icon: 'ni-bullet-list-67 text-red', class: '' },
@@ -56,7 +56,6 @@ export class SidebarComponent implements OnInit {
       const currentUrl = window.location.href;
       const baseUrl = "http://localhost:83/hpf";
       let remainingPath = '';
-      console.log("currentUrl", currentUrl);
       if (currentUrl.startsWith(baseUrl)) {
         // Lấy phần sau baseUrl bằng cách sử dụng substr
         remainingPath = currentUrl.substr(baseUrl.length);

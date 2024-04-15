@@ -48,6 +48,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { EditTicketComponent } from "./ticket/edit-ticket/edit-ticket.component";
 import { CreateTicketComponent } from "./ticket/create-ticket/create-ticket.component";
 import { ListTicketAdComponent } from "./ticket/list-admin/list-ticket-admin.component";
+import { FacilityViewAdminComponent } from "./facility/facility-view/facility-view.component";
 import localeVi from '@angular/common/locales/vi';
 import { InputDirectivesModule } from "./directives/directives.module";
 
@@ -86,6 +87,7 @@ registerLocaleData(localeVi, 'vi-VN');
     TicketDetailComponent,
     CreateTicketComponent,
     EditTicketComponent,
+    FacilityViewAdminComponent,
   ],
   imports: [
     NgbModule,

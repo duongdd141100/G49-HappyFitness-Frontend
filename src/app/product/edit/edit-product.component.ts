@@ -106,7 +106,6 @@ export class EditProductComponent implements OnInit {
         this.product_name = res.body.name
         this.product_price = res.body.price
         this.product_category = res.body.category
-        console.info(this.product_category)
         this.status = res.body.status
         this.quantity = res.body.stockQuantity
         this.currentProductId = res.body.productId

@@ -1,0 +1,80 @@
+<main>
+  <section class="section">
+    <div class="container-fluid mt-5">
+      <!-- Table -->
+      <div class="row mt-5">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col-10">
+                  <h3 class="mb-0">Danh sách vé </h3>
+                </div>
+              </div>  
+              <div class="col-12 text-right d-flex align-items-center justify-content-between pl-0" >
+                <div class="form-group mb-0">
+                  
+                </div>
+                <button style="font-size: 13px;" type="button mt-0" class="btn btn-primary mt-1" (click)="add()">+
+                  Thêm vé
+                </button>
+              </div>
+            </div>
+            <div class="table-responsive" style="min-height: 300px;">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Tên cơ sở</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Hotline</th>
+                    <th scope="col">Thời gian mở cửa</th>
+                    <th scope="col">Thời gian đóng cửa</th>
+                    <th scope="col">Tác vụ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let f of facilities">
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                          <span class="mb-0 text-sm">{{f.name}}</span>
+                        </div>
+                      </div>
+                    </th>
+                    <td>
+                      {{f.address}}
+                    </td>
+                    <td>
+                      {{f.hotline}}
+                    </td>
+                    <td>
+                      {{f.workStartTime}}
+                    </td>
+                    <td>
+                      {{f.workEndTime}}
+                    </td>
+                    <td class="text-center">
+                     <div class="button-action">
+                        <div>
+                          <button class="btn btn-primary mr-2" aria-label="Delete" (click)="delete(ticket.productId)">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                          </button>
+                        </div>
+                        <div>
+                          <button class="btn btn-danger" aria-label="Edit" (click)="edit(ticket.productId)">
+                            <i class="fa-solid fa-trash-can"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
