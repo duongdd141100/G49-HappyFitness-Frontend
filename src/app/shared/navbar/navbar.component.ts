@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { Router, NavigationEnd, NavigationStart } from "@angular/router";
 import { Location, PopStateEvent } from "@angular/common";
 import { ROUTES2 } from "../sidebar/sidebar.component";
+import { AuthService } from "../../services/services/auth.service"
 
 @Component({
   selector: "app-navbar",
@@ -23,7 +24,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     public location: Location,
     private router: Router,
-    // private authService: AuthService,
+    private authService: AuthService,
     // private cacheService: CacheService
   ) { }
 
@@ -74,14 +75,10 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    // this.authService.signout().subscribe({
-    //   next: () => {
-    //     sessionStorage.removeItem("roleName");
-    //     this.authService.setAuthenticationStatus(false);
-    //     this.cacheService.setHasClearedCache(true);
-    //     this.router.navigate(["/login"]);
-    //   },
-    // });
+    this.authService.signout();
+    sessionStorage.removeItem("token");
+    this.authService.setAuthenticationStatus(false);
+    this.router.navigate(["/login"]);
   }
 
   refresh() {

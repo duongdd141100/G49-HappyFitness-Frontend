@@ -38,7 +38,9 @@ export class ListAccountComponent implements OnInit {
         this.users = res.body
       }, // nextHandler
       error: (err) => {
-        console.info(err)
+        if (err.status === 401) {
+          this.router.navigate(['/login']);
+        }
       }, // errorHandler
     })
   }

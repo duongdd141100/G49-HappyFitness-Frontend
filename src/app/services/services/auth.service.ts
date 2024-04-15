@@ -58,10 +58,9 @@ export class AuthService {x
 
   signout() {
     // Xóa jwt token khỏi sessionStorage
-    var a = this.http.post<any>(this.LOGOUT, {});
+    // var a = this.http.post<any>(this.LOGOUT, {});
     sessionStorage.removeItem("token");
     this.jwtToken = null;
-    return a;
   }
 
   isAuthenticated(): boolean {
