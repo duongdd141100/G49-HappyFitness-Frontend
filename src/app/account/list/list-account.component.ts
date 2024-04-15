@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Import CommonModule ở đây
+import { CommonModule, formatDate } from '@angular/common'; // Import CommonModule ở đây
 import { Router } from '@angular/router';
-
+import { ApiService } from 'src/app/services/services/api.service';
 
 @Component({
   selector: 'app-list-account',
@@ -14,97 +14,33 @@ export class ListAccountComponent implements OnInit {
   focus: any;
   focus1: any;
   value = '';
-  listProduct: any;
-  newsItems: { title: string; time: string; source: string; image: string; }[];
-  listAccount: any[];
+  users: any = [];
+  roleSelect: string;
+  mapRole: any = new Map<string, string>();
 
   constructor(
     private router: Router,
-
+    private apiService: ApiService,
   ) { }
 
   ngOnInit() {
-    this.newsItems = [
-      // Đây là mảng các phần tử tin tức của bạn, có thể là đối tượng hoặc chuỗi
-      // Bạn có thể thay đổi các giá trị của các phần tử tùy thuộc vào dữ liệu thực tế
-      {
-        title: 'Jason Price',
-        time: 'Admin',
-        source: 'janick_parisian@yahoo.com',
-        image: 'assets/img/image (1).png'
-      },
-      {
-        title: 'Jukkoe Sisao',
-        time: 'CEO',
-        source: 'sibyl_kozey@gmail.com',
-        image: 'assets/img/image (2).png'
-      },
-      {
-        title: 'Harriet King',
-        time: 'CTO',
-        source: 'nadia_block@hotmail.com',
-        image: 'assets/img/image (1).png'
-      },
-      {
-        title: 'Lemora Benson',
-        time: 'Lead',
-        source: 'feil.wallace@kunde.us',
-        image: 'assets/img/image (2).png'
-      },
-      {
-        title: 'Olivia Reese',
-        time: 'Strategist',
-        source: 'kemmer.hattie@cremin.us',
-        image: 'assets/img/image (1).png'
-      },
-      {
-        title: 'Bertha Valdez',
-        time: 'CEO',
-        source: 'loraine.koelpin@tromp.io',
-        image: 'assets/img/image (2).png'
-      },
-      {
-        title: 'Harriett Payne',
-        time: 'Digital Marketer',
-        source: 'nannie_west@estrella.tv',
-        image: 'assets/img/image (1).png'
-      },
-      {
-        title: 'George Bryant',
-        time: 'Social Media',
-        source: 'delmer.kling@gmail.com',
-        image: 'assets/img/image (2).png'
-      },
-      {
-        title: 'Lily French',
-        time: 'Strategist',
-        source: 'lucienne.herman@hotmail',
-        image: 'assets/img/image (1).png'
-      },
-      {
-        title: 'Howard Adkins',
-        time: 'CEO',
-        source: 'wiegand.leonor@herman',
-        image: 'assets/img/image (2).png'
-      },
-      {
-        title: 'Earl Bowman',
-        time: 'Digital Marketer',
-        source: 'waino_altenwerth@nicolette',
-        image: 'assets/img/image (1).png'
-      },
-      {
-        title: 'Patrick Padilla',
-        time: 'Social Media',
-        source: 'octavia.nienow@gleichner',
-        image: 'assets/img/image (2).png'
-      },
-      // Thêm các mục tin tức khác tương tự ở đây
-    ];
-    this.listAccount = this.chunkArray(this.newsItems, 4);
-    console.log(1111, this.chunkArray(this.newsItems, 4));
-
-
+    this.mapRole.set('Admin', 'Admin');
+    this.mapRole.set('Manager', 'Quản lý');
+    this.mapRole.set('Customer', 'Khách hàng');
+    this.mapRole.set('Receptionist', 'Lễ tân');
+    this.mapRole.set('Personal Trainer', 'Huấn luyện viên');
+    this.onLoadUser();
+  }
+  onLoadUser(roleId: number = null) {
+    this.apiService.getUsers(roleId).subscribe({
+      next: (res) => {
+        if(!res.body) return this.users = [];
+        this.users = res.body
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+      }, // errorHandler
+    })
   }
 
   // Phân chia mảng thành các nhóm 4 phần tử
@@ -134,5 +70,15 @@ export class ListAccountComponent implements OnInit {
 
   add() {
     this.router.navigate(['/create-account']);
+  }
+  handleSelectRole(e) {
+    let value = e.target.value
+    value == 'all' ? this.onLoadUser() : this.onLoadUser(value)
+  }
+  formatDateDdMmYyyy(value) {
+    return formatDate(value, 'dd/MM/yyyy', 'en-US');
+  }
+  mapToRoleNameVi(value) {
+    return this.mapRole.get(value)
   }
 }

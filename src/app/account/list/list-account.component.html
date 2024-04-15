@@ -2,45 +2,84 @@
   <section class="section">
     <div class="container-fluid mt-5">
       <!-- Table -->
-      <div class="row">
+      <div class="row mt-5">
         <div class="col">
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col-10">
-                  <h3 class="mb-0">Team</h3>
+                  <h3 class="mb-0">Danh sách tài khoản </h3>
                 </div>
-                <div class="col-2 text-right">
-                  <button style="font-size: 13px;" type="button" class="btn btn-primary mt-1" (click)="add()">+
-                    Add new user
-                  </button>
+              </div>  
+              <div class="col-12 text-right d-flex align-items-center justify-content-between pl-0" >
+                <div class="form-group mb-0">
+                  <select class="form-control" name="" id="" (change)="handleSelectRole($event)">
+                    <option [value]="'all'">Tất cả</option>
+                    <option [value]="'1'">Admin</option>
+                    <option [value]="'2'">Quản lý</option>
+                    <option [value]="'3'">Khách hàng</option>
+                    <option [value]="'4'">Lễ tân</option>
+                    <option [value]="'5'">Huấn luyện viên</option>
+                    <!-- <option *ngFor="let facility of facilityList" [value]="facility.id" [selected]="facility.id == +facilitySelect">
+                      {{facility.name}}
+                    </option> -->
+                  </select>
                 </div>
+                <button style="font-size: 13px;" type="button mt-0" class="btn btn-primary mt-1" (click)="add()">+
+                  Thêm tài khoản
+                </button>
               </div>
             </div>
-            <!-- news.component.html -->
+            <div class="table-responsive" style="min-height: 300px;">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Họ tên</th>
+                    <th scope="col">Tên đăng nhập</th>
+                    <th scope="col">Gmail</th>
+                    <th scope="col">Giới tính</th>
+                    <th scope="col">Ngày sinh</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Quyền</th>
+                    <th scope="col">Cơ sở</th>
+                    <th scope="col">Tác vụ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let u of users">
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                          <span class="mb-0 text-sm">{{u.fullName}}</span>
+                        </div>
+                      </div>
+                    </th>
+                    <td>{{u.username}}</td>
+                    <td>{{u.email}}</td>
+                    <td>{{u.gender ? 'Nam' : 'Nữ'}}</td>
+                    <td>{{formatDateDdMmYyyy(u.dob)}}</td>
+                    <td>{{u.phoneNumber}}</td>
+                    <td>{{mapToRoleNameVi(u.roleName)}}</td>
+                    <td>{{u.facility}}</td>
+                    <td class="text-center">
+                     <div class="button-action">
+                        <div>
+                          <button class="btn btn-primary mr-2" aria-label="Delete" (click)="delete(u.productId)">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                          </button>
+                        </div>
+                        <div>
+                          <button class="btn btn-danger" aria-label="Edit" (click)="edit(ticket.productId)">
+                            <i class="fa-solid fa-trash-can"></i>
+                          </button>
+                        </div>
+                      </div>
 
-            <div class="container" style="margin-left: 2rem; margin-right: 0; margin-top: 1rem;">
-              <div class="row" *ngFor="let row of listAccount">
-                <div class="col-lg-3 mb-3" *ngFor="let newsItem of row">
-                  <div class="card shadow shadow-lg--hover">
-                    <div class="card-body">
-                      <!-- Phần ảnh -->
-                      <div class="image-section mb-3 text-center">
-                        <!-- Đặt hình ảnh ở đây -->
-                        <img class="imageLastestNews" alt="" [src]="newsItem.image">
-                      </div>
-                      <!-- Phần text -->
-                      <div class="text-section">
-                        <h6>{{ newsItem.title }}</h6>
-                        <p>{{ newsItem.time }}</p>
-                        <p>{{ newsItem.source }}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-
           </div>
         </div>
       </div>

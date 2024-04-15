@@ -14,7 +14,7 @@ export class ApiService {
   // // private IMPORT_PROFILE = this.baseUrl + "api/v1/files/import-file";
   // private SEND_OTP = this.baseUrl + "api/v1/otp/send-otp";
   // private VERIFY_OTP = this.baseUrl + "api/v1/otp/verify-otp";
-  private USER_INFOR = this.baseUrl + "user/infor";
+  private USER_INFOR = this.baseUrl + "users";
   private REGISTER = this.baseUrl + "/auth/signup";
   private EDITPROFILE = this.baseUrl + "/auth/edit-profile";
   private ME = this.baseUrl + "/auth/me";
@@ -61,9 +61,9 @@ export class ApiService {
     const token = sessionStorage.getItem('token');
     return new HttpHeaders().set('Authorization', token ? 'Bearer ' + token : '');
   }
-  getUsers(): Observable<any> {
+  getUsers(roleId = null): Observable<any> {
     const headers = this.getHeadersWithToken();
-    return this.http.get<any>(this.USER_INFOR, { headers });
+    return this.http.get<any>(roleId ? `${this.USER_INFOR}?roleId=${roleId}` : this.USER_INFOR, { headers });
   }
 
   register(fullName: string, username: string, email: string, password: string, phoneNumber: string, role: any, gender: string, dob: string): Observable<any> {
