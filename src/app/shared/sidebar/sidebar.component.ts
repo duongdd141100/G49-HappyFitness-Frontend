@@ -15,6 +15,7 @@ export const ROUTES2: RouteInfoManager[] = [
   { path: '/admin/products', title: 'Sản phẩm', icon: 'fa-solid fa-dumbbell', class: '' },
   { path: '/admin/facilities', title: 'Cơ sở', icon: 'fa-solid fa-house', class: '' },
   { path: '/admin/tickets', title: 'Vé', icon: 'fa-solid fa-ticket', class: '' },
+  { path: '/admin/vouchers', title: 'Mã giảm giá', icon: 'fa-solid fa-ticket-simple', class: '' },
   { path: '/term', title: 'Điều khoản', icon: 'ni-tv-2', class: '' },
   // { path: '/list-customer', title: 'Danh sách nhân viên', icon: 'ni-bullet-list-67 text-red', class: '' },
   // { path: '/booking-management', title: 'Quản lý dịch vụ', icon: 'ni-bullet-list-67 text-red', class: '' },

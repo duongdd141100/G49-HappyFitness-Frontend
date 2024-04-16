@@ -49,6 +49,7 @@ export class ApiService {
   private DETAILUSER = this.baseUrl + "/users/manager_caugiay";
   private DEACTIVEUSER = this.baseUrl + "/users/deactivate/user_caugiay";
   private RESETPASSSWO = this.baseUrl + "/users/reset-password/user_caugiay";
+  private FIND_ALL_VOUCHER = this.baseUrl + "vouchers";
   // // THIẾU 1 số api liên quan đến quyền / phân quyền và admin do chưa design
   // private CREATE_LOAN = this.baseUrl + "user/create-loan";
   // private CHECK_LOAN = this.baseUrl + "user/is-exist-loan";
@@ -210,6 +211,11 @@ export class ApiService {
   public activeProduct(id: number): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.post<any>(`${this.ACTIVE_PRODUCT}${id}`, {}, { headers });
+  }
+
+  public findAllVoucher(): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.get<any>(`${this.FIND_ALL_VOUCHER}`, {headers});
   }
 
 

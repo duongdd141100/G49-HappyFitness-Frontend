@@ -29,6 +29,7 @@ import { EditTicketComponent } from "./ticket/edit-ticket/edit-ticket.component"
 import { ListCustomerProductComponent } from "./product/list-customer/list"
 import { ProductDetailComponent } from "./product/detail/product-detail.component"
 import { FacilityViewAdminComponent } from "./facility/facility-view/facility-view.component"
+import { VoucherViewAdminComponent } from "./voucher/voucher-view-admin/voucher-view-admin.component"
 
 
 const routes: Routes = [
@@ -44,6 +45,7 @@ const routes: Routes = [
   { path: 'admin/edit-ticket', component: EditTicketComponent },
   { path: 'admin/tickets', component: ListTicketAdComponent },
   { path: 'admin/facilities', component: FacilityViewAdminComponent },
+  { path: 'admin/vouchers', component: VoucherViewAdminComponent },
 
 
 
