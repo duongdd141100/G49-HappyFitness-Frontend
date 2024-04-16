@@ -1,0 +1,74 @@
+<main>
+  <section class="section">
+    <div class="container-fluid mt-5">
+      <!-- Table -->
+      <div class="row mt-5">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col-10">
+                  <h3 class="mb-0">Danh sách mã giảm giá</h3>
+                </div>
+              </div>  
+              <div class="col-12 text-right d-flex align-items-center justify-content-between pl-0" >
+                <div class="form-group mb-0">
+                  
+                </div>
+                <button style="font-size: 13px;" type="button mt-0" class="btn btn-primary mt-1" (click)="add()">+
+                  Thêm mã giảm giá
+                </button>
+              </div>
+            </div>
+            <div class="table-responsive" style="min-height: 300px;">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th class="text-center" scope="col">Mã</th>
+                    <th class="text-center" scope="col">Tên</th>
+                    <th class="text-center" scope="col">Giảm phần trăm</th>
+                    <th class="text-center" scope="col">Giảm tối đa</th>
+                    <th class="text-center" scope="col">Thời gian bắt đầu</th>
+                    <th class="text-center" scope="col">Thời gian kết thúc</th>
+                    <th class="text-center" scope="col">Tác vụ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let v of vouchers">
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                          <span class="mb-0 text-sm">{{v.code}}</span>
+                        </div>
+                      </div>
+                    </th>
+                    <td>{{v.name}}</td>
+                    <td class="text-center">{{v.percentAmount}}</td>
+                    <td class="text-center">{{v.maxMoneyAmount}}</td>
+                    <td class="text-center">{{formatDateDdMmYyyy(v.startDate)}}</td>
+                    <td class="text-center">{{formatDateDdMmYyyy(v.endDate)}}</td>
+                    <td class="text-center" class="text-center">
+                     <div class="button-action">
+                        <div>
+                          <button class="btn btn-primary mr-2" aria-label="Delete" (click)="delete(u.productId)">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                          </button>
+                        </div>
+                        <div>
+                          <button class="btn btn-danger" aria-label="Edit" (click)="edit(ticket.productId)">
+                            <i class="fa-solid fa-trash-can"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
