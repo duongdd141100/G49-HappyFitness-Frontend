@@ -28,6 +28,7 @@ export class ApiService {
   private UPDATE_PRODUCT = this.baseUrl + "products/update/";
   private DEACTIVEPRODUCT = this.baseUrl + "products/delete/";
   private ACTIVE_PRODUCT = this.baseUrl + "products/active/";
+  private CREATE_PRODUCT = this.baseUrl + "products/add";
 
   // Facilitiy
   private GET_ALL_FACILITY = this.baseUrl + "facilities";
@@ -250,6 +251,13 @@ export class ApiService {
   public resetPassword(username: string): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.post<any>(`${this.RESET_PASSWORD}/${username}`, null,{ headers });
+  }
+  public createProduct(product: any): Observable<any> {
+    let headers = this.getHeadersWithToken();
+    // headers = headers.set('enctype', 'multipart/form-data');
+    const formData = new FormData();
+    formData.append('product', product)
+    return this.http.post<any>(`${this.CREATE_PRODUCT}`, formData,{ headers });
   }
 
 }

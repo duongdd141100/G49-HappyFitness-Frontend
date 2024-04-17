@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/services/api.service'
 import { AuthService } from 'src/app/services/services/auth.service';
 
-
 @Component({
   selector: 'app-list-product',
   templateUrl: './list-product.component.html',
@@ -111,11 +110,11 @@ export class ListProductComponent implements OnInit {
   }
 
   edit(code: any) {
-    this.router.navigate([`/edit-product/${code}`])
+    
   }
 
   add() {
-    this.router.navigate(['/create-product']);
+    this.router.navigate(['/admin/create-product']);
   }
 
   handleSelectFacility(e) {
