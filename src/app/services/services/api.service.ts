@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -29,32 +29,19 @@ export class ApiService {
   private UPDATE_FACILITY_PRODUCT = this.baseUrl + "facility-product/update";
   private TICKET = this.baseUrl + "/api/user-ticket/extend";
   // 1?voucherCode = VOUCHER_1
-  private TICKETHISTORY = this.baseUrl + "/user-ticket";
-  private ADDTICKET = this.baseUrl + "/cart/add";
   private FACILITYTICKET = this.baseUrl + "tickets";
-  private DETAILTICKET = this.baseUrl + "/api/tickets/5";
-  private DASHBOARD = this.baseUrl + "/dashboard/info";
-  private REVENUE = this.baseUrl + "/dashboard/revenue";
-  private CREATEORD = this.baseUrl + "/orders/create";
+  private DETAILTICKET = this.baseUrl + "api/tickets/5";
   private CREATE_TICKET = this.baseUrl + "tickets/create";
-  private FINDORD = this.baseUrl + "/orders";
-  private DETAILORD = this.baseUrl + "/orders/15";
-  private GETPRO = this.baseUrl + "/products/P_20240221045126123a?facilityId=2";
-  private ADDPRO = this.baseUrl + "/products/add";
-  private UPDATEPRO = this.baseUrl + "/products/update/11";
   private DEACTIVEPRODUCT = this.baseUrl + "products/delete/";
   private ACTIVE_PRODUCT = this.baseUrl + "products/active/";
-  private FINDUSER = this.baseUrl + "/users";
-  private CREATEUSER = this.baseUrl + "/users/create";
-  private DETAILUSER = this.baseUrl + "/users/manager_caugiay";
-  private DEACTIVEUSER = this.baseUrl + "/users/deactivate/user_caugiay";
-  private RESETPASSSWO = this.baseUrl + "/users/reset-password/user_caugiay";
   private FIND_ALL_VOUCHER = this.baseUrl + "vouchers";
   // // THIẾU 1 số api liên quan đến quyền / phân quyền và admin do chưa design
   // private CREATE_LOAN = this.baseUrl + "user/create-loan";
   // private CHECK_LOAN = this.baseUrl + "user/is-exist-loan";
   // private UPDATE_INFOR = this.baseUrl + "user/update-base-information";
   // private CHECK_PHOTO = this.baseUrl + "user/update-kyc-image";
+  // Orders
+  private FIND_ALL_ORDER = this.baseUrl + "orders";
 
   constructor(private http: HttpClient) { }
 
@@ -70,17 +57,6 @@ export class ApiService {
   register(fullName: string, username: string, email: string, password: string, phoneNumber: string, role: any, gender: string, dob: string): Observable<any> {
     return this.http.post<any>(this.REGISTER, { fullName, username, email, password, phoneNumber, role, gender, dob });
   }
-
-  // "fullName": "Đỗ Đức Dương",
-  // "username": "duongdd",
-  // "email": "giangdd@gmail.com",
-  // "password": "1414",
-  // "phoneNumber": "0979719735",
-  // "role": {
-  //   "id": "1"
-  // },
-  // "gender": true,
-  // "dob": "2000-11-14"
 
   public get(endpoint: string): Observable<any> {
     const headers = this.getHeadersWithToken();
@@ -218,28 +194,10 @@ export class ApiService {
     return this.http.get<any>(`${this.FIND_ALL_VOUCHER}`, {headers});
   }
 
-
-  //   {
-  //   "quantity": 3,
-  //     "facilityProduct": {
-  //     "id": 17
-  //   }
-  // }
-
   public viewCart(mail: string): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.post<any>(`${this.VIEWCART}`, { headers });
   }
-
-  //   {
-  //   "id": 3.0,
-  //     "path": null,
-  //       "fullName": "Đỗ Đức Dương",
-  //         "gender": true,
-  //           "dob": "2000-11-14T00:00:00.000+00:00",
-  //             "address": null,
-  //               "phoneNumber": "0979719735"
-  // }
 
   public post(endpoint: string, body: any): Observable<any> {
     const headers = this.getHeadersWithToken();
@@ -261,19 +219,20 @@ export class ApiService {
     const headers = this.getHeadersWithToken();
     return this.http.delete(`${this.baseUrl}/${endpoint}`, { headers });
   }
-
-
-
-  // sendData(message: string) {
-  //   this.subject.next(message);
-  // }
-
-  // clearData() {
-  //   this.subject.next();
-  // }
-
-  // getData(): Observable<any> {
-  //   return this.subject.asObservable();
-  // }
+  public findOrders(facilityId: number, isPaid: boolean, isDelivered: boolean): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    let params = [];
+    if (facilityId) {
+      params.push(`facilityId=${facilityId}`);
+    }
+    if (isPaid != null) {
+      params.push(`isPaid=${isPaid}`);
+    }
+    if (isDelivered != null) {
+      params.push(`isDelivered=${isDelivered}`)
+    }
+    let paramsStr = params.length > 0 ? params.join('&') : '';
+    return this.http.get(`${this.FIND_ALL_ORDER}` + (paramsStr ? `?${paramsStr}` : ''), { headers });
+  }
 
 }

@@ -11,7 +11,7 @@ declare interface RouteInfoManager {
 export const ROUTES2: RouteInfoManager[] = [
   { path: '/admin/dashboard', title: 'Thống kê', icon: 'fa-solid fa-chart-line', class: '' },
   { path: '/admin/accounts', title: 'Tài khoản', icon: 'fa-solid fa-user', class: '' },
-  { path: '/admin/order', title: 'Đơn đặt', icon: 'fa-solid fa-cart-shopping', class: '' },
+  { path: '/admin/orders', title: 'Đơn đặt', icon: 'fa-solid fa-cart-shopping', class: '' },
   { path: '/admin/products', title: 'Sản phẩm', icon: 'fa-solid fa-dumbbell', class: '' },
   { path: '/admin/facilities', title: 'Cơ sở', icon: 'fa-solid fa-house', class: '' },
   { path: '/admin/tickets', title: 'Vé', icon: 'fa-solid fa-ticket', class: '' },
