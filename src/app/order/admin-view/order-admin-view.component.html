@@ -1,0 +1,92 @@
+<main>
+  <section class="section">
+    <div class="container-fluid mt-5">
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col-10">
+                  <h3 class="mb-0">Danh sách sản phẩm</h3>
+                </div>
+                <div class="col-12 text-right d-flex align-items-center justify-content-between pl-0" >
+                  <div class="form-group mb-0">
+                    <label>Cơ sở</label>
+                    <select class="form-control" name="" id="" (change)="handleSelectFacility($event)">
+                      <option [value]="'all'">Tất cả</option>
+                      <option *ngFor="let facility of facilities" [value]="facility.id" [selected]="facility.id == +facilitySelect">
+                        {{facility.name}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group mb-0">
+                    <label>Trạng thái thanh toán</label>
+                    <select class="form-control" name="" id="" (change)="handleSelectPaidStatus($event)">
+                      <option [value]="'all'">Tất cả</option>
+                      <option [value]="'true'">Đã thanh toán</option>
+                      <option [value]="'false'">Chưa thanh toán</option>
+                    </select>
+                  </div>
+                  <div class="form-group mb-0">
+                    <label>Trạng thái đơn hàng</label>
+                    <select class="form-control" name="" id="" (change)="handleSelectOrderStatus($event)">
+                      <option [value]="'all'">Tất cả</option>
+                      <option [value]="'true'">Thành công</option>
+                      <option [value]="'false'">Đang vận chuyển</option>
+                    </select>
+                  </div>
+                  <!-- <button style="font-size: 13px;" type="button mt-0" class="btn btn-primary mt-1" (click)="add()">+
+                    Thêm sản phẩm
+                  </button> -->
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive" style="min-height: 300px;">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th class="text-center" scope="col">Khách hàng</th>
+                    <th class="text-center" scope="col">Trạng thái thanh toán</th>
+                    <th class="text-center" scope="col">Trạng thái đơn hàng</th>
+                    <th class="text-center" scope="col">Mã giảm giá</th>
+                    <th class="text-center" scope="col">Giá</th>
+                    <!-- <th class="text-center" scope="col">Tác vụ</th> -->
+                  </tr>
+                </thead>
+                <tbody *ngIf="orders">
+                  <tr *ngFor="let o of orders">
+                    <td>{{o.username}}</td>
+                    <td class="text-center" [ngClass]="o.paid === true ? 'text-success' : 'text-danger'">{{o.paid ? 'Đã thanh toán' : 'Chưa thanh toán'}}</td>
+                    <td class="text-center" [ngClass]="o.status === 'Thành Công' ? 'text-success' : 'text-warning'">{{o.status}}</td>
+                    <td class="text-center">{{o.voucherName}}</td>
+                    <td class="text-center">{{o.price}}</td>
+                    <td class="text-center">
+                      <!-- <div class="button-action">
+                        <div>
+                          <button class="btn btn-primary mr-2" aria-label="Edit" (click)="edit(product.code)">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                          </button>
+                        </div>
+                        <div>
+                          <button *ngIf="product.status !== 'Vô hiệu hóa'" class="btn btn-danger" aria-label="Delete" (click)="delete(product.productId)">
+                            <i class="fa-solid fa-trash-can"></i>
+                          </button>
+                          <button *ngIf="product.status === 'Vô hiệu hóa'" class="btn btn-success" aria-label="Delete" (click)="active(product.productId)">
+                            <i class="fa-solid fa-check"></i>
+                          </button>
+                        </div>
+                      </div> -->
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
