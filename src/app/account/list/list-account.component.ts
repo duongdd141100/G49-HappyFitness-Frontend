@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common'; // Import CommonModule ở đây
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/services/api.service';
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: 'app-list-account',
@@ -21,6 +22,7 @@ export class ListAccountComponent implements OnInit {
   constructor(
     private router: Router,
     private apiService: ApiService,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit() {
@@ -82,5 +84,19 @@ export class ListAccountComponent implements OnInit {
   }
   mapToRoleNameVi(value) {
     return this.mapRole.get(value)
+  }
+
+  resetPassword(username) {
+    this.apiService.resetPassword(username).subscribe({
+      next: (res) => {
+        this.toastr.success('Đặt lại mật khẩu thành công!');
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+        // if (err.status === 401) {
+        //   this.router.navigate(['/login']);
+        // }
+      }, // errorHandler
+    })
   }
 }

@@ -8,39 +8,51 @@ export class ApiService {
   // private subject = new Subject<any>();
 
   private baseUrl = environment.apiUrl;
-  // private GENERATE_HEAD_PHONE = this.baseUrl + "api/v1/common";
-  // private GENERATE_NOTI = this.baseUrl + "api/v1/common/loan-notification";
-  // private UPLOAD_FILE = this.baseUrl + "api/v1/files/upload-file";
-  // // private IMPORT_PROFILE = this.baseUrl + "api/v1/files/import-file";
-  // private SEND_OTP = this.baseUrl + "api/v1/otp/send-otp";
-  // private VERIFY_OTP = this.baseUrl + "api/v1/otp/verify-otp";
-  private USER_INFOR = this.baseUrl + "users";
+
+  // Authen
+  private ME = this.baseUrl + "/auth/me";
   private REGISTER = this.baseUrl + "/auth/signup";
   private EDITPROFILE = this.baseUrl + "/auth/edit-profile";
-  private ME = this.baseUrl + "/auth/me";
   private FORGETPASS = this.baseUrl + "/auth/forget-password/";
+
+  // User
+  private USER_INFOR = this.baseUrl + "users";
+  private RESET_PASSWORD = this.baseUrl + "users/reset-password";
+  
+  // Cart
   private VIEWCART = this.baseUrl + "/cart";
   private ADDCART = this.baseUrl + "cart/add";
+
+  // Product
   private GET_PRODUCT = this.baseUrl + "products";
-  private GET_ALL_FACILITY = this.baseUrl + "facilities";
-  private GET_ALL_CATEGORY = this.baseUrl + "categories";
-  private GET_ALL_SUPPLIER = this.baseUrl + "suppliers";
   private UPDATE_PRODUCT = this.baseUrl + "products/update/";
-  private UPDATE_FACILITY_PRODUCT = this.baseUrl + "facility-product/update";
-  private TICKET = this.baseUrl + "/api/user-ticket/extend";
-  // 1?voucherCode = VOUCHER_1
-  private FACILITYTICKET = this.baseUrl + "tickets";
-  private DETAILTICKET = this.baseUrl + "api/tickets/5";
-  private CREATE_TICKET = this.baseUrl + "tickets/create";
   private DEACTIVEPRODUCT = this.baseUrl + "products/delete/";
   private ACTIVE_PRODUCT = this.baseUrl + "products/active/";
+
+  // Facilitiy
+  private GET_ALL_FACILITY = this.baseUrl + "facilities";
+
+  // Categories
+  private GET_ALL_CATEGORY = this.baseUrl + "categories";
+
+  // Suppliers
+  private GET_ALL_SUPPLIER = this.baseUrl + "suppliers";
+
+  // Facility Product
+  private UPDATE_FACILITY_PRODUCT = this.baseUrl + "facility-product/update";
+
+  // User Ticket
+  private TICKET = this.baseUrl + "/api/user-ticket/extend";
+
+  // Ticket
+  private FACILITYTICKET = this.baseUrl + "tickets";
+  private DETAILTICKET = this.baseUrl + "tickets/5";
+  private CREATE_TICKET = this.baseUrl + "tickets/create";
+  
+  // Voucher
   private FIND_ALL_VOUCHER = this.baseUrl + "vouchers";
-  // // THIẾU 1 số api liên quan đến quyền / phân quyền và admin do chưa design
-  // private CREATE_LOAN = this.baseUrl + "user/create-loan";
-  // private CHECK_LOAN = this.baseUrl + "user/is-exist-loan";
-  // private UPDATE_INFOR = this.baseUrl + "user/update-base-information";
-  // private CHECK_PHOTO = this.baseUrl + "user/update-kyc-image";
-  // Orders
+
+  // Order
   private FIND_ALL_ORDER = this.baseUrl + "orders";
 
   constructor(private http: HttpClient) { }
@@ -233,6 +245,11 @@ export class ApiService {
     }
     let paramsStr = params.length > 0 ? params.join('&') : '';
     return this.http.get(`${this.FIND_ALL_ORDER}` + (paramsStr ? `?${paramsStr}` : ''), { headers });
+  }
+
+  public resetPassword(username: string): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.RESET_PASSWORD}/${username}`, null,{ headers });
   }
 
 }
