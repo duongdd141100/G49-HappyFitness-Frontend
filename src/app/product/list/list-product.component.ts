@@ -12,10 +12,9 @@ import { AuthService } from 'src/app/services/services/auth.service';
 })
 
 export class ListProductComponent implements OnInit {
-  focus: any;
-  focus1: any;
   value = '';
-  listProduct: any;
+  products: any = [];
+  facilities: any = [];
 
   constructor(
     private router: Router,
@@ -24,6 +23,13 @@ export class ListProductComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.onCheckRole();
+    this.onLoadProducts(1);
+    this.onLoadFacilities();
+    this.value = 'default';
+  }
+
+  onCheckRole() {
     this.authService.getOwnInfo().subscribe({
       next: (res) => {
         if (res.body.role && (res.body.role.id !== 1 && res.body.role.id !== 2)) {
@@ -37,11 +43,24 @@ export class ListProductComponent implements OnInit {
         this.router.navigate([`/home`])
         return
       }, // errorHandler
-    })
-    this.value = 'default';
-    this.apiService.getProduct().subscribe({
+    });
+  }
+
+  onLoadProducts(facilityId : number) {
+    this.apiService.getProduct(facilityId).subscribe({
       next: (res) => {
-        this.listProduct = res.body
+        this.products = res.body
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+      }, // errorHandler
+    })
+  }
+
+  onLoadFacilities() {
+    this.apiService.getAllFacility().subscribe({
+      next: (res) => {
+        this.facilities = res.body
       }, // nextHandler
       error: (err) => {
         console.info(err)
@@ -60,7 +79,7 @@ export class ListProductComponent implements OnInit {
   delete(id: any) {
     this.apiService.deactiveProduct(id).subscribe({
       next: (res) => {
-        this.listProduct = this.listProduct.map(it => {
+        this.products = this.products.map(it => {
           if (it.productId === id) {
             it.status = "Vô hiệu hóa"
           }
@@ -77,7 +96,7 @@ export class ListProductComponent implements OnInit {
   active(id: any) {
     this.apiService.activeProduct(id).subscribe({
       next: (res) => {
-        this.listProduct = this.listProduct.map(it => {
+        this.products = this.products.map(it => {
           if (it.productId === id) {
             it.status = "Hoạt động"
           }
@@ -97,5 +116,9 @@ export class ListProductComponent implements OnInit {
 
   add() {
     this.router.navigate(['/create-product']);
+  }
+
+  handleSelectFacility(e) {
+    this.onLoadProducts(e.target.value)
   }
 }

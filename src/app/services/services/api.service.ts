@@ -156,7 +156,7 @@ export class ApiService {
     return this.http.post<any>(`${this.ADDCART}`, { headers });
   }
 
-  public getProduct(facilityId = 2): Observable<any> {
+  public getProduct(facilityId = 1): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.get<any>(`${this.GET_PRODUCT}?facilityId=${facilityId}`, { headers });
   }
