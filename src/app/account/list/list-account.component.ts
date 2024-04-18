@@ -73,7 +73,7 @@ export class ListAccountComponent implements OnInit {
   }
 
   add() {
-    this.router.navigate(['/create-account']);
+    this.router.navigate(['admin/create-account']);
   }
   handleSelectRole(e) {
     let value = e.target.value

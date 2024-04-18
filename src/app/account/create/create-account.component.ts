@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Import CommonModule ở đây
+import { CommonModule, Location } from '@angular/common'; // Import CommonModule ở đây
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { scrollToFirstInvalidControl, validateAllFormFields, validateForm } from 'src/app/functions/function-helper';
+import { ApiService } from 'src/app/services/services/api.service';
 
 
 @Component({
@@ -12,8 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class CreateAccountComponent implements OnInit {
-  focus: any;
-  focus1: any;
+  userForm: FormGroup;
   value = '';
   note: any;
   nameNull = false;
@@ -22,20 +24,49 @@ export class CreateAccountComponent implements OnInit {
   product_price: any;
   selectedType: string; // Biến lưu trữ loại sanpham được chọn
   genderTypes: string[] = ["Male", "Female"];
-
+  validateForm = validateForm
+  facilities: any[];
   constructor(
     private router: Router,
     private toastr: ToastrService,
-
-  ) { }
+    private _formBuilder: FormBuilder,
+    private apiService: ApiService,
+    public location: Location,
+  ) { 
+    this.userForm = this.creatUserForm();
+  }
+  creatUserForm(): FormGroup {
+    return this._formBuilder.group({
+      fullName: [null, [Validators.required]],
+      username: [null,[Validators.required]],
+      email: [null,[Validators.required]],
+      password: [null,[Validators.required]],
+      phoneNumber: [null,[Validators.required]],
+      roleId: [null,[Validators.required]],
+      gender: [null,[Validators.required]],
+      dob: [null,[Validators.required]],
+      facilityId: [null,[Validators.required]],
+    })
+  }
 
   ngOnInit() {
-
+    this.onLoadFacilities();
     this.value = '';
     this.selectedType = this.genderTypes[0];
     this.product_name = '';
     this.product_price = '';
     this.note = ''
+  }
+  onLoadFacilities() {
+    this.apiService.getAllFacility().subscribe({
+      next: (res) => {
+        if(!res.body) return this.facilities = [];
+        this.facilities = res.body
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+      }, // errorHandler
+    })
   }
 
   selectedOption(string: string) {
@@ -54,4 +85,26 @@ export class CreateAccountComponent implements OnInit {
     this.toastr.success('Tạo sản phẩm thành công!');
     this.router.navigate(['/list-product']);
   }
+  saveForm() {
+    this.userForm.value.facility = {
+      id : +this.userForm.value.facility
+    }
+    if (this.userForm.valid) {
+      this.userForm.value.price = +this.userForm.value.price.replace('.', '');
+      this.apiService.createTicketAdmin(this.userForm.value).subscribe({
+        next: (res) => {
+          if (res.code !== 200)  return this.toastr.error('Tạo vé thất bại!');
+          this.toastr.success('Tạo vé thành công!');
+          this.router.navigate(['/admin/tickets']);
+        }, // nextHandler
+        error: (err) => {
+          console.info(err)
+          this.toastr.error('Tạo vé thất bại!');
+        }, // errorHandler
+      })
+    } else {
+      validateAllFormFields(this.userForm);
+      scrollToFirstInvalidControl(this.userForm);
+    }
+   }
 }

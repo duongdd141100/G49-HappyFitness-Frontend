@@ -15,8 +15,6 @@ import { ApiService } from 'src/app/services/services/api.service';
 })
 
 export class CreateTicketComponent implements OnInit {
-  focus: any;
-  focus1: any;
   ticketForm: FormGroup;
   value = '';
   note: any;
