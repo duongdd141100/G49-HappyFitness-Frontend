@@ -17,12 +17,6 @@ import { ApiService } from 'src/app/services/services/api.service';
 export class CreateProductComponent implements OnInit {
   productForm: FormGroup;
   value = '';
-  note: any;
-  nameNull = false;
-  quantityNull = false;
-  ticket_name: any;
-  ticket_price: any;
-  ticket_quantity: any;
   categories : any = [];
   suppliers : any = [];
   validateForm = validateForm
