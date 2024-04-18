@@ -1,0 +1,137 @@
+<main>
+
+
+  <section class="section">
+    <div class="px-5">
+      <div class="row row-grid align-items-center">
+        <div class="col px-0">
+          
+          <div class="mt-3 mb-3">
+            <div class="row">
+              <div class="col-12 create-sticket">
+                <div class="card shadow shadow-lg--hover">
+                  <div class="d-flex justify-content-center">
+                    <h5 class="display-3">Thêm sản phẩm </h5>
+                  </div>
+                  <div class="card-body" [formGroup]="productForm">
+                    <div class="form-group">
+                      <label for="">*Tên sản phẩm</label>
+                      <input type="text" id="" class="form-control" [formControlName]="'name'" placeholder="Tên của vé" aria-describedby="helpId">
+                      <div class="regexTel">
+                        <ng-container *ngIf="validateForm(productForm,'name')">
+                            <p class="text-danger"> Nhập tên sản phẩm</p>
+                        </ng-container>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Link ảnh</label>
+                      <input type="text" id="" [formControlName]="'imagePath'" class="form-control" placeholder="Link ảnh" aria-describedby="helpId">
+                      <div class="regexTel">
+                        <ng-container *ngIf="validateForm(productForm,'imagePath')">
+                            <p class="text-danger">Chọn thể loại</p>
+                        </ng-container>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="">*Thể loại</label>
+                        <select class="form-control" [formControlName]="'categoryId'" name="" id="">
+                          <option *ngFor="let c of categories" [value]="c.id">
+                            {{c.name}}
+                          </option>
+                        </select>
+                        <div class="regexTel">
+                          <ng-container *ngIf="validateForm(productForm,'categoryId')">
+                              <p class="text-danger">Chọn thể loại</p>
+                          </ng-container>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="">*Nhà cung cấp</label>
+                        <select class="form-control" [formControlName]="'supplierId'" name="" id="">
+                          <option *ngFor="let s of suppliers" [value]="s.id">
+                            {{s.name}}
+                          </option>
+                        </select>
+                        <div class="regexTel">
+                          <ng-container *ngIf="validateForm(productForm,'supplierId')">
+                              <p class="text-danger">Chọn nhà cung cấp</p>
+                          </ng-container>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Mô tả</label>
+                      <input type="text" name="" id="" class="form-control" [formControlName]="'description'" placeholder="Mô tả sản phẩm" aria-describedby="helpId">
+                    </div> 
+
+                    <div class="form-group">
+                      <label for="">*Cơ sở</label>
+                        <select class="form-control" [formControlName]="'facilityId'" name="" id="" (change)="handleSelectFacility($event)">
+                          <option *ngFor="let f of facilities" [value]="f.id">
+                            {{f.name}}
+                          </option>
+                        </select>
+                        <div class="regexTel">
+                          <ng-container *ngIf="validateForm(productForm,'facilityId')">
+                              <p class="text-danger">Chọn cơ sở</p>
+                          </ng-container>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="">*Giá</label>
+                      <input type="text" id="" class="form-control" [formControlName]="'price'" placeholder="Giá" aria-describedby="helpId">
+                      <div class="regexTel">
+                        <ng-container *ngIf="validateForm(productForm,'price')">
+                            <p class="text-danger"> Nhập giá</p>
+                        </ng-container>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="">*Tồn kho</label>
+                      <input type="text" id="" class="form-control" [formControlName]="'stockQuantity'" placeholder="Tồn kho" aria-describedby="helpId">
+                      <div class="regexTel">
+                        <ng-container *ngIf="validateForm(productForm,'stockQuantity')">
+                            <p class="text-danger"> Nhập tên sản phẩm</p>
+                        </ng-container>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="">*Trạng thái</label>
+                        <select class="form-control" [formControlName]="'status'" name="" id="">
+                          <option [value]="'COMING_SOON'">Chưa bán</option>
+                          <option [value]="'OUT_OF_STOCK'">Hết hàng</option>
+                          <option [value]="'STOP_SELL'">Ngưng bán</option>
+                          <option [value]="'ACTIVE'">Hoạt động</option>
+                          <option [value]="'DEACTIVATE'">Vô hiệu hóa</option>
+                        </select>
+                        <div class="regexTel">
+                          <ng-container *ngIf="validateForm(productForm,'facilityId')">
+                              <p class="text-danger">Chọn cơ sở</p>
+                          </ng-container>
+                        </div>
+                    </div>
+                    <!-- Phần text -->
+                    
+                  </div>
+                  <div class="card-footer">
+                    <button class="btn btn-primary" (click)="saveForm()">Lưu</button>
+                    <button class="btn btn-outline" (click)="location.back()">Quay lại</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SVG separator -->
+    <!-- <div class="separator separator-bottom separator-skew zindex-100">
+      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+        xmlns="http://www.w3.org/2000/svg">
+        <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div> -->
+  </section>
+
+  <!-- <div class="elfsight-app-2bb20d90-b4b8-4f52-b90a-a2fc00eac7d1" data-elfsight-app-lazy></div> -->
+
+</main>

@@ -28,7 +28,7 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 import { AboutComponent } from "./introduction/about/about.component";
 import { ContactComponent } from "./introduction/contact/contact.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
-import { EditProductComponent } from "./product/edit/edit-product.component";
+import { UpdateProductComponent } from "./product/update/update-product.component";
 import { CreateProductComponent } from "./product/create/create-product.component";
 import { ListProductComponent } from "./product/list/list-product.component";
 import { ListCustomerProductComponent } from "./product/list-customer/list";
@@ -76,7 +76,7 @@ registerLocaleData(localeVi, 'vi-VN');
     ListCustomerProductComponent,
     ProductDetailComponent,
     CreateProductComponent,
-    EditProductComponent,
+    UpdateProductComponent,
     EditAccountComponent,
     ListAccountComponent,
     CreateAccountComponent,

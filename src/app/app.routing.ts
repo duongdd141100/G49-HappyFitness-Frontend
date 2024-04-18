@@ -13,7 +13,7 @@ import { ContactComponent } from "./introduction/contact/contact.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { ListProductComponent } from "./product/list/list-product.component";
 import { CreateProductComponent } from "./product/create/create-product.component";
-import { EditProductComponent } from "./product/edit/edit-product.component";
+import { UpdateProductComponent } from "./product/update/update-product.component";
 import { CreateAccountComponent } from "./account/create/create-account.component";
 import { EditAccountComponent } from "./account/edit/edit-account.component";
 import { ListAccountComponent } from "./account/list/list-account.component";
@@ -38,7 +38,7 @@ const routes: Routes = [
   { path: 'admin/dashboard', component: DashboardComponent },
   { path: 'admin/products', component: ListProductComponent },
   { path: 'admin/create-product', component: CreateProductComponent },
-  { path: 'admin/edit-product/:code', component: EditProductComponent },
+  { path: 'admin/update-product/:code', component: UpdateProductComponent },
   { path: 'admin/create-account', component: CreateAccountComponent },
   { path: 'admin/edit-account', component: EditAccountComponent },
   { path: 'admin/accounts', component: ListAccountComponent },

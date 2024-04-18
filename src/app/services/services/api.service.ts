@@ -10,7 +10,7 @@ export class ApiService {
   private baseUrl = environment.apiUrl;
 
   // Authen
-  private ME = this.baseUrl + "/auth/me";
+  private ME = this.baseUrl + "auth/me";
   private REGISTER = this.baseUrl + "/auth/signup";
   private EDITPROFILE = this.baseUrl + "/auth/edit-profile";
   private FORGETPASS = this.baseUrl + "/auth/forget-password/";
@@ -84,7 +84,7 @@ export class ApiService {
 
   public me(): Observable<any> {
     const headers = this.getHeadersWithToken();
-    return this.http.post<any>(this.ME, { headers });
+    return this.http.get<any>(this.ME, { headers });
   }
 
   public forgetpass(mail: string): Observable<any> {
@@ -258,6 +258,11 @@ export class ApiService {
     const formData = new FormData();
     formData.append('product', product)
     return this.http.post<any>(`${this.CREATE_PRODUCT}`, formData,{ headers });
+  }
+
+  public getProductDetail(facilityId = 1, code: any): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.get<any>(`${this.GET_PRODUCT}/${code}?facilityId=${facilityId}`, { headers });
   }
 
 }

@@ -97,7 +97,7 @@ export class ListProductComponent implements OnInit {
       next: (res) => {
         this.products = this.products.map(it => {
           if (it.productId === id) {
-            it.status = "Hoạt động"
+            it.status = "Chưa bán"
           }
 
           return it
@@ -110,7 +110,7 @@ export class ListProductComponent implements OnInit {
   }
 
   edit(code: any) {
-    
+    this.router.navigate([`/admin/update-product/${code}`]);
   }
 
   add() {
