@@ -3,151 +3,59 @@
     <!-- shape Hero -->
     <section class="section">
       <div class="section-intro">
-        <div class="container py-lg-md d-flex">
-          <div class="col px-0">
-            <div class="row">
-              <div class="col-lg-12 title-descriptions">
-                <h1 class="display-3">We’re here to
-                </h1>
-                <div class="lead">gurantee your success</div>
-                <hr>
+        <div class="container py-lg-md d-flex mb-10 " style="background: #f0ecec; gap: 15px;">
+            <div class="products">
+              <h3>Sản phẩm</h3>
+              <div class="product-block">
+                <div class="product-item" *ngFor="let product of productBuys">
+                  <img [src]="product.image" alt="">
+                  <div class="name-category">
+                      <h6>{{product.name}}</h6>
+                      <p>{{product.category}}</p>
+                  </div>
+                  <div class="quantity-price">
+                    <p class="quantity">x{{product.quantity}}</p>
+                    <h5>{{product.price | currency:'VND':'symbol':null:'vi-VN'}}</h5>
+                  </div>
+                </div>
+                <div class="total-price">
+                  <h6>Tổng</h6>
+                  <p>{{onTotalPriceNoVoucher() | currency:'VND':'symbol':null:'vi-VN'}}</p>
+                </div>
+                <div class="voucher-discount">
+                  <p style="margin-bottom: 0; text-align: right; margin-top: -10px; color: #cd5353;">-{{discountVoucher | currency:'VND':'symbol':null:'vi-VN'}}</p>
+                </div>
+                <div class="total-price order">
+                  <h4>Tổng giá</h4>
+                  <p>{{totalPrice | currency:'VND':'symbol':null:'vi-VN'}}</p>
+                </div>
+              </div>
+              <div class="payment">
+                <h6>Phương thức thanh toán</h6>
+                <div *ngFor="let option of options">
+                  <label>
+                    <input type="radio"[checked]="option == selectedOptionBuy" [value]="option" [(ngModel)]="selectedOptionBuy" name="options">
+                    {{ option }}
+                  </label>
+                </div>
+                <button class="btn btn-primary" (click)="handlePaymentOrder()">Mua hàng</button>
               </div>
             </div>
-            <div class="div-text">
-              <p>ConsultUs provides consulting services that help business owners and leaders build a more valuable
-                business. We worked
-                with their founder to build a professional, modern site that follows the StoryBrand framework to
-                clearly communicates
-                the value it adds to potential clients
-              </p>
+            <div class="vouchers">
+              <h3>Voucher giảm giá</h3>
+              <div class="voucher-block">
+                <div class="voucher-item"  *ngFor="let voucher of vouchers" (click)="handleActiveVoucher(voucher)" [ngClass]="{'check': voucherSelect?.id == voucher.id}">
+                  <div class="info-voucher" >
+                    <p class="name">{{voucher.name}}</p>
+                    <p class="value">Giảm {{voucher.percentAmount}}% tối đa {{voucher.maxMoneyAmount | currency:'VND':'symbol':null:'vi-VN'}}</p>
+                  </div>
+                  <i class="fa-solid fa-check check-voucher" *ngIf="voucherSelect?.id == voucher.id"></i>
+                </div>
+              </div>
             </div>
-            <img class="imageAboutTitle" alt="" src="assets/img/Frame 1357.png">
-
-          </div>
+            
         </div>
       </div>
     </section>
-    <!-- 1st Hero Variation -->
   </div>
-
-  <section class="section" style="padding-bottom: 0 !important;">
-    <div class="section-intro">
-      <div class="container" style="padding: 0 15px;">
-        <div class="col px-0">
-          <div class="row">
-            <div class="col-lg-12 title-descriptions">
-              <h1 class="display-3">We’re here for you
-              </h1>
-              <div class="lead">no matter where you are</div>
-              <hr>
-            </div>
-          </div>
-
-          <img class="imageWM" alt="" src="assets/img/WorldMap.png">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-intro">
-      <div class="container" style="padding: 0 15px;">
-        <div class="col px-0">
-          <div class="row">
-            <div class="col-lg-12 title-descriptions text-left">
-              <span class="display-3">Our
-              </span>
-              <span class="lead">Mission</span>
-            </div>
-            <div class="our-mission d-flex">
-              <div class="col-lg-3 text-bold">
-                Unmatched service
-              </div>
-              <div class="col-lg-9">
-                Support corporate clients and financial investors with their growth strategy and international
-                development. Also supportive for everything that make user/ customer happy.
-              </div>
-            </div>
-            <div class="our-mission d-flex">
-              <div class="col-lg-3 text-bold">
-                Specific
-              </div>
-              <div class="col-lg-9">
-                ConsultUs’ core expertise lies in the ability to support our clients in understanding, analysing and
-                executing
-                commercial and investment strategies in specific markets.
-              </div>
-            </div>
-            <div class="our-mission d-flex">
-              <div class="col-lg-3 text-bold">
-                Experience
-              </div>
-              <div class="col-lg-9">
-                Experience in working with and assisting a wide range of clients from international corporations to
-                small/medium-sized
-                businesses, from large corporate debt providers to mid-market private equity investors.
-              </div>
-            </div>
-            <div class="our-mission d-flex">
-              <div class="col-lg-3 text-bold">
-                Technology
-              </div>
-              <div class="col-lg-9">
-                The best combination of technology and people.
-                The best combination of technology and people.The best combination of technology and people.
-
-
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-lg-12 title-descriptions text-left">
-              <span class="display-3">Our
-              </span>
-              <span class="lead">Commitment</span>
-            </div>
-            <div class="our-mission d-flex">
-              <div class="col-lg-3 text-bold">
-                Ethics
-              </div>
-              <div class="col-lg-9">
-                Ethics for ConsultUs means ensuring our customers the confidentiality and uniqueness of the service they
-                are provided. A
-                client must be reassured by the fact that the service provided to them is made-to-measure and will not
-                be
-                recycled for
-                their competitors.
-              </div>
-            </div>
-            <div class="our-mission d-flex">
-              <div class="col-lg-3 text-bold">
-                Quality
-              </div>
-              <div class="col-lg-9">
-                ConsultUs is committed to ensuring that our advice and recommendations are based on the best combination
-                of methods,
-                information research, creativity and internal quality assurance.
-              </div>
-            </div>
-            <div class="our-mission d-flex">
-              <div class="col-lg-3 text-bold">
-                Continuity
-              </div>
-              <div class="col-lg-9">
-                ConsultUs considers that the continuity of relations on the long term with its clients is the guarantee
-                of
-                the
-                satisfaction of these and the quality of the services provided.
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="elfsight-app-2bb20d90-b4b8-4f52-b90a-a2fc00eac7d1" data-elfsight-app-lazy></div>
-
-  </section>
-
 </main>

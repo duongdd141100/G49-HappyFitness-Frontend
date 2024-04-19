@@ -64,7 +64,9 @@ export class ApiService {
 
   // Order
   private FIND_ALL_ORDER = this.baseUrl + "orders";
-
+  private CREATE_ORDER = this.baseUrl + "orders/create";
+  private CREATE_PAYMENT = this.baseUrl + "payment/create";
+  private PAYMENT_COMPLETE = this.baseUrl + "payment/info";
   constructor(private http: HttpClient) { }
 
   private getHeadersWithToken(): HttpHeaders {
@@ -82,6 +84,21 @@ export class ApiService {
     }
     let paramsStr = params.length > 0 ? params.join('&') : '';
     return this.http.get<any>(`${this.USER_INFOR}` + (paramsStr ? `?${paramsStr}` : ''), { headers });
+  }
+  public createOrder(cartId, voucherCode?): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    const url = !voucherCode ? this.CREATE_ORDER : `${this.CREATE_ORDER}?voucherCode=${voucherCode}`
+    return this.http.post<any>(url, cartId , { headers });
+  }
+  public createPayment(amount, orderId):Observable<any>  {
+    const headers = this.getHeadersWithToken();
+    const url = `${this.CREATE_PAYMENT}?amount=${amount}&orderId=${orderId}`
+    return this.http.get<any>(url , { headers });
+  }
+  public completePayment(responseCode, orderId):Observable<any>  {
+    const headers = this.getHeadersWithToken();
+    const url = `${this.PAYMENT_COMPLETE}?responseCode=${responseCode}&orderId=${orderId}`
+    return this.http.get<any>(url , { headers });
   }
   public deleteCart(cart): Observable<any> {
     const headers = this.getHeadersWithToken();

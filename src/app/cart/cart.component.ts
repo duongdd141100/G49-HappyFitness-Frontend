@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/services/api.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -8,7 +10,7 @@ import { ApiService } from '../services/services/api.service';
 })
 export class CartComponent implements OnInit {
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private toastr: ToastrService, private router: Router) { }
   productCarts: any = [];
   productActives: Array<any> = [];
   ngOnInit(): void {
@@ -26,7 +28,12 @@ export class CartComponent implements OnInit {
       })
   }
   handleBuy() {
-    
+    if(this.productActives.length > 0) {
+      sessionStorage.setItem('productBuys', JSON.stringify(this.productActives));
+      this.router.navigate([`/order-checkout`])
+    } else {
+      return this.toastr.error('Chưa chọn sản phầm cần mua!');
+    }
   }
   handleActiveAllProduct(e) {
     if(e.target.checked) {
