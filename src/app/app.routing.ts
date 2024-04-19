@@ -33,6 +33,7 @@ import { VoucherViewAdminComponent } from "./voucher/voucher-view-admin/voucher-
 import { OrderAdminViewComponent } from "./order/admin-view/order-admin-view.component"
 import { CartComponent } from "./cart/cart.component";
 import { CreateVoucherComponent } from "./voucher/create-voucher/create-voucher.component";
+import { UpdateVoucherComponent } from "./voucher/update-voucher/update-voucher.component";
 
 
 const routes: Routes = [
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path: 'admin/vouchers', component: VoucherViewAdminComponent },
   { path: 'admin/orders', component: OrderAdminViewComponent },
   { path: 'admin/create-voucher', component: CreateVoucherComponent },
+  { path: 'admin/update-voucher/:id', component: UpdateVoucherComponent },
 
 
 

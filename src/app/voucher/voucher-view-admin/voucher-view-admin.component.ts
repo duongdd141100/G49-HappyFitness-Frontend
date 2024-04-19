@@ -50,8 +50,8 @@ export class VoucherViewAdminComponent implements OnInit {
 
   }
 
-  edit(id: any) {
-
+  update(id: any) {
+    this.router.navigate([`/admin/update-voucher/${id}`]);
   }
 
   add() {

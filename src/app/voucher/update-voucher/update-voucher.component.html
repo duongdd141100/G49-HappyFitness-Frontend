@@ -1,0 +1,79 @@
+<main>
+  <section class="section">
+    <div class="px-5">
+      <div class="row row-grid align-items-center">
+        <div class="col px-0">
+          
+          <div class="mt-3 mb-3">
+            <div class="row">
+              <div class="col-12 create-sticket">
+                <div class="card shadow shadow-lg--hover">
+                  <div class="d-flex justify-content-center">
+                    <h5 class="display-3">Thêm mã giảm giá</h5>
+                  </div>
+                  <div class="card-body" [formGroup]="voucherForm">
+                    <div class="form-group">
+                      <label for="">*Tên mã giảm giá</label>
+                      <input type="text" id="" class="form-control"  [formControlName]="'name'" placeholder="Tên mã giảm giá" aria-describedby="helpId">
+                      <div class="regexTel">
+                        <ng-container *ngIf="validateForm(voucherForm,'name')">
+                            <p class="text-danger"> Nhập tên</p>
+                        </ng-container>
+                      </div>
+                    </div>  
+                    <div class="form-group">
+                      <label for="">*Giảm theo phần trăm (%)</label>
+                      <input type="number" min="1" max="100" id="" [formControlName]="'percentAmount'" class="form-control" placeholder="Phần trăm giảm" aria-describedby="helpId">
+                      <div class="regexTel">
+                        <ng-container *ngIf="validateForm(voucherForm,'percentAmount')">
+                            <p class="text-danger"> Nhập phần trăm giảm</p>
+                        </ng-container>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="">*Giảm tối đa</label>
+                      <input type="text" currencyInput [formControlName]="'maxMoneyAmount'" id="" class="form-control" placeholder="Giá tiền tối đa được giảm" aria-describedby="helpId">
+                      <div class="regexTel">
+                        <ng-container *ngIf="validateForm(voucherForm,'maxMoneyAmount')">
+                            <p class="text-danger">Nhập giá tiền tối đa được giảm</p>
+                        </ng-container>
+                      </div>
+                    </div> 
+                    <div class="form-group">
+                      <label for="">*Ngày bắt đầu</label>
+                      <input type="date" [formControlName]="'startDate'" id="" class="form-control" placeholder="Ngày bắt đầu" aria-describedby="helpId">
+                      <div class="regexTel">
+                        <ng-container *ngIf="validateForm(voucherForm,'startDate')">
+                            <p class="text-danger">Ngày bắt đầu</p>
+                        </ng-container>
+                      </div>
+                    </div> 
+                    <div class="form-group">
+                      <label for="">*Ngày kết thúc</label>
+                      <input type="date" [formControlName]="'endDate'" id="" class="form-control" placeholder="Ngày kết thúc" aria-describedby="helpId">
+                      <div class="regexTel">
+                        <ng-container *ngIf="validateForm(voucherForm,'endDate')">
+                            <p class="text-danger">Ngày kết thúc</p>
+                        </ng-container>
+                      </div>
+                    </div> 
+                    <div class="form-group">
+                      <label for="">Mô tả mã giảm giá</label>
+                      <input type="text" name="" id="" class="form-control" [formControlName]="'description'" placeholder="Mô tả của vé" aria-describedby="helpId">
+                    </div>
+                    <!-- Phần text -->
+                    
+                  </div>
+                  <div class="card-footer">
+                    <button class="btn btn-primary" (click)="saveForm()">Lưu</button>
+                    <button class="btn btn-outline" (click)="location.back()">Quay lại</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

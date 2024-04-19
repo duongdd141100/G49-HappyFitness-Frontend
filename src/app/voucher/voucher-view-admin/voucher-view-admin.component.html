@@ -49,14 +49,9 @@
                     <td class="text-center">{{formatDateDdMmYyyy(v.endDate)}}</td>
                     <td class="text-center" class="text-center">
                      <div class="button-action">
-                        <div>
-                          <button class="btn btn-primary mr-2" aria-label="Delete" (click)="delete(u.productId)">
+                        <div >
+                          <button class="btn btn-primary mr-2" aria-label="update" (click)="update(v.id)">
                             <i class="fa-solid fa-pen-to-square"></i>
-                          </button>
-                        </div>
-                        <div>
-                          <button class="btn btn-danger" aria-label="Edit" (click)="edit(ticket.productId)">
-                            <i class="fa-solid fa-trash-can"></i>
                           </button>
                         </div>
                       </div>

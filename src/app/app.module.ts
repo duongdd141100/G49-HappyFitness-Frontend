@@ -56,6 +56,7 @@ import { FacilityViewAdminComponent } from "./facility/facility-view/facility-vi
 import { VoucherViewAdminComponent } from "./voucher/voucher-view-admin/voucher-view-admin.component";
 import { CartComponent } from "./cart/cart.component";
 import { CreateVoucherComponent } from "./voucher/create-voucher/create-voucher.component";
+import { UpdateVoucherComponent } from "./voucher/update-voucher/update-voucher.component";
 
 // import { FormsModule } from '@angular/forms';
 registerLocaleData(localeVi, 'vi-VN');
@@ -97,7 +98,8 @@ registerLocaleData(localeVi, 'vi-VN');
     VoucherViewAdminComponent,
     OrderAdminViewComponent,
     CartComponent,
-    CreateVoucherComponent
+    CreateVoucherComponent,
+    UpdateVoucherComponent
   ],
   imports: [
     NgbModule,

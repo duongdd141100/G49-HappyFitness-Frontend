@@ -60,6 +60,7 @@ export class ApiService {
   // Voucher
   private FIND_ALL_VOUCHER = this.baseUrl + "vouchers";
   private CREATE_VOUCHER = this.baseUrl + "vouchers/create";
+  private UPDATE_VOUCHER = this.baseUrl + "vouchers/update";
 
   // Order
   private FIND_ALL_ORDER = this.baseUrl + "orders";
@@ -221,9 +222,9 @@ export class ApiService {
     return this.http.post<any>(`${this.ACTIVE_PRODUCT}${id}`, {}, { headers });
   }
 
-  public findAllVoucher(): Observable<any> {
+  public findAllVoucher(id: any = null): Observable<any> {
     const headers = this.getHeadersWithToken();
-    return this.http.get<any>(`${this.FIND_ALL_VOUCHER}`, {headers});
+    return this.http.get<any>(`${this.FIND_ALL_VOUCHER}` + (id ? `/${id}` : ''), {headers});
   }
 
   public viewCart() {
@@ -310,5 +311,9 @@ export class ApiService {
   public createVoucher(voucher): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.post<any>(`${this.CREATE_VOUCHER}`, voucher, { headers });
+  }
+  public updateVoucher(voucher, id = null): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.UPDATE_VOUCHER}/${id}`, voucher, { headers });
   }
 }
