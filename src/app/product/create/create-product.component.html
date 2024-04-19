@@ -16,7 +16,7 @@
                   <div class="card-body" [formGroup]="productForm">
                     <div class="form-group">
                       <label for="">*Tên sản phẩm</label>
-                      <input type="text" id="" class="form-control"  [formControlName]="'name'" placeholder="Tên của vé" aria-describedby="helpId">
+                      <input type="text" id="" class="form-control"  [formControlName]="'name'" placeholder="Tên sản phẩm" aria-describedby="helpId">
                       <div class="regexTel">
                         <ng-container *ngIf="validateForm(productForm,'name')">
                             <p class="text-danger"> Nhập tên sản phẩm</p>
