@@ -51,10 +51,11 @@ export class ApiService {
 
   // Ticket
   private FACILITYTICKET = this.baseUrl + "tickets";
-  private DETAILTICKET = this.baseUrl + "tickets/5";
+  private DETAILTICKET = this.baseUrl + "tickets";
   private CREATE_TICKET = this.baseUrl + "tickets/create";
   private DEACTIVATE_TICKET = this.baseUrl + "tickets/deactivate";
   private ACTIVE_TICKET = this.baseUrl + "tickets/active";
+  private UPDATE_TICKET = this.baseUrl + "tickets/update";
   
   // Voucher
   private FIND_ALL_VOUCHER = this.baseUrl + "vouchers";
@@ -130,9 +131,9 @@ export class ApiService {
     return this.http.post<any>(`${this.ADDCART}`, { headers });
   }
 
-  public findTicketDetail(mail: string): Observable<any> {
+  public findTicketDetail(id: any): Observable<any> {
     const headers = this.getHeadersWithToken();
-    return this.http.post<any>(`${this.DETAILTICKET}`, { headers });
+    return this.http.get<any>(`${this.DETAILTICKET}/${id}`, { headers });
   }
 
   public ticketHistory(mail: string): Observable<any> {
@@ -300,5 +301,9 @@ export class ApiService {
   public activeTicket(id): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.post<any>(`${this.ACTIVE_TICKET}/${id}`, null, { headers });
+  }
+  public updateTicket(id, ticket): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.UPDATE_TICKET}/${id}`, ticket, { headers });
   }
 }

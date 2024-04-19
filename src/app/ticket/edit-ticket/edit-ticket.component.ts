@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Import CommonModule ở đây
+import { CommonModule, Location } from '@angular/common'; // Import CommonModule ở đây
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { scrollToFirstInvalidControl, validateAllFormFields, validateForm } from 'src/app/functions/function-helper';
+import { ApiService } from 'src/app/services/services/api.service';
 
 
 @Component({
@@ -10,40 +15,87 @@ import { CommonModule } from '@angular/common'; // Import CommonModule ở đây
 })
 
 export class EditTicketComponent implements OnInit {
-  focus: any;
-  focus1: any;
+  ticketForm: FormGroup;
   value = '';
-  note: any;
-  nameNull = false;
-  priceNull = false;
-  product_name: any;
-  product_price: any;
-  selectedType: string; // Biến lưu trữ loại sanpham được chọn
-  productTypes: string[] = ["Clothes", "Service", "Other"];
+  id: any;
+  facilityList : any = [];
+  ticket: any;
+  validateForm = validateForm
+  constructor(
+    private router: Router,
+    private toastr: ToastrService,
+    private apiService: ApiService,
+    public location: Location,
+    private _formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+  ) {
+    this.ticketForm = this.createTicketForm();
 
-  constructor() { }
-
+   }
   ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('id')
+    this.loadTicket();
+    this.apiService.getAllFacility().subscribe({
+      next: (res) => {
+        if(!res.body) return this.facilityList = [];
+        this.facilityList = res.body
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+      }, // errorHandler
+    })
     this.value = 'default';
-    this.selectedType = this.productTypes[0];
-    this.product_name = 'Gym Suit 1';
-    this.product_price = '$1200';
-    this.note = 'This product is very good'
+  }
+   createTicketForm  = ():FormGroup => {
+    return this._formBuilder.group({
+      name: [null, [Validators.required]],
+      monthDuration: [null,[Validators.required]],
+      price: [null,[Validators.required]],
+      description: [null],
+      facility: [1,[Validators.required]]
+    })
+   }
+   saveForm() {
+    this.ticketForm.value.facility = {
+      id : +this.ticketForm.value.facility
+    }
+    if (this.ticketForm.valid) {
+      this.ticketForm.value.price = +this.ticketForm.value.price.toString().replace('.', '');
+      this.apiService.updateTicket(this.id, this.ticketForm.value).subscribe({
+        next: (res) => {
+          this.toastr.success('cập nhật vé thành công!');
+          this.router.navigate(['/admin/tickets']);
+        }, // nextHandler
+        error: (err) => {
+          console.info(err)
+          this.toastr.error('Tạo vé thất bại!');
+        }, // errorHandler
+      })
+    } else {
+      validateAllFormFields(this.ticketForm);
+      scrollToFirstInvalidControl(this.ticketForm);
+    }
+   }
+  loadTicket() {
+    this.apiService.findTicketDetail(this.id).subscribe({
+      next: (res) => {
+        if(!res.body) return this.ticket = [];
+        this.ticket = res.body
+        this.ticketForm.patchValue({
+          name: this.ticket.name,
+          monthDuration: this.ticket.monthDuration,
+          price: this.ticket.price,
+          description: this.ticket.description,
+          facility: this.ticket.facility.id,
+        });
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+      }, // errorHandler
+    })
   }
 
   selectedOption(string: string) {
     this.value = string;
-  }
-
-  viewAll() {
-
-  }
-
-  cancel() {
-
-  }
-
-  save() {
-
   }
 }

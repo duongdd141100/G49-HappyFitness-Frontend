@@ -95,8 +95,8 @@ export class ListTicketAdComponent implements OnInit {
     })
   }
 
-  edit(id: any) {
-
+  update(id: any) {
+    this.router.navigate([`/admin/update-ticket/${id}`]);
   }
 
   add() {

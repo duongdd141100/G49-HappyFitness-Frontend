@@ -44,7 +44,7 @@ const routes: Routes = [
   { path: 'admin/update-account/:username', component: EditAccountComponent },
   { path: 'admin/accounts', component: ListAccountComponent },
   { path: 'admin/create-ticket', component: CreateTicketComponent },
-  { path: 'admin/edit-ticket', component: EditTicketComponent },
+  { path: 'admin/update-ticket/:id', component: EditTicketComponent },
   { path: 'admin/tickets', component: ListTicketAdComponent },
   { path: 'admin/facilities', component: FacilityViewAdminComponent },
   { path: 'admin/vouchers', component: VoucherViewAdminComponent },
