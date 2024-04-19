@@ -32,6 +32,7 @@ import { FacilityViewAdminComponent } from "./facility/facility-view/facility-vi
 import { VoucherViewAdminComponent } from "./voucher/voucher-view-admin/voucher-view-admin.component"
 import { OrderAdminViewComponent } from "./order/admin-view/order-admin-view.component"
 import { CartComponent } from "./cart/cart.component";
+import { CreateVoucherComponent } from "./voucher/create-voucher/create-voucher.component";
 
 
 const routes: Routes = [
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'admin/facilities', component: FacilityViewAdminComponent },
   { path: 'admin/vouchers', component: VoucherViewAdminComponent },
   { path: 'admin/orders', component: OrderAdminViewComponent },
+  { path: 'admin/create-voucher', component: CreateVoucherComponent },
 
 
 

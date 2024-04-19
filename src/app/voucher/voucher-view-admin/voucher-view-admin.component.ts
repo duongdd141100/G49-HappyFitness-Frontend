@@ -55,7 +55,7 @@ export class VoucherViewAdminComponent implements OnInit {
   }
 
   add() {
-    this.router.navigate(['/admin/create-ticket']);
+    this.router.navigate(['/admin/create-voucher']);
   }
   formatDateDdMmYyyy(value) {
     return formatDate(value, 'dd/MM/yyyy', 'en-US');

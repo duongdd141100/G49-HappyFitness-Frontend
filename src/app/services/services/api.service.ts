@@ -59,6 +59,7 @@ export class ApiService {
   
   // Voucher
   private FIND_ALL_VOUCHER = this.baseUrl + "vouchers";
+  private CREATE_VOUCHER = this.baseUrl + "vouchers/create";
 
   // Order
   private FIND_ALL_ORDER = this.baseUrl + "orders";
@@ -305,5 +306,9 @@ export class ApiService {
   public updateTicket(id, ticket): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.post<any>(`${this.UPDATE_TICKET}/${id}`, ticket, { headers });
+  }
+  public createVoucher(voucher): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.CREATE_VOUCHER}`, voucher, { headers });
   }
 }
