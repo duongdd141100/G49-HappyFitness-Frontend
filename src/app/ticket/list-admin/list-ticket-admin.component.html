@@ -61,19 +61,22 @@
                     <td>
                       {{ticket.facility.name}}
                     </td>
-                    <td>
+                    <td [ngClass]="ticket.status ? 'text-success' : 'text-danger'">
                       {{ticket.status ? 'Hoạt động' : 'Không hoạt động'}}
                     </td>
                     <td class="text-center">
                      <div class="button-action">
                         <div>
-                          <button class="btn btn-primary mr-2" aria-label="Delete" (click)="delete(ticket.productId)">
+                          <button class="btn btn-primary mr-2" aria-label="Update" (click)="update(ticket.id)">
                             <i class="fa-solid fa-pen-to-square"></i>
                           </button>
                         </div>
                         <div>
-                          <button class="btn btn-danger" aria-label="Edit" (click)="edit(ticket.productId)">
+                          <button *ngIf="ticket.status === true" class="btn btn-danger" aria-label="Deactivate" (click)="deactivate(ticket.id)">
                             <i class="fa-solid fa-trash-can"></i>
+                          </button>
+                          <button *ngIf="ticket.status === false" class="btn btn-success" aria-label="Active" (click)="active(ticket.id)">
+                            <i class="fa-solid fa-check"></i>
                           </button>
                         </div>
                       </div>

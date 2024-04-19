@@ -62,8 +62,21 @@ export class ListTicketAdComponent implements OnInit {
 
   }
 
-  delete(id: any) {
+  deactivate(id: any) {
+    this.apiService.deactivateTicket(id).subscribe({
+      next: (res) => {
+        this.listTickets = this.listTickets.map(it => {
+          if (it.id === id) {
+            it.status = false
+          }
 
+          return it
+        })
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+      }, // errorHandler
+    })
   }
 
   edit(id: any) {

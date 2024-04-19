@@ -53,6 +53,7 @@ export class ApiService {
   private FACILITYTICKET = this.baseUrl + "tickets";
   private DETAILTICKET = this.baseUrl + "tickets/5";
   private CREATE_TICKET = this.baseUrl + "tickets/create";
+  private DEACTIVATE_TICKET = this.baseUrl + "tickets/deactivate";
   
   // Voucher
   private FIND_ALL_VOUCHER = this.baseUrl + "vouchers";
@@ -290,5 +291,9 @@ export class ApiService {
   public createUser(user): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.post<any>(`${this.CREATE_USER}`, user, { headers });
+  }
+  public deactivateTicket(id): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.DEACTIVATE_TICKET}/${id}`, null, { headers });
   }
 }
