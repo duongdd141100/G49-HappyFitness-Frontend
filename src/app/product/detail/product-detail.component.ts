@@ -109,6 +109,7 @@ export class ProductDetailComponent implements OnInit {
      this.apiService.addCart(dataCart).subscribe({
       next: (res) => {
         this.toastr.success('Thêm vào cart thành công!');
+        this.apiService.viewCart()
       }, // nextHandler
       error: (err) => {
         console.info(err)

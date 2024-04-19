@@ -29,7 +29,11 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getOwnInfo().subscribe({
       next: (res) => {
-        // if(res) return this.router.navigate([`/home`])
+        if(res.body.role.id === 3) {
+          this.router.navigate([`home`])
+        } else {
+          this.router.navigate([`admin/dashboard`])
+        }
 
       }, // nextHandler
       error: (err) => {
