@@ -21,6 +21,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         // Xử lý lỗi ở đây
         console.error('An error occurred:', error);
+        this.toast.error(error.error.body);
 
         // Lấy URL của đường dẫn hiện tại
         const currentUrl = this.router.url;

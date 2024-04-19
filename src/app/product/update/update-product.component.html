@@ -78,7 +78,7 @@
                     </div>
                     <div class="form-group">
                       <label for="">*Giá</label>
-                      <input type="text" id="" class="form-control" [formControlName]="'price'" placeholder="Giá" aria-describedby="helpId">
+                      <input type="text" currencyInput id="" class="form-control" [formControlName]="'price'" placeholder="Giá" aria-describedby="helpId">
                       <div class="regexTel">
                         <ng-container *ngIf="validateForm(productForm,'price')">
                             <p class="text-danger"> Nhập giá</p>
@@ -87,10 +87,10 @@
                     </div>
                     <div class="form-group">
                       <label for="">*Tồn kho</label>
-                      <input type="text" id="" class="form-control" [formControlName]="'stockQuantity'" placeholder="Tồn kho" aria-describedby="helpId">
+                      <input type="number" id="" min="0" max="10000" class="form-control" [formControlName]="'stockQuantity'" placeholder="Tồn kho" aria-describedby="helpId">
                       <div class="regexTel">
                         <ng-container *ngIf="validateForm(productForm,'stockQuantity')">
-                            <p class="text-danger"> Nhập tên sản phẩm</p>
+                            <p class="text-danger"> Nhập số lượng tồn kho</p>
                         </ng-container>
                       </div>
                     </div>

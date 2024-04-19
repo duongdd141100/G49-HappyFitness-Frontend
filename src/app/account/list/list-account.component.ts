@@ -64,12 +64,8 @@ export class ListAccountComponent implements OnInit {
 
   }
 
-  delete(id: any) {
-
-  }
-
-  edit(id: any) {
-
+  update(username: any) {
+    this.router.navigate([`admin/update-account/${username}`])
   }
 
   add() {

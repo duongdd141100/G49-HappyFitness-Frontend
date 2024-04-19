@@ -40,7 +40,7 @@ const routes: Routes = [
   { path: 'admin/create-product', component: CreateProductComponent },
   { path: 'admin/update-product/:code', component: UpdateProductComponent },
   { path: 'admin/create-account', component: CreateAccountComponent },
-  { path: 'admin/edit-account', component: EditAccountComponent },
+  { path: 'admin/update-account/:username', component: EditAccountComponent },
   { path: 'admin/accounts', component: ListAccountComponent },
   { path: 'admin/create-ticket', component: CreateTicketComponent },
   { path: 'admin/edit-ticket', component: EditTicketComponent },

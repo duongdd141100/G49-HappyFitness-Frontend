@@ -178,32 +178,28 @@ export class UpdateProductComponent implements OnInit, OnChanges {
           description: product.description
         }, this.product.productId).subscribe({
         next: (res) => {
-          if (res.code !== 200)  return this.toastr.error('Cập nhật sản phẩm thất bại!');
-          this.toastr.success('Cập nhật sản phẩm thành công!');
-          this.router.navigate(['/admin/products']);
+          product.price = +this.productForm.value.price.toString().replaceAll('.', '');
+          this.apiService.updateFacilityProduct(
+            {
+              stockQuantity: product.stockQuantity,
+              price: product.price,
+              status: product.status
+            }, this.product.productId, product.facilityId).subscribe({
+            next: (res) => {
+              this.toastr.success('Cập nhật sản phẩm thành công!');
+              this.router.navigate(['/admin/products']);
+            }, // nextHandler
+            error: (err) => {
+              this.toastr.error(err.error.body);
+            }, // errorHandler
+          })
         }, // nextHandler
         error: (err) => {
           console.info(err)
-          this.toastr.error('Cập nhật sản phẩm thất bại!');
+          this.toastr.error(err.error.body);
         }, // errorHandler
       })
     }
-    this.apiService.updateFacilityProduct(
-      {
-        stockQuantity: product.stockQuantity,
-        price: product.price,
-        status: product.status
-      }, this.product.productId, product.facilityId).subscribe({
-      next: (res) => {
-        if (res.code !== 200)  return this.toastr.error('Cập nhật sản phẩm thất bại!');
-        this.toastr.success('Cập nhật sản phẩm thành công!');
-        this.router.navigate(['/admin/products']);
-      }, // nextHandler
-      error: (err) => {
-        console.info(err)
-        this.toastr.error('Cập nhật sản phẩm thất bại!');
-      }, // errorHandler
-    })
   } else {
     validateAllFormFields(this.productForm);
     scrollToFirstInvalidControl(this.productForm);
