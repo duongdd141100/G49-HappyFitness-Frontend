@@ -48,11 +48,9 @@ import { MatSliderModule } from '@angular/material/slider';
 import { EditTicketComponent } from "./ticket/edit-ticket/edit-ticket.component";
 import { CreateTicketComponent } from "./ticket/create-ticket/create-ticket.component";
 import { ListTicketAdComponent } from "./ticket/list-admin/list-ticket-admin.component";
-import { FacilityViewAdminComponent } from "./facility/facility-view/facility-view.component";
-import { VoucherViewAdminComponent } from "./voucher/voucher-view-admin/voucher-view-admin.component";
-import { OrderAdminViewComponent } from "./order/admin-view/order-admin-view.component"
 import localeVi from '@angular/common/locales/vi';
 import { InputDirectivesModule } from "./directives/directives.module";
+import { ErrorInterceptor } from "src/environments/ErrorInterceptor";
 
 // import { FormsModule } from '@angular/forms';
 registerLocaleData(localeVi, 'vi-VN');
@@ -89,9 +87,6 @@ registerLocaleData(localeVi, 'vi-VN');
     TicketDetailComponent,
     CreateTicketComponent,
     EditTicketComponent,
-    FacilityViewAdminComponent,
-    VoucherViewAdminComponent,
-    OrderAdminViewComponent,
   ],
   imports: [
     NgbModule,
@@ -119,8 +114,13 @@ registerLocaleData(localeVi, 'vi-VN');
     MatSliderModule
   ],
   providers: [
-    AuthService,
-    ApiService
+    AuthService, 
+    ApiService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
   entryComponents: [],

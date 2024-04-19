@@ -7,12 +7,11 @@ import {
   ViewChild,
   HostListener,
 } from "@angular/core";
-import { Router, NavigationEnd } from "@angular/router";
+import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
 import { DOCUMENT } from "@angular/common";
 import { Location } from "@angular/common";
 import { filter, Observable, Subscription } from "rxjs";
 import { ROUTES2 } from "./shared/sidebar/sidebar.component";
-
 var didScroll;
 var lastScrollTop = 0;
 var delta = 5;
@@ -26,8 +25,7 @@ var navbarHeight = 0;
 export class AppComponent implements OnInit {
   private _router: Subscription;
   customerNavbar = true;
-  guestNavbar = true;
-  managerNavbar = true;
+  managerNavbar = false;
   isAuthenticated = false;
   isAuthenticated$: Observable<boolean>;
   username: any;
@@ -38,8 +36,11 @@ export class AppComponent implements OnInit {
     private router: Router,
     @Inject(DOCUMENT) private document: any,
     private element: ElementRef,
-    public location: Location
-  ) { }
+    public location: Location,
+    private route: ActivatedRoute
+  ) { 
+
+  }
   @HostListener("window:scroll", ["$event"])
   hasScrolled() {
     var st = window.pageYOffset;
@@ -52,9 +53,9 @@ export class AppComponent implements OnInit {
     // This is necessary so you never see what is "behind" the navbar.
     if (st > lastScrollTop && st > navbarHeight) {
       // Scroll Down
-      if (navbar.classList.contains("headroom--pinned")) {
-        navbar.classList.remove("headroom--pinned");
-        navbar.classList.add("headroom--unpinned");
+      if (navbar?.classList.contains("headroom--pinned")) {
+        navbar?.classList.remove("headroom--pinned");
+        navbar?.classList.add("headroom--unpinned");
       }
       // $('.navbar.headroom--pinned').removeClass('headroom--pinned').addClass('headroom--unpinned');
     } else {
@@ -62,7 +63,7 @@ export class AppComponent implements OnInit {
       //  $(window).height()
       if (st + window.innerHeight < document.body.scrollHeight) {
         // $('.navbar.headroom--unpinned').removeClass('headroom--unpinned').addClass('headroom--pinned');
-        if (navbar.classList.contains("headroom--unpinned")) {
+        if (navbar?.classList.contains("headroom--unpinned")) {
           navbar.classList.remove("headroom--unpinned");
           navbar.classList.add("headroom--pinned");
         }
@@ -80,12 +81,23 @@ export class AppComponent implements OnInit {
     }
     return "";
   }
+  checkUrlChange() {
+    const currentUrl = this.router.url;
+    // Kiểm tra xem URL có chứa '/admin/' không
+    this.managerNavbar = currentUrl.includes('/admin/');
+  }
+  
   ngOnInit() {
-    if (this.managerNavbar) {
-      this.listTitles = ROUTES2.filter((listTitle) => listTitle);
-    }
+    this.router.events.subscribe((event: any) => {
+      if (event instanceof NavigationEnd) {
+        this.checkUrlChange(); // Hàm xử lý thay đổi url
+        if (this.managerNavbar) {
+          this.listTitles = ROUTES2.filter((listTitle) => listTitle);
+        }
+      }
+    });
     var navbar: HTMLElement =
-      this.element.nativeElement.children[0].children[0];
+      this.element?.nativeElement?.children[0].children[0];
     this._router = this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {

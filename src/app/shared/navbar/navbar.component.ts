@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { Router, NavigationEnd, NavigationStart } from "@angular/router";
 import { Location, PopStateEvent } from "@angular/common";
 import { ROUTES2 } from "../sidebar/sidebar.component";
-import { AuthService } from "../../services/services/auth.service"
+import { AuthService } from "src/app/services/services/auth.service";
 
 @Component({
   selector: "app-navbar",
@@ -14,25 +14,44 @@ export class NavbarComponent implements OnInit {
   public focus;
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
+  roleNumber: number
+  account: any;
   listTitles: any[];
   @Input() public managerNavbar: any;
   @Input() public customerNavbar: any;
   @Input() public guestNavbar: any;
-  @Input() public username: any;
   @Input() public id: any;
 
   constructor(
     public location: Location,
     private router: Router,
     private authService: AuthService,
-    // private cacheService: CacheService
+    // private authService: AuthService,
   ) { }
-
+  onLoadAdmin() {
+    this.authService.getOwnInfo().subscribe({
+      next: (res) => {
+        if(res.body.role.id === 3) return this.router.navigate(['/home']);
+        this.roleNumber = res.body.role.id
+        this.account = res.body
+      }, // nextHandler
+      error: (err) => {
+        this.roleNumber = null
+        this.account = null
+        return
+      }, 
+    })
+  }
   ngOnInit() {
-    // if (!this.authService.getJwtToken()) {
-    //   this.username = '';
-    // }
-
+    this.onLoadAdmin();
+    this.router.events.subscribe((event: any) => {
+        this.onLoadAdmin();
+    })
+   
+    // this.router.events.subscribe((event: any) => {
+        
+    // });
+   
     if (this.managerNavbar) {
       this.listTitles = ROUTES2.filter((listTitle) => listTitle);
     }
@@ -76,9 +95,6 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.authService.signout();
-    sessionStorage.removeItem("token");
-    this.authService.setAuthenticationStatus(false);
-    this.router.navigate(["/login"]);
   }
 
   refresh() {
