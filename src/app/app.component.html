@@ -1,15 +1,17 @@
 <!-- Màn hình customer -->
-<!-- <div>
-    <app-navbar-customer [guestNavbar]="guestNavbar" [guestNavbar]="guestNavbar"></app-navbar-customer>
-    <router-outlet *ngIf="guestNavbar"></router-outlet>
-    <app-footer *ngIf="guestNavbar"></app-footer>
-</div> -->
+<div *ngIf="!managerNavbar">
+    <app-navbar-customer *ngIf="!managerNavbar" [accountUser]="account"></app-navbar-customer>
+    <router-outlet *ngIf="!managerNavbar"></router-outlet>
+    <app-footer *ngIf="!managerNavbar"></app-footer>
+</div>
 
 <!-- Màn hình quản lý -->
-<div *ngIf="( managerNavbar )">
-    <app-sidebar [managerNavbar]="managerNavbar" [username]="username"></app-sidebar>
-    <app-navbar [managerNavbar]="managerNavbar" [username]="username"></app-navbar>
-    <div class="main-content">
-        <router-outlet></router-outlet>
+<div *ngIf="managerNavbar">
+    <app-sidebar *ngIf="managerNavbar" [managerNavbar]="managerNavbar" [username]="username"></app-sidebar>
+    <app-navbar *ngIf="managerNavbar" [managerNavbar]="managerNavbar" [username]="username"></app-navbar>
+    <div class="main-content" *ngIf="managerNavbar">
+        <h2 class="h4 mb-0 text-uppercase d-none d-lg-inline-block container-fluid">{{getTitle()}}</h2>
+        
+        <router-outlet *ngIf="managerNavbar"></router-outlet>
     </div>
 </div>
