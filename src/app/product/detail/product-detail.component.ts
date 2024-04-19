@@ -92,7 +92,7 @@ export class ProductDetailComponent implements OnInit {
     if (!this.quantity || +this.quantity <= 0) return; // số lượng sản phẩm không hợp lệ
 
     // check status product
-    if(this.productByCode.status != this.statusProduct[3].text) return this.toastr.error(`Sản phẩm ${this.productByCode.status}`); 
+    if(this.productByCode.status != this.statusProduct[3].code) return this.toastr.error(`Sản phẩm ${this.getStatusStr(this.productByCode.status)}`); 
 
     //check role có phải customer không
     if(this.roleNumber != 3) {
@@ -170,4 +170,7 @@ export class ProductDetailComponent implements OnInit {
   //     }, // errorHandler
   //   })
   // }
+  getStatusStr(statusCode) {
+    return this.statusProduct.find((x) =>x.code === statusCode).text
+  }
 }

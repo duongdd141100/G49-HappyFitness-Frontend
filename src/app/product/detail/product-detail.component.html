@@ -11,7 +11,7 @@
                 <div class="card-body">
                   <div class="image-section mb-3 text-center">
                     <img *ngIf="productByCode && productByCode.imagePath" [src]="productByCode.imagePath" alt="Product" class="image-product">
-                    <p class="status-product">{{productByCode.status}}</p>
+                    <p class="status-product">{{ getStatusStr(productByCode.status)  }}</p>
                   </div>
                   <div class="text-section" style="margin-right: 28px;">
                     <h4>{{productByCode.name}}</h4>
