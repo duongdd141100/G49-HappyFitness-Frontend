@@ -34,6 +34,7 @@ import { OrderAdminViewComponent } from "./order/admin-view/order-admin-view.com
 import { CartComponent } from "./cart/cart.component";
 import { CreateVoucherComponent } from "./voucher/create-voucher/create-voucher.component";
 import { UpdateVoucherComponent } from "./voucher/update-voucher/update-voucher.component";
+import { OrderSuccessComponent } from "./order/order-success/order-success.component";
 
 
 const routes: Routes = [
@@ -76,6 +77,7 @@ const routes: Routes = [
   { path: 'tickets', component: TicketListComponent },
   { path: 'ticket-detail', component: TicketDetailComponent },
   { path: 'cart', component: CartComponent },
+  { path: 'order-success/:id', component: OrderSuccessComponent },
 
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

@@ -17,7 +17,8 @@ export class ErrorInterceptor implements HttpInterceptor {
   constructor(private router: Router, private toast: ToastrService) {}
   // list url customer cần check auth
   arrayUrlCheckAuth = [
-    '/cart'
+    '/cart',
+    '/order-checkout'
   ]
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
