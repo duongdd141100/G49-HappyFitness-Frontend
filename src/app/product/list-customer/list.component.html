@@ -3,6 +3,14 @@
     <div class="container-fluid mt-5">
       <div class="filter-container">
         <div class="input-group radio-column">
+          <div class="form-group">
+            <h5 for="facility" class="title-filter">Cơ sở</h5>
+            <select [(ngModel)]="selectedFacility" (change)="onFacilityChange($event.target.value)" class="form-control facility-select" name="facility" id="facility">
+              <option *ngFor="let facility of facilities" [value]="facility.id" [selected]="facility.id === facilities[0].id" >{{ facility.name }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group radio-column">
           <h5 class="title-filter">Danh mục </h5>
           <div class="list-block">
             <div class="block-item" [ngClass]="{'select': !selectedCategory}" (click)="onCategoryClicked()">
@@ -22,14 +30,6 @@
             <div class="block-item" [ngClass]="{'select': selectedSupplier == supplier.id}" *ngFor="let supplier of suppliers" (click)="onSupplierClicked(supplier.id)">
               {{supplier.name}}
             </div>
-          </div>
-        </div>
-        <div class="input-group radio-column">
-          <div class="form-group">
-            <h5 for="facility" class="title-filter">Cơ sở</h5>
-            <select [(ngModel)]="selectedFacility" (change)="onFacilityChange($event.target.value)" class="form-control facility-select" name="facility" id="facility">
-              <option *ngFor="let facility of facilities" [value]="facility.id" [selected]="facility.id === facilities[0].id" >{{ facility.name }}</option>
-            </select>
           </div>
         </div>
       </div>
