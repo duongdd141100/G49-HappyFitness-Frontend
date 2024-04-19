@@ -63,9 +63,17 @@ export class ApiService {
     const token = sessionStorage.getItem('token');
     return new HttpHeaders().set('Authorization', token ? 'Bearer ' + token : '');
   }
-  getUsers(roleId = null): Observable<any> {
+  getUsers(roleId = null, username = null): Observable<any> {
     const headers = this.getHeadersWithToken();
-    return this.http.get<any>(roleId ? `${this.USER_INFOR}?roleId=${roleId}` : this.USER_INFOR, { headers });
+    let params = [];
+    if (roleId) {
+      params.push(`roleId=${roleId}`);
+    }
+    if (username != null) {
+      params.push(`username=${username}`);
+    }
+    let paramsStr = params.length > 0 ? params.join('&') : '';
+    return this.http.get<any>(`${this.USER_INFOR}` + (paramsStr ? `?${paramsStr}` : ''), { headers });
   }
 
   register(fullName: string, username: string, email: string, password: string, phoneNumber: string, role: any, gender: string, dob: string): Observable<any> {

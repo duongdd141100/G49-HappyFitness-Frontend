@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getOwnInfo().subscribe({
       next: (res) => {
-        if(res) return this.router.navigate([`/home`])
+        // if(res) return this.router.navigate([`/home`])
 
       }, // nextHandler
       error: (err) => {

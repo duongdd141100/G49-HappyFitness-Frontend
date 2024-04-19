@@ -54,7 +54,7 @@
                     <!-- <th class="text-center" scope="col">Tác vụ</th> -->
                   </tr>
                 </thead>
-                <tbody *ngIf="orders">
+                <tbody>
                   <tr *ngFor="let o of orders">
                     <td>{{o.username}}</td>
                     <td class="text-center" [ngClass]="o.paid === true ? 'text-success' : 'text-danger'">{{o.paid ? 'Đã thanh toán' : 'Chưa thanh toán'}}</td>

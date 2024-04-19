@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common'; // Import CommonModule ở đây
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { scrollToFirstInvalidControl, validateAllFormFields, validateForm } from 'src/app/functions/function-helper';
@@ -25,12 +25,15 @@ export class EditAccountComponent implements OnInit {
   genderTypes: string[] = ["Male", "Female"];
   validateForm = validateForm
   facilities: any[];
+  username: any;
+  user: any;
   constructor(
     private router: Router,
     private toastr: ToastrService,
     private _formBuilder: FormBuilder,
     private apiService: ApiService,
     public location: Location,
+    private route: ActivatedRoute,
   ) {
     this.userForm = this.creatUserForm();
   }
@@ -51,11 +54,36 @@ export class EditAccountComponent implements OnInit {
 
   ngOnInit() {
     this.onLoadFacilities();
+    this.username = this.route.snapshot.paramMap.get('username')
+    this.onLoadUser();
     this.value = '';
     this.selectedType = this.genderTypes[0];
     this.product_name = '';
     this.product_price = '';
     this.note = ''
+  }
+  onLoadUser() {
+    this.apiService.getUsers(null, this.username).subscribe({
+      next: (res) => {
+        if(!res.body) return this.user = [];
+        this.user = res.body[0]
+        this.userForm.patchValue({
+          fullName: this.user.fullName,
+          username: this.user.username,
+          email: this.user.email,
+          password: this.user.password,
+          phoneNumber: this.user.phoneNumber,
+          roleId: this.user.roleId,
+          gender: this.user.gender,
+          dob: this.user.dob,
+          facilityId: this.user.facilityId,
+          address: this.user.address,
+        })
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+      }, // errorHandler
+    })
   }
   onLoadFacilities() {
     this.apiService.getAllFacility().subscribe({

@@ -51,6 +51,9 @@ import { ListTicketAdComponent } from "./ticket/list-admin/list-ticket-admin.com
 import localeVi from '@angular/common/locales/vi';
 import { InputDirectivesModule } from "./directives/directives.module";
 import { ErrorInterceptor } from "src/environments/ErrorInterceptor";
+import { OrderAdminViewComponent } from "./order/admin-view/order-admin-view.component";
+import { FacilityViewAdminComponent } from "./facility/facility-view/facility-view.component";
+import { VoucherViewAdminComponent } from "./voucher/voucher-view-admin/voucher-view-admin.component";
 
 // import { FormsModule } from '@angular/forms';
 registerLocaleData(localeVi, 'vi-VN');
@@ -82,11 +85,15 @@ registerLocaleData(localeVi, 'vi-VN');
     OrderDetailComponent,
     OrderHomeComponent,
     OrderHistoryComponent,
+    OrderAdminViewComponent,
     TicketListComponent,
     ListTicketAdComponent,
     TicketDetailComponent,
     CreateTicketComponent,
     EditTicketComponent,
+    FacilityViewAdminComponent,
+    VoucherViewAdminComponent,
+    OrderAdminViewComponent,
   ],
   imports: [
     NgbModule,
