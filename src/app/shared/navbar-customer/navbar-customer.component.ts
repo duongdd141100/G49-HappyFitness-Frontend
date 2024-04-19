@@ -15,11 +15,7 @@ export class NavbarCustomerComponent implements OnInit {
   public focus;
   public roleNumber: any;
   public userName: any;
-  public shouldShowNav = false;
   listTitles: any[];
-  @Input() public managerNavbar: any;
-  @Input() public customerNavbar: any;
-  @Input() public guestNavbar: any;
   // @Input() public username: any;
   @Input() public id: any;
 
@@ -32,14 +28,19 @@ export class NavbarCustomerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.router.events.subscribe(event => {
+    this.takeOwnInfo()
+    this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
-        const url = window.location.pathname;
-        const segments = url.split('/');
-        this.shouldShowNav = segments[segments.length - 1] != 'login';
         this.takeOwnInfo()
       }
-    })
+    });
+    
+
+    // this.router.events.subscribe(event => {
+    //   if (event instanceof NavigationEnd) {
+    //     const url = window.location.pathname;
+    //   }
+    // })
     
   }
 
@@ -51,7 +52,10 @@ export class NavbarCustomerComponent implements OnInit {
         //   this.router.navigate([`/home`])
         //   return
         // }
-
+        if(!res) {
+          this.userName = null
+          return  this.roleNumber = null
+        } 
         this.roleNumber = res.body.role.id
         this.userName = res.body.username
       }, // nextHandler
@@ -64,13 +68,11 @@ export class NavbarCustomerComponent implements OnInit {
   }
 
   refresh() {
-    this.managerNavbar = false;
-    this.customerNavbar = false;
-    this.guestNavbar = true;
   }
 
   handleLogout () {
-    this.authService.signout()
+    this.authService.signout();
+    this.router.navigate(['/login']);
   }
 
 }
