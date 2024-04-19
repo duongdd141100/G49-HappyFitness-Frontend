@@ -6,7 +6,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { scrollToFirstInvalidControl, validateAllFormFields, validateForm } from 'src/app/functions/function-helper';
 import { ApiService } from 'src/app/services/services/api.service';
 
-
 @Component({
   selector: 'app-create-account',
   templateUrl: './create-account.component.html',
@@ -32,7 +31,7 @@ export class CreateAccountComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private apiService: ApiService,
     public location: Location,
-  ) { 
+  ) {
     this.userForm = this.creatUserForm();
   }
   creatUserForm(): FormGroup {
@@ -46,6 +45,7 @@ export class CreateAccountComponent implements OnInit {
       gender: [null,[Validators.required]],
       dob: [null,[Validators.required]],
       facilityId: [null,[Validators.required]],
+      address: [null,[Validators.required]],
     })
   }
 
@@ -87,19 +87,22 @@ export class CreateAccountComponent implements OnInit {
   }
   saveForm() {
     this.userForm.value.facility = {
-      id : +this.userForm.value.facility
+      id : +this.userForm.value.facilityId
+    }
+    this.userForm.value.role = {
+      id : +this.userForm.value.roleId
     }
     if (this.userForm.valid) {
-      this.userForm.value.price = +this.userForm.value.price.replace('.', '');
-      this.apiService.createTicketAdmin(this.userForm.value).subscribe({
+      console.info(this.userForm.value)
+      this.apiService.createUser(this.userForm.value).subscribe({
         next: (res) => {
-          if (res.code !== 200)  return this.toastr.error('Tạo vé thất bại!');
-          this.toastr.success('Tạo vé thành công!');
-          this.router.navigate(['/admin/tickets']);
+          if (res.code !== 200)  return this.toastr.error('Tạo tài khoản thất bại!');
+          this.toastr.success('Tạo tài khoản thành công!');
+          this.router.navigate(['/admin/accounts']);
         }, // nextHandler
         error: (err) => {
           console.info(err)
-          this.toastr.error('Tạo vé thất bại!');
+          this.toastr.error(err.error.body);
         }, // errorHandler
       })
     } else {

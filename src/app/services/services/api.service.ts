@@ -18,6 +18,7 @@ export class ApiService {
   // User
   private USER_INFOR = this.baseUrl + "users";
   private RESET_PASSWORD = this.baseUrl + "users/reset-password";
+  private CREATE_USER = this.baseUrl + "users/create";
   
   // Cart
   private VIEWCART = this.baseUrl + "/cart";
@@ -265,4 +266,8 @@ export class ApiService {
     return this.http.get<any>(`${this.GET_PRODUCT}/${code}?facilityId=${facilityId}`, { headers });
   }
 
+  public createUser(user): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.CREATE_USER}`, user, { headers });
+  }
 }
