@@ -1,12 +1,14 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ApiService {
   // private subject = new Subject<any>();
-
+  
+  private cartSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public cart$: Observable<any> = this.cartSubject.asObservable();
   private baseUrl = environment.apiUrl;
 
   // Authen
@@ -21,8 +23,9 @@ export class ApiService {
   private CREATE_USER = this.baseUrl + "users/create";
   
   // Cart
-  private VIEWCART = this.baseUrl + "/cart";
+  private VIEWCART = this.baseUrl + "cart";
   private ADDCART = this.baseUrl + "cart/add";
+  private DELETECART = this.baseUrl + "cart/delete";
 
   // Product
   private GET_PRODUCT = this.baseUrl + "products";
@@ -75,7 +78,10 @@ export class ApiService {
     let paramsStr = params.length > 0 ? params.join('&') : '';
     return this.http.get<any>(`${this.USER_INFOR}` + (paramsStr ? `?${paramsStr}` : ''), { headers });
   }
-
+  public deleteCart(cart): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.DELETECART}`, cart , { headers });
+  }
   register(fullName: string, username: string, email: string, password: string, phoneNumber: string, role: any, gender: string, dob: string): Observable<any> {
     return this.http.post<any>(this.REGISTER, { fullName, username, email, password, phoneNumber, role, gender, dob });
   }
@@ -216,9 +222,16 @@ export class ApiService {
     return this.http.get<any>(`${this.FIND_ALL_VOUCHER}`, {headers});
   }
 
-  public viewCart(mail: string): Observable<any> {
+  public viewCart() {
     const headers = this.getHeadersWithToken();
-    return this.http.post<any>(`${this.VIEWCART}`, { headers });
+    this.http.get<any>(`${this.VIEWCART}`, { headers }).subscribe(
+      (res) => {
+        this.cartSubject.next(res);
+      },
+      (error) => {
+        console.error('Error fetching cart:', error);
+      }
+    );
   }
 
   public post(endpoint: string, body: any): Observable<any> {

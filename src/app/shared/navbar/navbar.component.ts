@@ -31,7 +31,7 @@ export class NavbarComponent implements OnInit {
   onLoadAdmin() {
     this.authService.getOwnInfo().subscribe({
       next: (res) => {
-        if(res.body.role.id === 3) return this.router.navigate(['/home']);
+        if(res.body.role.id === 3 && this.router.url.includes('/admin/')) return this.router.navigate(['/home']);
         this.roleNumber = res.body.role.id
         this.account = res.body
       }, // nextHandler

@@ -31,6 +31,7 @@ import { ProductDetailComponent } from "./product/detail/product-detail.componen
 import { FacilityViewAdminComponent } from "./facility/facility-view/facility-view.component"
 import { VoucherViewAdminComponent } from "./voucher/voucher-view-admin/voucher-view-admin.component"
 import { OrderAdminViewComponent } from "./order/admin-view/order-admin-view.component"
+import { CartComponent } from "./cart/cart.component";
 
 
 const routes: Routes = [
@@ -70,7 +71,7 @@ const routes: Routes = [
   { path: 'order-history', component: OrderHistoryComponent },
   { path: 'tickets', component: TicketListComponent },
   { path: 'ticket-detail', component: TicketDetailComponent },
-
+  { path: 'cart', component: CartComponent },
 
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

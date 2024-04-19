@@ -15,12 +15,14 @@ import { ToastrService } from 'ngx-toastr';
 export class ErrorInterceptor implements HttpInterceptor {
 
   constructor(private router: Router, private toast: ToastrService) {}
+  // list url customer cần check auth
+  arrayUrlCheckAuth = [
+    '/cart'
+  ]
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        // Xử lý lỗi ở đây
-        console.error('An error occurred:', error);
         if (error.error.body !== 'Token không hợp lệ') {
           this.toast.error(error.error.body);
         }
@@ -30,7 +32,7 @@ export class ErrorInterceptor implements HttpInterceptor {
      
 
         // Chuyển hướng đến trang login nếu có lỗi từ routing
-        if (currentUrl.includes('/admin/') && error.status === 401) {
+        if ((currentUrl.includes('/admin/') || this.arrayUrlCheckAuth.includes(currentUrl)) &&error.status === 401) {
           this.toast.error('Vui lòng đăng nhập!');
           this.router.navigate(['/login']);
         }

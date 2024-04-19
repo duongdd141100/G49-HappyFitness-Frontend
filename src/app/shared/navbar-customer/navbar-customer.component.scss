@@ -35,3 +35,22 @@ img {
 .user-info:hover {
     cursor: pointer;
 }
+.cart {
+    position: relative;
+    i {
+    font-size: 25px;
+    margin-top: 5px;
+    margin-right: 5px;
+    }
+}
+.quantity-product-cart {
+    position: absolute;
+    width: 20px;
+    font-size: 13px;
+    text-align: center;
+    height: 20px;
+    border-radius: 20px;
+    top: -5px;
+    right: -3px;
+    background: #ccc;
+}

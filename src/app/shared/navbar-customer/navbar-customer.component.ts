@@ -4,6 +4,8 @@ import { Location, PopStateEvent } from "@angular/common";
 import { ROUTES2 } from "../sidebar/sidebar.component";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { AuthService } from 'src/app/services/services/auth.service';
+import { ApiService } from "src/app/services/services/api.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-navbar-customer",
@@ -15,6 +17,7 @@ export class NavbarCustomerComponent implements OnInit {
   public focus;
   public roleNumber: any;
   public userName: any;
+  quantityCart: number;
   listTitles: any[];
   // @Input() public username: any;
   @Input() public id: any;
@@ -23,25 +26,20 @@ export class NavbarCustomerComponent implements OnInit {
     public location: Location,
     private router: Router,
     private authService: AuthService,
+    private apiService: ApiService,
     public dialog: MatDialog, private renderer: Renderer2,
+    private toast: ToastrService
     // private dialogService: DialogService
   ) { }
 
   ngOnInit() {
-    this.takeOwnInfo()
+    this.takeOwnInfo();
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
-        this.takeOwnInfo()
+        this.takeOwnInfo();
+        
       }
-    });
-    
-
-    // this.router.events.subscribe(event => {
-    //   if (event instanceof NavigationEnd) {
-    //     const url = window.location.pathname;
-    //   }
-    // })
-    
+    }); 
   }
 
   takeOwnInfo() {
@@ -58,6 +56,8 @@ export class NavbarCustomerComponent implements OnInit {
         } 
         this.roleNumber = res.body.role.id
         this.userName = res.body.username
+        this.onLoadCart()
+
       }, // nextHandler
       error: (err) => {
         this.roleNumber = null
@@ -66,10 +66,27 @@ export class NavbarCustomerComponent implements OnInit {
       }, // errorHandler
     })
   }
-
+  onLoadCart() {
+    if(this.roleNumber === 3) {
+      this.apiService.viewCart();
+      this.apiService.cart$.subscribe(
+        (data) => {
+          if (!data) return;
+          this.quantityCart = data.body.length;
+          // Cập nhật giao diện với dữ liệu giỏ hàng mới
+        },
+        (error) => {
+          console.error('Error fetching cart:', error);
+        })
+    }
+  }
   refresh() {
   }
-
+  handleViewCart() { 
+    if (this.quantityCart <= 0) return this.toast.error('Giỏ hàng chưa có sản phẩm!');
+    if(this.roleNumber !== 3) return;
+    this.router.navigate(['/cart']);
+  }
   handleLogout () {
     this.authService.signout();
     this.router.navigate(['/login']);

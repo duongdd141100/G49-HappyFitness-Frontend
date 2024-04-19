@@ -10,41 +10,45 @@
     <a [routerLink]="['/ticket']" class="nav-item">Vé</a>
     <a [routerLink]="['/about']" class="nav-item">Về chúng tôi</a>
   </div>
-  <ul class="navbar-nav align-items-center d-none d-md-flex"  *ngIf="roleNumber">
-    <li class="nav-item" ngbDropdown placement="bottom-right">
-      <a class="nav-link pr-0" role="button" ngbDropdownToggle>
-        <div class="media align-items-center">
-          <span class="avatar avatar-sm rounded-circle">
-            <img alt="Image placeholder" src="assets/img/avatar-no.png">
-          </span>
-          
+  <div class="user-info d-flex align-items-center">
+    <div class="cart" *ngIf="roleNumber === 3">
+      <i class="fa-solid fa-cart-shopping" (click)="handleViewCart()"></i>
+      <span class="quantity-product-cart" *ngIf="this.quantityCart > 0">{{this.quantityCart}}</span>
+    </div>
+    <ul class="navbar-nav align-items-center d-none d-md-flex"  *ngIf="roleNumber">
+      <li class="nav-item" ngbDropdown placement="bottom-right">
+        <a class="nav-link pr-0" role="button" ngbDropdownToggle>
+          <div class="media align-items-center">
+            <span class="avatar avatar-sm rounded-circle">
+              <img alt="Image placeholder" src="assets/img/avatar-no.png">
+            </span>
+            
+          </div>
+        </a>
+        <div class="dropdown-menu-arrow dropdown-menu-right"  ngbDropdownMenu style="top: 70px; right: 11px;">
+          <div class=" dropdown-header noti-title">
+            <h6 class="text-overflow m-0">{{userName}}</h6>
+          </div>
+          <a routerLinkActive="active" [routerLink]="['/customer-profile']" class="dropdown-item">
+            <i class="ni ni-single-02"></i>
+            <span>Xem thông tin</span>
+          </a>
+          <a routerLinkActive="active" [routerLink]="['/change-pass']" class="dropdown-item">
+            <i class="fas fa-lock"></i>
+            <span>Đổi mật khẩu</span>
+          </a>
+          <a routerLinkActive="active" [routerLink]="['/support']" class="dropdown-item">
+            <i class="ni ni-support-16"></i>
+            <span>Liên hệ & Hỗ trợ</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a (click)="handleLogout()" class="dropdown-item">
+            <i class="ni ni-user-run"></i>
+            <span>Đăng xuất</span>
+          </a>
         </div>
-      </a>
-      <div class="dropdown-menu-arrow dropdown-menu-right"  ngbDropdownMenu style="top: 70px; right: 11px;">
-        <div class=" dropdown-header noti-title">
-          <h6 class="text-overflow m-0">{{userName}}</h6>
-        </div>
-        <a routerLinkActive="active" [routerLink]="['/customer-profile']" class="dropdown-item">
-          <i class="ni ni-single-02"></i>
-          <span>Xem thông tin</span>
-        </a>
-        <a routerLinkActive="active" [routerLink]="['/change-pass']" class="dropdown-item">
-          <i class="fas fa-lock"></i>
-          <span>Đổi mật khẩu</span>
-        </a>
-        <a routerLinkActive="active" [routerLink]="['/support']" class="dropdown-item">
-          <i class="ni ni-support-16"></i>
-          <span>Liên hệ & Hỗ trợ</span>
-        </a>
-        <div class="dropdown-divider"></div>
-        <a (click)="handleLogout()" class="dropdown-item">
-          <i class="ni ni-user-run"></i>
-          <span>Đăng xuất</span>
-        </a>
-      </div>
-    </li>
-  </ul>
-  <div class="user-info">
+      </li>
+    </ul>
     <a *ngIf="!roleNumber" [routerLink]="['/login']" style="margin-left: 1rem; margin-right: 0.5rem;">Đăng nhập</a>
   </div>
 </div>  
