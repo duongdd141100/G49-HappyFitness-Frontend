@@ -1,3 +1,4 @@
+import { Location } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
@@ -22,10 +23,19 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private toastr: ToastrService,
-    private authService: AuthService
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
+    this.authService.getOwnInfo().subscribe({
+      next: (res) => {
+        if(res) return this.router.navigate([`/home`])
+
+      }, // nextHandler
+      error: (err) => {
+        return
+      }, // errorHandler
+    })
   }
 
   login() {
