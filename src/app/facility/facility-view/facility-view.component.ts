@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Import CommonModule ở đây
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/services/api.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 
 @Component({
@@ -20,6 +22,7 @@ export class FacilityViewAdminComponent implements OnInit {
   constructor(
     private router: Router,
     private apiService: ApiService,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit() {
@@ -48,8 +51,8 @@ export class FacilityViewAdminComponent implements OnInit {
 
   }
 
-  delete(id: any) {
-
+  update() {
+    this.toastr.error('Tác vụ chưa được thực hiện');
   }
 
   edit(id: any) {

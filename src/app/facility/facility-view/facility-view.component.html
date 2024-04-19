@@ -27,6 +27,7 @@
                     <th scope="col">Tên cơ sở</th>
                     <th scope="col">Địa chỉ</th>
                     <th scope="col">Hotline</th>
+                    <th scope="col">Quản lý</th>
                     <th scope="col">Thời gian mở cửa</th>
                     <th scope="col">Thời gian đóng cửa</th>
                     <th scope="col">Tác vụ</th>
@@ -48,24 +49,27 @@
                       {{f.hotline}}
                     </td>
                     <td>
+                      {{f.manager.fullName}}
+                    </td>
+                    <td>
                       {{f.workStartTime}}
                     </td>
                     <td>
                       {{f.workEndTime}}
                     </td>
                     <td class="text-center">
-                     <!-- <div class="button-action">
+                     <div class="button-action">
                         <div>
-                          <button class="btn btn-primary mr-2" aria-label="Delete" (click)="delete(u.productId)">
+                          <button class="btn btn-primary mr-2" aria-label="Update" (click)="update()">
                             <i class="fa-solid fa-pen-to-square"></i>
                           </button>
                         </div>
-                        <div>
+                        <!-- <div>
                           <button class="btn btn-danger" aria-label="Edit" (click)="edit(ticket.productId)">
                             <i class="fa-solid fa-trash-can"></i>
                           </button>
-                        </div>
-                      </div> -->
+                        </div> -->
+                      </div>
                     </td>
                   </tr>
                 </tbody>
