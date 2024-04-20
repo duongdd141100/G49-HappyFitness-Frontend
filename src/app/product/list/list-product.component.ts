@@ -15,6 +15,7 @@ export class ListProductComponent implements OnInit {
   products: any = [];
   facilities: any = [];
   roleId: any;
+  me: any;
 
   constructor(
     private router: Router,
@@ -23,10 +24,22 @@ export class ListProductComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.onLoadMe();
     this.onCheckRole();
     this.onLoadProducts(1);
     this.onLoadFacilities();
     this.value = 'default';
+  }
+  onLoadMe() {
+    this.apiService.me().subscribe({
+      next: (res) => {
+        if(!res.body) return this.me = {};
+        this.me = res.body
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+      }, // errorHandler
+    })
   }
 
   onCheckRole() {

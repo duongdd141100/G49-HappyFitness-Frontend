@@ -11,7 +11,7 @@
                   <h3 class="mb-0">Danh sách sản phẩm</h3>
                 </div>
                 <div class="col-12 text-right d-flex align-items-center justify-content-between pl-0" >
-                  <div class="form-group mb-0">
+                  <div *ngIf="me.role.id === 1" class="form-group mb-0">
                     <select class="form-control" name="" id="" (change)="handleSelectFacility($event)">
                       <option *ngFor="let facility of facilities" [value]="facility.id" [selected]="facility.id == +facilitySelect">
                         {{facility.name}}

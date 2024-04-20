@@ -27,6 +27,7 @@ export class VoucherViewAdminComponent implements OnInit {
     this.apiService.me().subscribe({
       next: (res) => {
         this.me = res.body
+        console.info(this.me.role.id)
       }, // nextHandler
       error: (err) => {
         console.info(err)
@@ -42,8 +43,6 @@ export class VoucherViewAdminComponent implements OnInit {
           e.maxMoneyAmount = (+e.maxMoneyAmount).toLocaleString('en-US', { style: 'currency', currency: 'VND' });
           return e;
         })
-
-        console.log(this.vouchers)
       }, // nextHandler
       error: (err) => {
         console.info(err)
