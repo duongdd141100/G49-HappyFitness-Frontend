@@ -118,7 +118,7 @@
                 <input class="form-control height-fix" placeholder="Nhập lại mật khẩu" type="password" [(ngModel)]="repwd"
                   type="password" name="repassword" #repassword id="repassword" (focus)="focus2=true"
                   (blur)="focus4=false">
-                  <span *ngIf="reinput" class="error"> Mật khẩu nhập lại không khớp</span>
+                  <span *ngIf="!verifyPassword()" class="error"> Mật khẩu nhập lại không khớp</span>
               </div>
             </div>
 

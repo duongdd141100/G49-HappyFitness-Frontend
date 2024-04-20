@@ -25,7 +25,7 @@
                     </div>  
                     <div class="form-group">
                       <label for="">*Hạn sử dụng (tháng)</label>
-                      <input type="number" id="" [formControlName]="'monthDuration'" class="form-control" placeholder="Thời hạn vé (vd: 1)" aria-describedby="helpId">
+                      <input type="number" min="1" max="12" id="" [formControlName]="'monthDuration'" class="form-control" placeholder="Thời hạn vé (vd: 1)" aria-describedby="helpId">
                       <div class="regexTel">
                         <ng-container *ngIf="validateForm(ticketForm,'monthDuration')">
                             <p class="text-danger"> Nhập vào hạn sử dụng của vé</p>
