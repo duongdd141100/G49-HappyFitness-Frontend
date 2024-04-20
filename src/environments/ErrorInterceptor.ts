@@ -20,7 +20,9 @@ export class ErrorInterceptor implements HttpInterceptor {
     '/cart',
     '/order-checkout',
     '/order-checkout-ticket',
-    '/profile'
+    '/profile',
+    '/product-customer-order',
+    '/ticket-customer-order'
   ]
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

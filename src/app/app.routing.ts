@@ -38,6 +38,8 @@ import { OrderSuccessComponent } from "./order/order-success/order-success.compo
 import { ProfileComponent } from "./account/profile/profile.component";
 import { OrderCheckoutTicketComponent } from "./order/checkout-ticket/checkout-ticket.component";
 import { OrderTicketSuccessComponent } from "./order/order-ticket-success/order-ticket-success.component";
+import { TicketCustomerOrderComponent } from "./ticket/ticket-customer-order/ticket-customer-order.component";
+import { ProductCustomerOrderComponent } from "./ticket/product-customer-order/product-customer-order.component";
 
 
 const routes: Routes = [
@@ -83,8 +85,8 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'order-success/:id', component: OrderSuccessComponent },
   { path: 'order-ticket-succes/:id', component: OrderTicketSuccessComponent },
-  // { path: 'ticket-customer-order', component: OrderTicketSuccessComponent },
-  // { path: 'product-customer-order', component: OrderTicketSuccessComponent },
+  { path: 'ticket-customer-order', component: TicketCustomerOrderComponent },
+  { path: 'product-customer-order', component: ProductCustomerOrderComponent },
   { path: 'profile', component: ProfileComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

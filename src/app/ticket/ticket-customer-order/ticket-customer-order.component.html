@@ -1,0 +1,58 @@
+<main>
+  <div class="position-relative">
+    <!-- shape Hero -->
+    <section class="section">
+      <div class="section-intro">
+        <div class="container py-lg-md" >
+          <h4>Vé của bạn</h4>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Tên vé</th>
+                <th>Giá đã mua</th>
+                <th>Thời hạn</th>
+                <th>Cơ sở</th>
+                <th>T/G Bắt đầu</th>
+                <th>T/G Kết thúc</th>
+                <th>Trạng thái</th>
+                <th>Thanh toán</th>
+                <th>Tác vụ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let t of ticketHistorys">
+                <td>{{t.ticket.name}}</td>
+                <td>{{t.price | currency:'VND':'symbol':null:'vi-VN'}}</td>
+                <td>{{t.ticket.monthDuration}} tháng</td>
+                <td>{{t.ticket.facility.name}}</td>
+                <td>{{t.startDate | date : 'dd/MM/yyyy HH:mm' : "GMT"}}</td>
+                <td>{{t.endDate | date : 'dd/MM/yyyy HH:mm' : "GMT"}}</td>
+                <td>{{!t.status ? 'Không hoạt động' : 'Hoạt động'}}</td>
+                <td>{{!t.paid ?  'Chưa TT' : 'Đã TT'}}</td>
+                <td><button type="button" class="btn btn-primary" *ngIf="!t.status && t.paid" (click)="handleExtendTicket(t)">Gia hạn</button></td>
+              </tr>
+              <!-- <tr *ngFor="let product of productCarts">
+                <td scope="row" *ngIf="productCarts?.length > 0"><input   (change)="handleActiveProduct($event, product)" [checked]="checkProduct(product.id)" type="checkbox" name="" id="" autocomplete="off"></td>
+                <td><img [src]="product.image" style="width: 50px; height: 50px;"></td>
+                <td>{{product.name}}</td>
+                <td>{{product.price | currency:'VND':'symbol':null:'vi-VN'}}</td>
+                <td>{{product.category}}</td>
+                <td>{{product.quantity}}</td>
+                <td><i class="fa-solid fa-trash" (click)="handleDeleteProduct(product)" style="cursor: pointer;"></i></td>
+              </tr> -->
+              <tr *ngIf="ticketHistorys?.length <= 0">
+                <td colspan="6" style="text-align: center;">Không có dữ liệu nào!</td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" *ngIf="productCarts?.length > 0" (click)="handleBuy()">Mua hàng</button>
+          </div> -->
+        </div>
+      </div>
+    </section>
+    <!-- 1st Hero Variation -->
+  </div>
+
+
+</main>

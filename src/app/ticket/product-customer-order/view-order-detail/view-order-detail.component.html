@@ -1,0 +1,35 @@
+<div class="order" style="padding: 30px;">
+  <h4>Sản phẩm đơn hàng</h4>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Ảnh</th>
+                <th>Tên sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+                <th>Cơ sở</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of orderDetail; let i = index">
+                <td><img [src]="p.image" alt=""></td>
+                <td>{{p.productName}}</td>
+                <td>{{p.quantity}}</td>
+                <td>{{p.unitPrice | currency:'VND':'symbol':null:'vi-VN'}}</td>
+                <td>{{p.facility}}</td>
+              </tr>
+              <!-- <tr *ngFor="let product of productCarts">
+                <td scope="row" *ngIf="productCarts?.length > 0"><input   (change)="handleActiveProduct($event, product)" [checked]="checkProduct(product.id)" type="checkbox" name="" id="" autocomplete="off"></td>
+                <td><img [src]="product.image" style="width: 50px; height: 50px;"></td>
+                <td>{{product.name}}</td>
+                <td>{{product.price | currency:'VND':'symbol':null:'vi-VN'}}</td>
+                <td>{{product.category}}</td>
+                <td>{{product.quantity}}</td>
+                <td><i class="fa-solid fa-trash" (click)="handleDeleteProduct(product)" style="cursor: pointer;"></i></td>
+              </tr> -->
+              <tr *ngIf="orderDetail?.length <= 0">
+                <td colspan="6" style="text-align: center;">Không có dữ liệu nào!</td>
+              </tr>
+            </tbody>
+          </table>
+</div>

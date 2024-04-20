@@ -62,6 +62,9 @@ import { ProfileComponent } from './account/profile/profile.component';
 import { AIMenuModalComponent } from './account/profile/ai-menu-modal/ai-menu-modal.component';
 import { OrderCheckoutTicketComponent } from "./order/checkout-ticket/checkout-ticket.component";
 import { OrderTicketSuccessComponent } from "./order/order-ticket-success/order-ticket-success.component";
+import { TicketCustomerOrderComponent } from './ticket/ticket-customer-order/ticket-customer-order.component';
+import { ProductCustomerOrderComponent } from './ticket/product-customer-order/product-customer-order.component';
+import { ViewOrderDetailComponent } from './ticket/product-customer-order/view-order-detail/view-order-detail.component';
 
 // import { FormsModule } from '@angular/forms';
 registerLocaleData(localeVi, 'vi-VN');
@@ -109,7 +112,10 @@ registerLocaleData(localeVi, 'vi-VN');
     ProfileComponent,
     AIMenuModalComponent,
     OrderCheckoutTicketComponent,
-    OrderTicketSuccessComponent
+    OrderTicketSuccessComponent,
+    TicketCustomerOrderComponent,
+    ProductCustomerOrderComponent,
+    ViewOrderDetailComponent
   ],
   imports: [
     NgbModule,

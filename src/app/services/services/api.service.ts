@@ -64,12 +64,15 @@ export class ApiService {
 
   // Order
   private FIND_ALL_ORDER = this.baseUrl + "orders";
+  
   private CREATE_ORDER = this.baseUrl + "orders/create";
   private CREATE_PAYMENT = this.baseUrl + "payment/create";
   private PAYMENT_COMPLETE = this.baseUrl + "payment/info";
   private PAYMENT_COMPLETE_TICKET = this.baseUrl + "payment/ticket-info";
   //Order ticket
   private CREATE_ORDER_TICKET = this.baseUrl + "user-ticket/buy";
+  private TICKET_CUSTOMER = this.baseUrl + "user-ticket";
+  private TICKET_CUSTOMER_EXTEND = this.baseUrl + "user-ticket/extend";
 
   //AI
   private AI_MENU = 'http://127.0.0.1:8000/submit'; // server AI khác
@@ -111,6 +114,8 @@ export class ApiService {
     const url = `${this.PAYMENT_COMPLETE}?responseCode=${responseCode}&orderId=${orderId}`
     return this.http.get<any>(url , { headers });
   }
+
+
   public completePaymentTicket(responseCode, ticketId):Observable<any>  {
     const headers = this.getHeadersWithToken();
     const url = `${this.PAYMENT_COMPLETE_TICKET}?responseCode=${responseCode}&ticketId=${ticketId}`
@@ -140,7 +145,19 @@ export class ApiService {
     const headers = this.getHeadersWithToken();
     return this.http.get(`${this.baseUrl}/${endpoint}`, { headers });
   }
-
+  public getTicketCustomerHistory(): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.get(`${this.TICKET_CUSTOMER}`, { headers });
+  }
+  public getProductCustomerHistory(): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.get(`${this.TICKET_CUSTOMER}`, { headers });
+  }
+  public onExtendTicket(ticketId,voucherCode?): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    let url = voucherCode ? `${this.TICKET_CUSTOMER_EXTEND}/${ticketId}?voucherCode=${voucherCode}` : `${this.TICKET_CUSTOMER_EXTEND}/${ticketId}`
+    return this.http.post(url ,null , { headers });
+  }
   public editprofile(id: string, path: string, fullName: string, gender: string, dob: string, address: any, phoneNumber: string): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.post<any>(this.EDITPROFILE, { id, path, fullName, gender, dob, address, phoneNumber }, { headers });
@@ -319,7 +336,14 @@ export class ApiService {
     let paramsStr = params.length > 0 ? params.join('&') : '';
     return this.http.get(`${this.FIND_ALL_ORDER}` + (paramsStr ? `?${paramsStr}` : ''), { headers });
   }
-
+  public findProductHistory(): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.get(`${this.FIND_ALL_ORDER}`, { headers });
+  }
+  public findProductHistoryDetail(orderId): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.get(`${this.FIND_ALL_ORDER}/${orderId}`, { headers });
+  }
   public resetPassword(username: string): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.post<any>(`${this.RESET_PASSWORD}/${username}`, null,{ headers });
