@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/services/api.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { ApiService } from 'src/app/services/services/api.service';
 })
 export class OrderSuccessComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) { }
+  constructor(private route: ActivatedRoute, private apiService: ApiService, private toast: ToastrService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -22,6 +23,7 @@ export class OrderSuccessComponent implements OnInit {
         console.log(orderId);
         console.log(responseCode);
         this.apiService.completePayment(responseCode, orderId).subscribe()
+        this.toast.success('Đặt hàng thành công!');
         // Sử dụng orderId và responseCode ở đây
       });
     });

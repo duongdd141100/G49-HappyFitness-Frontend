@@ -18,7 +18,8 @@ export class ErrorInterceptor implements HttpInterceptor {
   // list url customer cần check auth
   arrayUrlCheckAuth = [
     '/cart',
-    '/order-checkout'
+    '/order-checkout',
+    '/profile'
   ]
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

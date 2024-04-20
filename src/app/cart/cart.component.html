@@ -35,7 +35,7 @@
             </tbody>
           </table>
           <div class="d-flex justify-content-end">
-            <button class="btn btn-primary" (click)="handleBuy()">Mua hàng</button>
+            <button class="btn btn-primary" *ngIf="productCarts?.length > 0" (click)="handleBuy()">Mua hàng</button>
           </div>
         </div>
       </div>
