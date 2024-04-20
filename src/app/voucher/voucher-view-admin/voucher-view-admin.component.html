@@ -15,7 +15,7 @@
                 <div class="form-group mb-0">
                   
                 </div>
-                <button style="font-size: 13px;" type="button mt-0" class="btn btn-primary mt-1" (click)="add()">+
+                <button *ngId="me.role.id === 1" style="font-size: 13px;" type="button mt-0" class="btn btn-primary mt-1" (click)="add()">+
                   Thêm mã giảm giá
                 </button>
               </div>
@@ -48,7 +48,7 @@
                     <td class="text-center">{{formatDateDdMmYyyy(v.startDate)}}</td>
                     <td class="text-center">{{formatDateDdMmYyyy(v.endDate)}}</td>
                     <td class="text-center" class="text-center">
-                     <div class="button-action">
+                     <div *ngId="me.role.id === 1" class="button-action">
                         <div >
                           <button class="btn btn-primary mr-2" aria-label="update" (click)="update(v.id)">
                             <i class="fa-solid fa-pen-to-square"></i>

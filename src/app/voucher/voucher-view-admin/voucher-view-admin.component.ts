@@ -12,19 +12,26 @@ import { ApiService } from 'src/app/services/services/api.service';
 })
 
 export class VoucherViewAdminComponent implements OnInit {
-  value = '';
   vouchers: any = [];
+  me: any;
   constructor(
     private router: Router,
     private apiService: ApiService,
   ) { }
 
   ngOnInit() {
+    this.onLoadMe();
     this.onLoadAllVoucher();
-    this.value = 'default';
   }
-  handleSelectFacility(e) {
-    let value = e.target.value
+  onLoadMe() {
+    this.apiService.me().subscribe({
+      next: (res) => {
+        this.me = res.body
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+      }, // errorHandler
+    })
   }
   onLoadAllVoucher() {
     this.apiService.findAllVoucher().subscribe({
@@ -43,18 +50,6 @@ export class VoucherViewAdminComponent implements OnInit {
       }, // errorHandler
     })
   }
-  selectedOption(string: string) {
-    this.value = string;
-  }
-
-  viewAll() {
-
-  }
-
-  delete(id: any) {
-
-  }
-
   update(id: any) {
     this.router.navigate([`/admin/update-voucher/${id}`]);
   }
