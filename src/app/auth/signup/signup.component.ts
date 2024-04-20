@@ -78,6 +78,7 @@ export class SignupComponent implements OnInit {
     }
     this.authService.register(registerInfo).subscribe({
       next: (res) => {
+        this.toast.success("Tạo tài khoản thành công");
         this.router.navigate(["/login"]);
       }, // nextHandler
       error: (err) => {
