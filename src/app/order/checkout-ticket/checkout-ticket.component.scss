@@ -1,0 +1,94 @@
+.products {
+    width: 57%;
+}
+.product-block {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.total-price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &.order {
+        border-top: 1px solid #d3c8c8;
+        padding-top: 8px;
+    }
+    h5 {
+        margin-bottom: 0;
+    }
+    p {
+        margin-bottom: 0;
+        font-size: 18px;
+        font-weight: 700;
+    }
+}
+.product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #cbf0e6;
+    img {
+        width: 57px;
+        height: 57px;
+        margin-right: 10px;
+    }
+    .name-category {
+        flex: 1;
+    }
+    h6 {
+      
+        margin-bottom: 0;
+    }
+    p {
+        margin: 0;
+    }
+    h5 {
+        font-size: 15px;
+        font-weight: 600;
+        margin: 0;
+        padding-right: 7px;
+    }
+    .quantity {
+        margin: 0;
+        text-align: right;
+        font-size: 13px;
+        padding-right: 7px;
+    }
+}
+
+
+.vouchers {
+    width: 43%;
+    .voucher-block {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .voucher-item {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+        background-color: #7a738f;
+        &.check {
+            background-color: #64606d;
+        }
+    }
+    .info-voucher {
+        padding-left: 10px;
+        .name {
+            margin-bottom: 0;
+            font-size: 17px;
+        }
+        .value {
+            margin-bottom: 0;
+            font-size: 11px;
+        }
+    }
+    .check-voucher {
+        padding-right: 15px;
+    }
+}

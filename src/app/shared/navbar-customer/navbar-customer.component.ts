@@ -90,6 +90,8 @@ export class NavbarCustomerComponent implements OnInit {
   handleLogout () {
     this.authService.signout();
     this.router.navigate(['/login']);
+    sessionStorage.removeItem('productBuys');
+    sessionStorage.removeItem('ticketBuys');
   }
 
 }
