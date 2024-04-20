@@ -58,6 +58,8 @@ import { CartComponent } from "./cart/cart.component";
 import { CreateVoucherComponent } from "./voucher/create-voucher/create-voucher.component";
 import { UpdateVoucherComponent } from "./voucher/update-voucher/update-voucher.component";
 import { OrderSuccessComponent } from "./order/order-success/order-success.component";
+import { ProfileComponent } from './account/profile/profile.component';
+import { AIMenuModalComponent } from './account/profile/ai-menu-modal/ai-menu-modal.component';
 
 // import { FormsModule } from '@angular/forms';
 registerLocaleData(localeVi, 'vi-VN');
@@ -101,7 +103,9 @@ registerLocaleData(localeVi, 'vi-VN');
     CartComponent,
     CreateVoucherComponent,
     UpdateVoucherComponent,
-    OrderSuccessComponent
+    OrderSuccessComponent,
+    ProfileComponent,
+    AIMenuModalComponent
   ],
   imports: [
     NgbModule,

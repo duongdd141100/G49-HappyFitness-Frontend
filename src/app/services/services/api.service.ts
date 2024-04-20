@@ -67,6 +67,9 @@ export class ApiService {
   private CREATE_ORDER = this.baseUrl + "orders/create";
   private CREATE_PAYMENT = this.baseUrl + "payment/create";
   private PAYMENT_COMPLETE = this.baseUrl + "payment/info";
+
+  //AI
+  private AI_MENU = 'http://127.0.0.1:8000/submit'; // server AI khác
   constructor(private http: HttpClient) { }
 
   private getHeadersWithToken(): HttpHeaders {
@@ -99,6 +102,18 @@ export class ApiService {
     const headers = this.getHeadersWithToken();
     const url = `${this.PAYMENT_COMPLETE}?responseCode=${responseCode}&orderId=${orderId}`
     return this.http.get<any>(url , { headers });
+  }
+  public AImenu(dataUser: {
+    male: number,
+    age : number,
+    height : number,
+    weight :number,
+    duration :number,
+    heart_rate :number,
+    body_temp :number
+  }):Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(this.AI_MENU , dataUser,{ headers });
   }
   public deleteCart(cart): Observable<any> {
     const headers = this.getHeadersWithToken();

@@ -1,0 +1,46 @@
+<main>
+  <div class="position-relative">
+    <!-- shape Hero -->
+    <section class="section">
+      <div class="section-intro">
+        <div class="container py-lg-md" >
+            <h4>Thông tin cá nhân</h4>
+            <div *ngIf="user">
+              <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                  <label for="fullName">Full Name</label>
+                  <input type="text" class="form-control" disabled    id="fullName" [formControlName]="'fullName'">
+                </div>
+                <div class="form-group">
+                  <label for="address">Address</label>
+                  <input type="text" class="form-control" disabled   id="address" [formControlName]="'address'">
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" disabled  id="email" [formControlName]="'email'">
+                </div>
+                <div class="form-group">
+                  <label for="phoneNumber">Phone Number</label>
+                  <input type="tel" class="form-control" disabled id="phoneNumber" [formControlName]="'phoneNumber'">
+                </div>
+                <div class="form-group">
+                  <label for="gender">Gender</label>
+                  <select class="form-control" id="gender" disabled  [formControlName]="'gender'">
+                    <option [ngValue]="true">Nam</option>
+                    <option [ngValue]="false">Nữ</option>
+                  </select>
+                </div>
+                <div class="footer-form d-flex justify-content-end">
+                  <button type="submit" class="btn btn-danger m-r-3" (click)="handleAI()">Thực đơn dinh dưỡng</button>
+                  <button type="submit" class="btn btn-primary" disabled>Cập nhật</button>
+                </div>
+              </form>
+            </div>
+        </div>
+      </div>
+    </section>
+    <!-- 1st Hero Variation -->
+  </div>
+
+
+</main>
