@@ -199,6 +199,21 @@ export class UpdateProductComponent implements OnInit, OnChanges {
           this.toastr.error(err.error.body);
         }, // errorHandler
       })
+    } else {
+      this.apiService.updateFacilityProduct(
+        {
+          stockQuantity: product.stockQuantity,
+          price: product.price,
+          status: product.status
+        }, this.product.productId, this.me.facility.id).subscribe({
+        next: (res) => {
+          this.toastr.success('Cập nhật sản phẩm thành công!');
+          this.router.navigate(['/admin/products']);
+        }, // nextHandler
+        error: (err) => {
+          this.toastr.error(err.error.body);
+        }, // errorHandler
+      })
     }
   } else {
     validateAllFormFields(this.productForm);
