@@ -16,7 +16,7 @@ export class TicketCustomerOrderComponent implements OnInit {
   }
   handleExtendTicket(t) {
 
-    this.apiService.onExtendTicket(t.id, t.voucher.code).subscribe({
+    this.apiService.onExtendTicket(t.id, t.voucher ? t.voucher.code : null).subscribe({
       next: (res) => {
         console.log(res);
         this.apiService.createPayment(t.price, null , res.body.id).subscribe({
