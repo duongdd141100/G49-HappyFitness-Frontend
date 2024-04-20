@@ -51,6 +51,10 @@ export class ListProductComponent implements OnInit {
     this.apiService.getProduct(facilityId).subscribe({
       next: (res) => {
         this.products = res.body
+        this.products = this.products.map(e => {
+          e.price = (+e.price).toLocaleString('en-US', { style: 'currency', currency: 'VND' });
+          return e;
+        });
       }, // nextHandler
       error: (err) => {
         console.info(err)

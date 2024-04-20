@@ -12,9 +12,6 @@ import { ApiService } from 'src/app/services/services/api.service';
 })
 
 export class ListTicketAdComponent implements OnInit {
-  focus: any;
-  focus1: any;
-  value = '';
   listTickets: any = [];
   facilityList: any = [];
   facilitySelect: string;
@@ -26,13 +23,16 @@ export class ListTicketAdComponent implements OnInit {
   ngOnInit() {
     this.onLoadSticks();
     this.onLoadAllFacility();
-    this.value = 'default';
   }
   onLoadSticks(facility: number = null) {
     this.apiService.getSticketAdmin(facility).subscribe({
       next: (res) => {
         if (res.body?.length <= 0) return this.listTickets = [];
         this.listTickets = res.body
+        this.listTickets = this.listTickets.map(e => {
+          e.price = (+e.price).toLocaleString('en-US', { style: 'currency', currency: 'VND' });
+          return e;
+        });
       }, // nextHandler
       error: (err) => {
         console.info(err)
@@ -53,13 +53,6 @@ export class ListTicketAdComponent implements OnInit {
         console.info(err)
       }, // errorHandler
     })
-  }
-  selectedOption(string: string) {
-    this.value = string;
-  }
-
-  viewAll() {
-
   }
 
   deactivate(id: any) {

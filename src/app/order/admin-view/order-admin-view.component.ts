@@ -35,6 +35,10 @@ export class OrderAdminViewComponent implements OnInit {
     this.apiService.findOrders(facility, isPaid, isDelivered).subscribe({
       next: (res) => {
         this.orders = res.body
+        this.orders = this.orders.map(e => {
+          e.price = (+e.price).toLocaleString('en-US', { style: 'currency', currency: 'VND' });
+          return e;
+        });
       }, // nextHandler
       error: (err) => {
         console.info(err)

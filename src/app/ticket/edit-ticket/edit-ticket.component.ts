@@ -33,6 +33,7 @@ export class EditTicketComponent implements OnInit {
 
    }
   ngOnInit() {
+    this.onLoadMe();
     this.id = this.route.snapshot.paramMap.get('id')
     this.loadTicket();
     this.apiService.getAllFacility().subscribe({
@@ -46,18 +47,32 @@ export class EditTicketComponent implements OnInit {
     })
     this.value = 'default';
   }
+  onLoadMe() {
+    this.apiService.me().subscribe({
+      next: (res) => {
+        if (res.body.role.id !== 1) {
+          this.ticketForm.controls['facility'].disable();
+        }
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+      }, // errorHandler
+    })
+  }
    createTicketForm  = ():FormGroup => {
     return this._formBuilder.group({
       name: [null, [Validators.required]],
       monthDuration: [null,[Validators.required]],
       price: [null,[Validators.required]],
       description: [null],
-      facility: [1,[Validators.required]]
+      facility: [null,[Validators.required]]
     })
    }
    saveForm() {
     this.ticketForm.value.facility = {
-      id : +this.ticketForm.value.facility
+      id : this.ticketForm.value.facility 
+        ? (this.ticketForm.value.facility.id ? this.ticketForm.value.facility.id : this.ticketForm.value.facility)
+        : this.ticket.facility.id
     }
     if (this.ticketForm.valid) {
       this.ticketForm.value.price = +this.ticketForm.value.price.toString().replace('.', '');

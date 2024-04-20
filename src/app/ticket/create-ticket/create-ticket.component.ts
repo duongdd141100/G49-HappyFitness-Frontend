@@ -16,18 +16,9 @@ import { ApiService } from 'src/app/services/services/api.service';
 
 export class CreateTicketComponent implements OnInit {
   ticketForm: FormGroup;
-  value = '';
-  note: any;
-  nameNull = false;
-  priceNull = false;
-  quantityNull = false;
-  ticket_name: any;
-  ticket_price: any;
-  ticket_quantity: any;
-  selectedType: string; // Biến lưu trữ loại sanpham được chọn
-  timeTypes: string[] = ["1 Year", "2 Years", "3 Years"];
   facilityList : any = [];
-  validateForm = validateForm
+  validateForm = validateForm;
+  me: any;
   constructor(
     private router: Router,
     private toastr: ToastrService,
@@ -49,7 +40,7 @@ export class CreateTicketComponent implements OnInit {
    }
    saveForm() {
     this.ticketForm.value.facility = {
-      id : +this.ticketForm.value.facility
+      id : this.ticketForm.value.facility ? this.ticketForm.value.facility : this.me.facility.id
     }
     if (this.ticketForm.valid) {
       this.ticketForm.value.price = +this.ticketForm.value.price.replace('.', '');
@@ -70,6 +61,7 @@ export class CreateTicketComponent implements OnInit {
     }
    }
   ngOnInit() {
+    this.onLoadMe();
     this.apiService.getAllFacility().subscribe({
       next: (res) => {
         if(!res.body) return this.facilityList = [];
@@ -79,24 +71,22 @@ export class CreateTicketComponent implements OnInit {
         console.info(err)
       }, // errorHandler
     })
-    this.value = 'default';
-    this.selectedType = this.timeTypes[0];
+  }
+  onLoadMe() {
+    this.apiService.me().subscribe({
+      next: (res) => {
+        this.me = res.body
+        if (res.body.role.id !== 1) {
+          this.ticketForm.controls['facility'].disable();
+          this.ticketForm.patchValue({
+            facility: res.body.facility.id,
+          });
+        }
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+      }, // errorHandler
+    })
   }
 
-  selectedOption(string: string) {
-    this.value = string;
-  }
-
-  viewAll() {
-
-  }
-
-  cancel() {
-
-  }
-
-  save() {
-    this.toastr.success('Tạo vé thành công!');
-  
-  }
 }

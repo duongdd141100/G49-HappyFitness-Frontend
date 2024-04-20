@@ -31,6 +31,11 @@ export class VoucherViewAdminComponent implements OnInit {
       next: (res) => {
         if(!res.body) return this.vouchers = [];
         this.vouchers = res.body
+        this.vouchers = this.vouchers.map(e => {
+          e.maxMoneyAmount = (+e.maxMoneyAmount).toLocaleString('en-US', { style: 'currency', currency: 'VND' });
+          return e;
+        })
+
         console.log(this.vouchers)
       }, // nextHandler
       error: (err) => {
