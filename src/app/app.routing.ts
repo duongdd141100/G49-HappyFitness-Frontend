@@ -36,6 +36,8 @@ import { CreateVoucherComponent } from "./voucher/create-voucher/create-voucher.
 import { UpdateVoucherComponent } from "./voucher/update-voucher/update-voucher.component";
 import { OrderSuccessComponent } from "./order/order-success/order-success.component";
 import { ProfileComponent } from "./account/profile/profile.component";
+import { OrderCheckoutTicketComponent } from "./order/checkout-ticket/checkout-ticket.component";
+import { OrderTicketSuccessComponent } from "./order/order-ticket-success/order-ticket-success.component";
 
 
 const routes: Routes = [
@@ -72,6 +74,7 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'products', component: ListCustomerProductComponent },
   { path: 'order-checkout', component: OrderCheckoutComponent },
+  { path: 'order-checkout-ticket', component: OrderCheckoutTicketComponent },
   { path: 'order-detail', component: OrderDetailComponent },
   { path: 'order-home', component: OrderHomeComponent },
   { path: 'order-history', component: OrderHistoryComponent },
@@ -79,6 +82,9 @@ const routes: Routes = [
   { path: 'ticket-detail', component: TicketDetailComponent },
   { path: 'cart', component: CartComponent },
   { path: 'order-success/:id', component: OrderSuccessComponent },
+  { path: 'order-ticket-succes/:id', component: OrderTicketSuccessComponent },
+  // { path: 'ticket-customer-order', component: OrderTicketSuccessComponent },
+  // { path: 'product-customer-order', component: OrderTicketSuccessComponent },
   { path: 'profile', component: ProfileComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

@@ -19,6 +19,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   arrayUrlCheckAuth = [
     '/cart',
     '/order-checkout',
+    '/order-checkout-ticket',
     '/profile'
   ]
 

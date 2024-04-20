@@ -67,6 +67,9 @@ export class ApiService {
   private CREATE_ORDER = this.baseUrl + "orders/create";
   private CREATE_PAYMENT = this.baseUrl + "payment/create";
   private PAYMENT_COMPLETE = this.baseUrl + "payment/info";
+  private PAYMENT_COMPLETE_TICKET = this.baseUrl + "payment/ticket-info";
+  //Order ticket
+  private CREATE_ORDER_TICKET = this.baseUrl + "user-ticket/buy";
 
   //AI
   private AI_MENU = 'http://127.0.0.1:8000/submit'; // server AI khác
@@ -93,15 +96,25 @@ export class ApiService {
     const url = !voucherCode ? this.CREATE_ORDER : `${this.CREATE_ORDER}?voucherCode=${voucherCode}`
     return this.http.post<any>(url, cartId , { headers });
   }
-  public createPayment(amount, orderId):Observable<any>  {
+  public createTicketBuy(ticketId: number, voucherCode?): Observable<any> {
     const headers = this.getHeadersWithToken();
-    const url = `${this.CREATE_PAYMENT}?amount=${amount}&orderId=${orderId}`
+    const url = !voucherCode ? `${this.CREATE_ORDER_TICKET}/${ticketId}` : `${this.CREATE_ORDER_TICKET}/${ticketId}?voucherCode=${voucherCode}`
+    return this.http.post<any>(url, null, { headers })
+  }
+  public createPayment(amount, orderId?, ticketId?):Observable<any>  {
+    const headers = this.getHeadersWithToken();
+    const url = orderId ?  `${this.CREATE_PAYMENT}?amount=${amount}&orderId=${orderId}` : `${this.CREATE_PAYMENT}?amount=${amount}&ticketId=${ticketId}`
     return this.http.get<any>(url , { headers });
   }
   public completePayment(responseCode, orderId):Observable<any>  {
     const headers = this.getHeadersWithToken();
     const url = `${this.PAYMENT_COMPLETE}?responseCode=${responseCode}&orderId=${orderId}`
     return this.http.get<any>(url , { headers });
+  }
+  public completePaymentTicket(responseCode, ticketId):Observable<any>  {
+    const headers = this.getHeadersWithToken();
+    const url = `${this.PAYMENT_COMPLETE_TICKET}?responseCode=${responseCode}&ticketId=${ticketId}`
+    return this.http.post<any>(url , null , { headers });
   }
   public AImenu(dataUser: {
     male: number,

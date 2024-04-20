@@ -6,18 +6,18 @@ import { ApiService } from 'src/app/services/services/api.service';
 
 
 @Component({
-  selector: 'app-order-checkout',
-  templateUrl: './order-checkout.component.html',
-  styleUrls: ['./order-checkout.component.scss'],
+  selector: 'app-checkout-ticket',
+  templateUrl: './checkout-ticket.component.html',
+  styleUrls: ['./checkout-ticket.component.scss'],
   // imports: [CommonModule]
 })
 
-export class OrderCheckoutComponent implements OnInit , OnDestroy{
+export class OrderCheckoutTicketComponent implements OnInit , OnDestroy{
   focus: any;
   focus1: any;
   value = '';
-  productBuys: any;
-  options = ['Không thanh toán', 'Vnpay'];
+  ticketBuys: any;
+  options = ['Vnpay'];
   selectedOptionBuy: any;
   vouchers: any = [];
   voucherSelect:any;
@@ -26,23 +26,24 @@ export class OrderCheckoutComponent implements OnInit , OnDestroy{
   constructor(private router: Router, private toast: ToastrService, private apiService: ApiService) { }
 
   ngOnInit() {
-    if (sessionStorage.getItem('productBuys') && JSON.parse(sessionStorage.getItem('productBuys')).length > 0) {
-      this.selectedOptionBuy = this.options[1]
-      this.productBuys = JSON.parse(sessionStorage.getItem('productBuys'));
+    if (sessionStorage.getItem('ticketBuys') && JSON.parse(sessionStorage.getItem('ticketBuys')).length > 0) {
+      this.selectedOptionBuy = this.options[0]
+      this.ticketBuys = JSON.parse(sessionStorage.getItem('ticketBuys'));
+      console.log(this.ticketBuys);
+      
       this.onLoadVouchers();
       this.totalPrice = this.onTotalPriceNoVoucher();
     } else {
-      this.router.navigate([`/cart`]);
-      this.toast.error('Vui lòng chọn sản phẩm!');
+      this.router.navigate([`/tickets`]);
+      this.toast.error('Vui lòng chọn vé!');
     }
   }
   handlePaymentOrder() {
-    const dataIdCart = this.productBuys.map(item => item.id);
-    if(this.selectedOptionBuy == this.options[1]) {
-      this.apiService.createOrder(dataIdCart, this.voucherSelect?.code).subscribe({
+    const ticketId = this.ticketBuys[0].id;
+    if(this.selectedOptionBuy == this.options[0]) {
+      this.apiService.createTicketBuy(ticketId, this.voucherSelect?.code).subscribe({
         next: (res) => {
-          this.apiService.viewCart();
-          this.apiService.createPayment(this.totalPrice, res.body.id, null).subscribe({
+          this.apiService.createPayment(this.totalPrice, null , res.body.id).subscribe({
             next: (res) => {
               console.log(res);
               window.close();
@@ -58,21 +59,10 @@ export class OrderCheckoutComponent implements OnInit , OnDestroy{
           return 
         }, // errorHandler
       })
-    } else {
-      this.apiService.createOrder(dataIdCart, this.voucherSelect?.code).subscribe({
-        next: (res) => {
-          this.apiService.viewCart();
-          this.router.navigate(['/cart']);
-          return this.toast.success('Đặt hàng thành công!');
-        }, // nextHandler
-        error: (err) => {
-          return 
-        }, // errorHandler
-      })
     }
   }
   ngOnDestroy(): void {
-    sessionStorage.removeItem('productBuys');
+    sessionStorage.removeItem('ticketBuys');
   }
   handleActiveVoucher(v) {
     this.voucherSelect = v
@@ -98,7 +88,7 @@ export class OrderCheckoutComponent implements OnInit , OnDestroy{
     this.value = string;
   }
   onTotalPriceNoVoucher():number {
-    return this.productBuys.reduce((acc, product) => acc + (product.price * product.quantity), 0);
+    return this.ticketBuys.reduce((acc, product) => acc + product.price, 0);
   }
   viewAll() {
 

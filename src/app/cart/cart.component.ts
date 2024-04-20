@@ -54,6 +54,7 @@ export class CartComponent implements OnInit {
     this.apiService.deleteCart(cartDelete).subscribe({
       next: (res) => {
         this.apiService.viewCart()
+        sessionStorage.removeItem('productBuys');
       }, // nextHandler
       error: (err) => {
         return 

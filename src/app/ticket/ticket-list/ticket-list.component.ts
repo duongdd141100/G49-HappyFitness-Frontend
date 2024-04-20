@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Import CommonModule ở đây
 import { MatSliderModule } from '@angular/material/slider';
+import { ApiService } from 'src/app/services/services/api.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,55 +15,53 @@ import { MatSliderModule } from '@angular/material/slider';
 export class TicketListComponent implements OnInit {
   focus: any;
   focus1: any;
+  selectedFacility:any;
+  facilities: any;
   value = '';
+  tickets:any;
   ticketList: { image: string; title: string; price: string; location: string; }[];
   priceRange: number = 0; // Giá trị ban đầu của priceRange
 
-  constructor() { }
+  constructor(private apiService: ApiService,private router: Router) { }
 
   ngOnInit() {
-    this.value = 'default';
-    this.ticketList = [
-      {
-        image: "assets/img/image 5.png",
-        title: "California Fitness & Yoga",
-        price: "$25.99 / tháng",
-        location: "222 phố Trung Kính, Cầu Giấy, Hà Nội."
-      },
-      {
-        image: "assets/img/image 6.png",
-        title: "Elite Fitness",
-        price: "$25.99 / tháng",
-        location: "235 Trần Hưng Đạo, Hai Bà Trưng, HN"
-      },
-      {
-        image: "assets/img/image 7.png",
-        title: "Golden Wellness Fitness & Spa",
-        price: "$30 / tháng",
-        location: "58 Nguyễn Trãi, Thanh Xuân, HN"
-      },
-      {
-        image: "assets/img/image 5.png",
-        title: "California Fitness & Yoga",
-        price: "$25.99 / tháng",
-        location: "222 phố Trung Kính, Cầu Giấy, Hà Nội."
-      },
-      {
-        image: "assets/img/image 6.png",
-        title: "Elite Fitness",
-        price: "$25.99 / tháng",
-        location: "235 Trần Hưng Đạo, Hai Bà Trưng, HN"
-      },
-      {
-        image: "assets/img/image 7.png",
-        title: "Golden Wellness Fitness & Spa",
-        price: "$30 / tháng",
-        location: "58 Nguyễn Trãi, Thanh Xuân, HN"
-      },
-      // Thêm các đối tượng khác vào mảng tương tự nếu cần
-    ];
+    this.apiService.getAllFacility().subscribe({
+      next: (res) => {
+        this.facilities = res.body
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+        return
+      }, // errorHandler
+    })
+    this.onLoadTickets(null);
   }
-
+  onLoadTickets(facilityId) {
+    this.apiService.getSticketAdmin(facilityId).subscribe({
+      next: (res) => {
+        this.tickets = this.seperateProductByRows(res.body, 4)
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+        return
+      }, // errorHandler
+    })
+  }
+  seperateProductByRows (products, rowSize) {
+    const result: any[][] = [];
+    for (let i = 0; i < products.length; i += rowSize) {
+        result.push(products.slice(i, i + rowSize));
+    }
+    return result;
+  }
+  onFacilityChange(value) {
+    if(value == 'all') {
+      this.onLoadTickets(null);
+    } else {
+      this.onLoadTickets(+value);
+    }
+    
+  }
   selectedOption(string: string) {
     this.value = string;
   }
@@ -78,7 +78,10 @@ export class TicketListComponent implements OnInit {
     return chunks;
   }
 
-
+  handleCardClick(ticket) {
+    sessionStorage.setItem('ticketBuys', JSON.stringify([ticket]));
+    this.router.navigate([`/order-checkout-ticket`])
+  }
   // Phương thức lọc dựa trên khoảng giá
   filterByPrice() {
     // Thực hiện logic lọc dựa trên this.priceRange

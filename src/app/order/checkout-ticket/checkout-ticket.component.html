@@ -1,0 +1,61 @@
+<main>
+  <div class="position-relative">
+    <!-- shape Hero -->
+    <section class="section">
+      <div class="section-intro">
+        <div class="container py-lg-md d-flex mb-10 " style="background: #f0ecec; gap: 15px;">
+            <div class="products">
+              <h3>Vé</h3>
+              <div class="product-block">
+                <div class="product-item" *ngFor="let ticket of ticketBuys">
+                  <img [src]="'assets/img/TheGym01.jpg'" alt="">
+                  <div class="name-category">
+                      <h6>{{ticket.name}}</h6>
+                      <p>{{ticket.monthDuration}}</p>
+                  </div>
+                  <div class="quantity-price">
+                    <p class="quantity">x1</p>
+                    <h5>{{ticket.price | currency:'VND':'symbol':null:'vi-VN'}}</h5>
+                  </div>
+                </div>
+                <div class="total-price">
+                  <h6>Tổng</h6>
+                  <p>{{onTotalPriceNoVoucher() | currency:'VND':'symbol':null:'vi-VN'}}</p>
+                </div>
+                <div class="voucher-discount">
+                  <p style="margin-bottom: 0; text-align: right; margin-top: -10px; color: #cd5353;">-{{discountVoucher | currency:'VND':'symbol':null:'vi-VN'}}</p>
+                </div>
+                <div class="total-price order">
+                  <h4>Tổng giá</h4>
+                  <p>{{totalPrice | currency:'VND':'symbol':null:'vi-VN'}}</p>
+                </div>
+              </div>
+              <div class="payment">
+                <h6>Phương thức thanh toán</h6>
+                <div *ngFor="let option of options">
+                  <label>
+                    <input type="radio"[checked]="option == selectedOptionBuy" [value]="option" [(ngModel)]="selectedOptionBuy" name="options">
+                    {{ option }}
+                  </label>
+                </div>
+                <button class="btn btn-primary" (click)="handlePaymentOrder()">Mua hàng</button>
+              </div>
+            </div>
+            <div class="vouchers">
+              <h3>Voucher giảm giá</h3>
+              <div class="voucher-block">
+                <div class="voucher-item"  *ngFor="let voucher of vouchers" (click)="handleActiveVoucher(voucher)" [ngClass]="{'check': voucherSelect?.id == voucher.id}">
+                  <div class="info-voucher" >
+                    <p class="name">{{voucher.name}}</p>
+                    <p class="value">Giảm {{voucher.percentAmount}}% tối đa {{voucher.maxMoneyAmount | currency:'VND':'symbol':null:'vi-VN'}}</p>
+                  </div>
+                  <i class="fa-solid fa-check check-voucher" *ngIf="voucherSelect?.id == voucher.id"></i>
+                </div>
+              </div>
+            </div>
+            
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
