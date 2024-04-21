@@ -9,7 +9,7 @@ import { ApiService } from 'src/app/services/services/api.service';
   styleUrls: ['./order-ticket-success.component.scss']
 })
 export class OrderTicketSuccessComponent implements OnInit {
-
+  responseCode: any;
   constructor(private route: ActivatedRoute, private apiService: ApiService, private toast: ToastrService) { }
 
   ngOnInit(): void {
@@ -19,9 +19,13 @@ export class OrderTicketSuccessComponent implements OnInit {
   
       // Lấy giá trị của query params từ URL
       this.route.queryParams.subscribe(queryParams => {
-        const responseCode = queryParams['vnp_ResponseCode']; // Đây là giá trị '00' trong URL
-        this.apiService.completePaymentTicket(responseCode, ticketIdOrder).subscribe()
-        this.toast.success('Đặt hàng thành công!');
+        this.responseCode = queryParams['vnp_ResponseCode']; // Đây là giá trị '00' trong URL
+        this.apiService.completePaymentTicket(this.responseCode, ticketIdOrder).subscribe()
+        if (this.responseCode === '00') {
+          this.toast.success('Thanh toán thành công!');
+        } else {
+          this.toast.error('Thanh toán thất bại!');
+        }
         // Sử dụng orderId và responseCode ở đây
       });
     });

@@ -10,10 +10,14 @@
         justify-content: center;
         
         ">
-           <div class="order-success">
-             <i class="fa-solid fa-check" style="font-size: 100px;"></i>
-              <h1>Thanh toán thành công</h1>
-           </div>
+           <div *ngIf="responseCode === '00'" class="order-success">
+            <i class="fa-solid fa-check" style="font-size: 100px;"></i>
+             <h1>Thanh toán thành công</h1>
+          </div>
+          <div *ngIf="responseCode !== '00'" class="order-success">
+            <i class="fa-solid fa-circle-exclamation" style="font-size: 100px;"></i>
+             <h1>Thanh toán thất bại</h1>
+          </div>
         </div>
       </div>
     </section>
