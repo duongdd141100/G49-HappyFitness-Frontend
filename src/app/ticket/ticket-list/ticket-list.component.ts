@@ -50,7 +50,10 @@ export class TicketListComponent implements OnInit {
   seperateProductByRows (products, rowSize) {
     const result: any[][] = [];
     for (let i = 0; i < products.length; i += rowSize) {
-        result.push(products.slice(i, i + rowSize));
+        if (products[i].status) {
+          result.push(products.slice(i, i + rowSize));
+        }
+        
     }
     return result;
   }
