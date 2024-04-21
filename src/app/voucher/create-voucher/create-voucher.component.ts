@@ -50,7 +50,7 @@ export class CreateVoucherComponent implements OnInit {
    }
    saveForm() {
     if (this.voucherForm.valid) {
-      this.voucherForm.value.maxMoneyAmount = +this.voucherForm.value.maxMoneyAmount.replace('.', '');
+      this.voucherForm.value.maxMoneyAmount = +this.voucherForm.value.maxMoneyAmount.toString().replace('.', '');
       this.apiService.createVoucher(this.voucherForm.value).subscribe({
         next: (res) => {
           this.toastr.success('Tạo mã giảm giá thành công!');
