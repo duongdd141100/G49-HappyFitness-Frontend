@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Import CommonModule ở đây
+import { AuthService } from 'src/app/services/services/auth.service';
 
 
 @Component({
@@ -12,12 +13,25 @@ import { CommonModule } from '@angular/common'; // Import CommonModule ở đây
 export class IntroductionComponent implements OnInit {
   focus: any;
   focus1: any;
+  me: any;
   value = '';
 
-  constructor() { }
+  constructor(private authService: AuthService,) { }
 
   ngOnInit() {
+    this.onLoadMe();
     this.value = 'default'
+  }
+  onLoadMe() {
+    this.authService.getOwnInfo().subscribe({
+      next: (res) => {
+        this.me = res.body
+      }, // nextHandler
+      error: (err) => {
+      
+        return
+      }, // errorHandler
+    })
   }
 
   selectedOption(string: string) {

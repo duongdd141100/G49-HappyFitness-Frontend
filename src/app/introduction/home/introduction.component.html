@@ -13,7 +13,7 @@
                 <p class="lead">Dịch vụ của chúng tôi sử dụng công nghệ AI tiên tiến để tạo ra trải nghiệm
                   tập
                   luyện cá nhân hóa tối ưu.</p>
-                <div class="btn-wrapper">
+                <div *ngIf="!me" class="btn-wrapper">
                   <a routerLinkActive="active" [routerLink]="['/register']" class="btn btn-register">
                     <span class="btn-inner--icon">
                       <i class="fa fa-key mr-2"></i>

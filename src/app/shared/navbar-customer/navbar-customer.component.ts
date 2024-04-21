@@ -50,6 +50,7 @@ export class NavbarCustomerComponent implements OnInit {
         //   this.router.navigate([`/home`])
         //   return
         // }
+        console.info(res.body)
         if(!res) {
           this.userName = null
           return  this.roleNumber = null
