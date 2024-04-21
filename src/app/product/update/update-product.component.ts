@@ -200,6 +200,7 @@ export class UpdateProductComponent implements OnInit, OnChanges {
         }, // errorHandler
       })
     } else {
+      product.price = +this.productForm.value.price.toString().replaceAll('.', '');
       this.apiService.updateFacilityProduct(
         {
           stockQuantity: product.stockQuantity,
