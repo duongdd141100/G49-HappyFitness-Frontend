@@ -3,7 +3,7 @@ import { CommonModule, Location } from '@angular/common'; // Import CommonModule
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { scrollToFirstInvalidControl, validateAllFormFields, validateForm } from 'src/app/functions/function-helper';
+import { regexEmail, regexFormEmail, scrollToFirstInvalidControl, validateAllFormFields, validateForm } from 'src/app/functions/function-helper';
 import { ApiService } from 'src/app/services/services/api.service';
 
 @Component({
@@ -25,6 +25,7 @@ export class CreateAccountComponent implements OnInit {
   genderTypes: string[] = ["Male", "Female"];
   validateForm = validateForm
   facilities: any[];
+  regexEmail = regexEmail;
   constructor(
     private router: Router,
     private toastr: ToastrService,
@@ -38,7 +39,7 @@ export class CreateAccountComponent implements OnInit {
     return this._formBuilder.group({
       fullName: [null, [Validators.required]],
       username: [null,[Validators.required]],
-      email: [null,[Validators.required]],
+      email: [null,[Validators.required, regexFormEmail]],
       password: [null,[Validators.required]],
       phoneNumber: [null,[Validators.required]],
       roleId: [null,[Validators.required]],
