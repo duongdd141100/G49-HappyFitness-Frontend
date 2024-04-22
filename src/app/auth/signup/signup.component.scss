@@ -10,12 +10,18 @@
     width: 100%;
 }
 
-
-
+.background-fitness {
+    height: auto !important;
+}
+.form-group {
+    margin-bottom: 0 !important;
+}
+.gender {
+    gap: 10px;
+}
 .column-center {
     display: flex;
     align-items: center;
-    height: 100vh;
     margin-left: -10rem;
 }
 
