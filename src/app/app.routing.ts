@@ -20,7 +20,6 @@ import { ListAccountComponent } from "./account/list/list-account.component";
 import { OrderCheckoutComponent } from "./order/checkout/order-checkout.component";
 import { OrderDetailComponent } from "./order/detail/order-detail.component";
 import { OrderHomeComponent } from "./order/home/order-home.component";
-import { OrderHistoryComponent } from "./order/history/order-history.component";
 import { TicketListComponent } from "./ticket/ticket-list/ticket-list.component";
 import { TicketDetailComponent } from "./ticket/ticket-detail/ticket-detail.component";
 import { ListTicketAdComponent } from "./ticket/list-admin/list-ticket-admin.component";
@@ -79,7 +78,6 @@ const routes: Routes = [
   { path: 'order-checkout-ticket', component: OrderCheckoutTicketComponent },
   { path: 'order-detail', component: OrderDetailComponent },
   { path: 'order-home', component: OrderHomeComponent },
-  { path: 'order-history', component: OrderHistoryComponent },
   { path: 'tickets', component: TicketListComponent },
   { path: 'ticket-detail', component: TicketDetailComponent },
   { path: 'cart', component: CartComponent },

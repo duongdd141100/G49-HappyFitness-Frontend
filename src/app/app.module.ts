@@ -39,7 +39,6 @@ import { ListAccountComponent } from "./account/list/list-account.component";
 import { OrderCheckoutComponent } from "./order/checkout/order-checkout.component";
 import { OrderDetailComponent } from "./order/detail/order-detail.component";
 import { OrderHomeComponent } from "./order/home/order-home.component";
-import { OrderHistoryComponent } from "./order/history/order-history.component";
 import { AuthService } from "./services/services/auth.service";
 import { ApiService } from "./services/services/api.service";
 import { TicketListComponent } from "./ticket/ticket-list/ticket-list.component";
@@ -95,7 +94,6 @@ registerLocaleData(localeVi, 'vi-VN');
     OrderCheckoutComponent,
     OrderDetailComponent,
     OrderHomeComponent,
-    OrderHistoryComponent,
     OrderAdminViewComponent,
     TicketListComponent,
     ListTicketAdComponent,
