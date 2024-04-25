@@ -74,8 +74,8 @@ export class ListCustomerProductComponent implements OnInit {
   onGetProduct(facility) {
     this.apiService.getProduct(facility).subscribe({
       next: (res) => {
-        this.listProduct = res.body
-        this.productsByRow = this.seperateProductByRows(res.body, 4)
+        this.listProduct = res.body.filter(x => x.status === 'Hoạt động')
+        this.productsByRow = this.seperateProductByRows(this.listProduct, 4)
       }, // nextHandler
       error: (err) => {
         console.info(err)
