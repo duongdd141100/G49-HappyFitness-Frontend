@@ -1,0 +1,115 @@
+<main>
+  <section class="section">
+    <div class="container-fluid mt-5">
+      <!-- Table -->
+      <div class="row mt-5">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col-10">
+                  <h3 class="mb-0">Danh sách vé của khách hàng</h3>
+                </div>
+              </div>  
+              <div class="col-12 text-right d-flex align-items-center justify-content-between pl-0" >
+                <div class="form-group mb-0">
+                  <select class="form-control" name="" id="" (change)="handleSelectFacility($event)">
+                    <option [value]="'all'" [selected]="facilitySelect == null">Tất cả</option>
+                    <option *ngFor="let facility of facilities" [value]="facility.id" [selected]="facility.id == +facilitySelect">
+                      {{facility.name}}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group mb-0">
+                  <label>Trạng thái hoạt động</label>
+                  <select class="form-control" name="" id="" (change)="handleSelectStatus($event)">
+                    <option [value]="'all'">Tất cả</option>
+                    <option [value]="'true'">Hoạt động</option>
+                    <option [value]="'false'">Hết hạn</option>
+                  </select>
+                </div>
+                <div class="form-group mb-0">
+                  <label>Trạng thái sử dụng</label>
+                  <select class="form-control" name="" id="" (change)="handleSelectUsingStatus($event)">
+                    <option [value]="'all'">Tất cả</option>
+                    <option [value]="'true'">Đang sử dụng</option>
+                    <option [value]="'false'">Không sử dụng</option>
+                  </select>
+                </div>
+                <!-- <button style="font-size: 13px;" type="button mt-0" class="btn btn-primary mt-1" (click)="add()">+
+                  Thêm vé
+                </button> -->
+              </div>
+            </div>
+            <div class="table-responsive" style="min-height: 300px;">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Khách hàng</th>
+                    <th scope="col">Tên vé</th>
+                    <th scope="col">Thời hạn (Tháng)</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col">Ngày bắt đầu</th>
+                    <th scope="col">Ngày kết thúc</th>
+                    <th scope="col">Trạng thái vé</th>
+                    <th scope="col">Trạng thái thanh toán</th>
+                    <th scope="col">Trạng thái sử dụng</th>
+                    <th scope="col">Cơ sở</th>
+                    <!-- <th scope="col">Tác vụ</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ticket of customerTickets">
+                    <!-- <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                          <span class="mb-0 text-sm">{{ticket.code}}</span>
+                        </div>
+                      </div>
+                    </th> -->
+                    
+                    <td>{{ticket.customer.fullName}}</td>
+                    <td>{{ticket.ticket.name}}</td>
+                    <td>{{ticket.ticket.monthDuration}}</td>
+                    <td>{{ticket.price}}</td>
+                    <td>{{formatDateDdMmYyyy(ticket.startDate)}}</td>
+                    <td>{{formatDateDdMmYyyy(ticket.endDate)}}</td>
+                    <td [ngClass]="ticket.status ? 'text-success' : 'text-danger'">
+                      {{ticket.status ? 'Hoạt động' : 'Hết hạn'}}
+                    </td>
+                    <td [ngClass]="ticket.paid ? 'text-success' : 'text-danger'">
+                      {{ticket.paid ? 'Đã thanh toán' : 'Chưa thanh toán'}}
+                    </td>
+                    <td [ngClass]="ticket.isUsing ? 'text-success' : 'text-warning'">
+                      {{ticket.isUsing ? 'Đang sử dụng' : 'Không sử dụng'}}
+                    </td>
+                    <td>{{ticket.ticket.facility.name}}</td>
+                    <!-- <td class="text-center">
+                     <div class="button-action">
+                        <div>
+                          <button class="btn btn-primary mr-2" aria-label="Update" (click)="update(ticket.id)">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                          </button>
+                        </div>
+                        <div>
+                          <button *ngIf="ticket.status === true" class="btn btn-danger" aria-label="Deactivate" (click)="deactivate(ticket.id)">
+                            <i class="fa-solid fa-trash-can"></i>
+                          </button>
+                          <button *ngIf="ticket.status === false" class="btn btn-success" aria-label="Active" (click)="active(ticket.id)">
+                            <i class="fa-solid fa-check"></i>
+                          </button>
+                        </div>
+                      </div>
+
+                    </td> -->
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>

@@ -64,6 +64,7 @@ import { OrderTicketSuccessComponent } from "./order/order-ticket-success/order-
 import { TicketCustomerOrderComponent } from './ticket/ticket-customer-order/ticket-customer-order.component';
 import { ProductCustomerOrderComponent } from './ticket/product-customer-order/product-customer-order.component';
 import { ViewOrderDetailComponent } from './ticket/product-customer-order/view-order-detail/view-order-detail.component';
+import { CustomerTicketAdComponent } from "./ticket/customer-ticket-admin/list-ticket-admin.component";
 
 // import { FormsModule } from '@angular/forms';
 registerLocaleData(localeVi, 'vi-VN');
@@ -113,7 +114,8 @@ registerLocaleData(localeVi, 'vi-VN');
     OrderTicketSuccessComponent,
     TicketCustomerOrderComponent,
     ProductCustomerOrderComponent,
-    ViewOrderDetailComponent
+    ViewOrderDetailComponent,
+    CustomerTicketAdComponent,
   ],
   imports: [
     NgbModule,

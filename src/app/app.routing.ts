@@ -39,6 +39,7 @@ import { OrderCheckoutTicketComponent } from "./order/checkout-ticket/checkout-t
 import { OrderTicketSuccessComponent } from "./order/order-ticket-success/order-ticket-success.component";
 import { TicketCustomerOrderComponent } from "./ticket/ticket-customer-order/ticket-customer-order.component";
 import { ProductCustomerOrderComponent } from "./ticket/product-customer-order/product-customer-order.component";
+import { CustomerTicketAdComponent } from "./ticket/customer-ticket-admin/list-ticket-admin.component";
 
 
 const routes: Routes = [
@@ -58,6 +59,7 @@ const routes: Routes = [
   { path: 'admin/orders', component: OrderAdminViewComponent },
   { path: 'admin/create-voucher', component: CreateVoucherComponent },
   { path: 'admin/update-voucher/:id', component: UpdateVoucherComponent },
+  { path: 'admin/customer-ticket', component: CustomerTicketAdComponent },
 
 
 

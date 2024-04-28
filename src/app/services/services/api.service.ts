@@ -145,9 +145,20 @@ export class ApiService {
     const headers = this.getHeadersWithToken();
     return this.http.get(`${this.baseUrl}/${endpoint}`, { headers });
   }
-  public getTicketCustomerHistory(): Observable<any> {
+  public getTicketCustomerHistory(facilityId: string = null, isActive: string = null, isUsing: string = null): Observable<any> {
     const headers = this.getHeadersWithToken();
-    return this.http.get(`${this.TICKET_CUSTOMER}`, { headers });
+    let params = [];
+    if (facilityId) {
+      params.push(`facilityId=${facilityId}`);
+    }
+    if (isActive != null) {
+      params.push(`isActive=${isActive}`);
+    }
+    if (isUsing != null) {
+      params.push(`isUsing=${isUsing}`)
+    }
+    let paramsStr = params.length > 0 ? params.join('&') : '';
+    return this.http.get(`${this.TICKET_CUSTOMER}` + (paramsStr ? `?${paramsStr}` : ''), { headers });
   }
   public getProductCustomerHistory(): Observable<any> {
     const headers = this.getHeadersWithToken();
