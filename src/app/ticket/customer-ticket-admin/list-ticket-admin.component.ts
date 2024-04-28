@@ -69,4 +69,20 @@ export class CustomerTicketAdComponent implements OnInit {
   formatDateDdMmYyyy(value) {
     return formatDate(value, 'dd/MM/yyyy', 'en-US');
   }
+
+  using(username) {
+    console.info(username)
+    this.apiService.changeCustomerTicketUsing(username).subscribe({
+      next: (res) => {
+        this.customerTickets.map(x => {
+          if (x.customer.username === username) {
+            x.isUsing = !x.isUsing
+          }
+        })
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+      }, // errorHandler
+    })
+  }
 }

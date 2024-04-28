@@ -55,19 +55,11 @@
                     <th scope="col">Trạng thái thanh toán</th>
                     <th scope="col">Trạng thái sử dụng</th>
                     <th scope="col">Cơ sở</th>
-                    <!-- <th scope="col">Tác vụ</th> -->
+                    <th scope="col">Tác vụ</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let ticket of customerTickets">
-                    <!-- <th scope="row">
-                      <div class="media align-items-center">
-                        <div class="media-body">
-                          <span class="mb-0 text-sm">{{ticket.code}}</span>
-                        </div>
-                      </div>
-                    </th> -->
-                    
                     <td>{{ticket.customer.fullName}}</td>
                     <td>{{ticket.ticket.name}}</td>
                     <td>{{ticket.ticket.monthDuration}}</td>
@@ -84,24 +76,19 @@
                       {{ticket.isUsing ? 'Đang sử dụng' : 'Không sử dụng'}}
                     </td>
                     <td>{{ticket.ticket.facility.name}}</td>
-                    <!-- <td class="text-center">
+                    <td class="text-center">
                      <div class="button-action">
                         <div>
-                          <button class="btn btn-primary mr-2" aria-label="Update" (click)="update(ticket.id)">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                          </button>
-                        </div>
-                        <div>
-                          <button *ngIf="ticket.status === true" class="btn btn-danger" aria-label="Deactivate" (click)="deactivate(ticket.id)">
+                          <button *ngIf="ticket.isUsing && ticket.status" class="btn btn-danger" aria-label="Deactivate" (click)="using(ticket.customer.username)">
                             <i class="fa-solid fa-trash-can"></i>
                           </button>
-                          <button *ngIf="ticket.status === false" class="btn btn-success" aria-label="Active" (click)="active(ticket.id)">
+                          <button *ngIf="!ticket.isUsing && ticket.status" class="btn btn-success" aria-label="Active" (click)="using(ticket.customer.username)">
                             <i class="fa-solid fa-check"></i>
                           </button>
                         </div>
                       </div>
 
-                    </td> -->
+                    </td>
                   </tr>
                 </tbody>
               </table>

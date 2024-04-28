@@ -73,6 +73,7 @@ export class ApiService {
   private CREATE_ORDER_TICKET = this.baseUrl + "user-ticket/buy";
   private TICKET_CUSTOMER = this.baseUrl + "user-ticket";
   private TICKET_CUSTOMER_EXTEND = this.baseUrl + "user-ticket/extend";
+  private CHANGE_CUSTOMER_TICKET_USING = this.baseUrl + "user-ticket/using";
 
   //AI
   private AI_MENU = 'http://127.0.0.1:8000/submit'; // server AI khác
@@ -395,5 +396,9 @@ export class ApiService {
   public updateVoucher(voucher, id = null): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.post<any>(`${this.UPDATE_VOUCHER}/${id}`, voucher, { headers });
+  }
+  public changeCustomerTicketUsing(username: string): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.CHANGE_CUSTOMER_TICKET_USING}/${username}`, null, { headers });
   }
 }
