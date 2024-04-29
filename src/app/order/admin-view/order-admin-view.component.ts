@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from 'src/app/services/services/api.service'
 import { AuthService } from 'src/app/services/services/auth.service';
+import { ViewOrderDetailComponent } from 'src/app/ticket/product-customer-order/view-order-detail/view-order-detail.component';
 
 
 @Component({
@@ -23,6 +25,7 @@ export class OrderAdminViewComponent implements OnInit {
     private router: Router,
     private apiService: ApiService,
     private authService: AuthService,
+    private _modal: NgbModal,
   ) { }
 
   ngOnInit() {
@@ -88,5 +91,18 @@ export class OrderAdminViewComponent implements OnInit {
     let value = e.target.value
     this.isDelivered = value === 'all' ? null : value;
     this.onLoadOrders(this.facilityId, this.isPaid, this.isDelivered)
+  }
+  handleViewDetail(p) {
+    const modalRef = this._modal.open(ViewOrderDetailComponent, {
+      //scrollable: true,
+      size: 'lg', //'sm' | 'lg' | 'xl' | string;
+      backdropClass: 'service-backdrop',
+      windowClass: 'service-window',
+      centered: true
+    })
+    modalRef.componentInstance.orderId = p.id;
+    modalRef.result.then(result => {
+      if (!result) { return }
+    }).catch(error => { return error })
   }
 }

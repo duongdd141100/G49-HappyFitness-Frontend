@@ -39,7 +39,8 @@ export class TicketListComponent implements OnInit {
   onLoadTickets(facilityId) {
     this.apiService.getSticketAdmin(facilityId).subscribe({
       next: (res) => {
-        this.tickets = this.seperateProductByRows(res.body, 4)
+        this.tickets = this.seperateProductByRows(res.body.filter(x => x.status), 4)
+        console.info(this.tickets)
       }, // nextHandler
       error: (err) => {
         console.info(err)
@@ -50,9 +51,9 @@ export class TicketListComponent implements OnInit {
   seperateProductByRows (products, rowSize) {
     const result: any[][] = [];
     for (let i = 0; i < products.length; i += rowSize) {
-        if (products[i].status) {
+        // if (products[i].status) {
           result.push(products.slice(i, i + rowSize));
-        }
+        // }
         
     }
     return result;
