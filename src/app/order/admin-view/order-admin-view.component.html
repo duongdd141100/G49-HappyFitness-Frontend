@@ -58,7 +58,7 @@
                   <tr *ngFor="let o of orders" (click)="handleViewDetail(o)">
                     <td>{{o.username}}</td>
                     <td class="text-center" [ngClass]="o.paid === true ? 'text-success' : 'text-danger'">{{o.paid ? 'Đã thanh toán' : 'Chưa thanh toán'}}</td>
-                    <td class="text-center" [ngClass]="o.status === 'Thành Công' ? 'text-success' : 'text-warning'">{{o.status}}</td>
+                    <td class="text-center" [ngClass]="o.status === 'Thành Công' ? 'text-success' : (o.status === 'Đang vận chuyển' ? 'text-warning' : 'text-danger')">{{o.status}}</td>
                     <td class="text-center">{{o.voucherName}}</td>
                     <td class="text-center">{{o.price}}</td>
                     <td class="text-center">
