@@ -18,7 +18,7 @@ export class TrainingPakageComponent implements OnInit {
   constructor(private apiService: ApiService, private toast: ToastrService, private _modal: NgbModal) { }
 
   ngOnInit(): void {
-    this.apiService.getPakage().subscribe({
+    this.apiService.getPackage().subscribe({
       next: (res) => {
         this.pakages = res.body;
       }, // nextHandler
