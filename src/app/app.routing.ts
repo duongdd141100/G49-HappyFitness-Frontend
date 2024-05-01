@@ -40,6 +40,7 @@ import { OrderTicketSuccessComponent } from "./order/order-ticket-success/order-
 import { TicketCustomerOrderComponent } from "./ticket/ticket-customer-order/ticket-customer-order.component";
 import { ProductCustomerOrderComponent } from "./ticket/product-customer-order/product-customer-order.component";
 import { CustomerTicketAdComponent } from "./ticket/customer-ticket-admin/list-ticket-admin.component";
+import { TrainingPakageComponent } from "./training-pakage/training-pakage.component";
 
 
 const routes: Routes = [
@@ -67,6 +68,7 @@ const routes: Routes = [
 
   //customer
   { path: 'register', component: SignupComponent },
+  { path: 'training-pakage', component: TrainingPakageComponent },
   { path: 'home', component: IntroductionComponent },
   { path: 'product-detail/:code', component: ProductDetailComponent},
   { path: 'login', component: LoginComponent },
@@ -83,6 +85,7 @@ const routes: Routes = [
   { path: 'tickets', component: TicketListComponent },
   { path: 'ticket-detail', component: TicketDetailComponent },
   { path: 'cart', component: CartComponent },
+  { path: 'order-success', component: OrderSuccessComponent },
   { path: 'order-success/:id', component: OrderSuccessComponent },
   { path: 'order-ticket-succes/:id', component: OrderTicketSuccessComponent },
   { path: 'ticket-customer-order', component: TicketCustomerOrderComponent },
