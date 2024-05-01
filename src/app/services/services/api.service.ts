@@ -21,6 +21,7 @@ export class ApiService {
   private USER_INFOR = this.baseUrl + "users";
   private RESET_PASSWORD = this.baseUrl + "users/reset-password";
   private CREATE_USER = this.baseUrl + "users/create";
+  private GET_PT_FREE = this.baseUrl + 'users/free-pt'
   
   // Cart
   private VIEWCART = this.baseUrl + "cart";
@@ -77,6 +78,11 @@ export class ApiService {
 
   //AI
   private AI_MENU = 'http://127.0.0.1:8000/submit'; // server AI khác
+
+  //PAKAGE
+  private GET_PAKAGE = this.baseUrl + "packages"
+  private GET_TIME_TRAIN = this.baseUrl + "train-time"
+  
   constructor(private http: HttpClient) { }
 
   private getHeadersWithToken(): HttpHeaders {
@@ -105,15 +111,31 @@ export class ApiService {
     const url = !voucherCode ? `${this.CREATE_ORDER_TICKET}/${ticketId}` : `${this.CREATE_ORDER_TICKET}/${ticketId}?voucherCode=${voucherCode}`
     return this.http.post<any>(url, null, { headers })
   }
-  public createPayment(amount, orderId?, ticketId?):Observable<any>  {
+  public createPayment(amount, orderId?, ticketId?, dataBody?):Observable<any>  {
     const headers = this.getHeadersWithToken();
-    const url = orderId ?  `${this.CREATE_PAYMENT}?amount=${amount}&orderId=${orderId}` : `${this.CREATE_PAYMENT}?amount=${amount}&ticketId=${ticketId}`
-    return this.http.get<any>(url , { headers });
+    let url = orderId ?  `${this.CREATE_PAYMENT}?amount=${amount}&orderId=${orderId}` : `${this.CREATE_PAYMENT}?amount=${amount}&ticketId=${ticketId}`
+    if(!orderId && !ticketId) url = this.CREATE_PAYMENT
+    return this.http.post<any>(url , dataBody, { headers });
   }
-  public completePayment(responseCode, orderId):Observable<any>  {
+  public getPakage():Observable<any>  {
     const headers = this.getHeadersWithToken();
-    const url = `${this.PAYMENT_COMPLETE}?responseCode=${responseCode}&orderId=${orderId}`
-    return this.http.get<any>(url , { headers });
+    return this.http.get<any>(this.GET_PAKAGE , { headers });
+  }
+  public getPtFree(data: {trainTimeId: number, facilityId: number, dayOfWeeks: Array<any>}):Observable<any>  {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(this.GET_PT_FREE , data, { headers });
+  }
+  public getTimeTrain():Observable<any>  {
+    const headers = this.getHeadersWithToken();
+    return this.http.get<any>(this.GET_TIME_TRAIN, { headers });
+  }
+  public completePayment(responseCode, orderId?, dataBody?):Observable<any>  {
+    const headers = this.getHeadersWithToken();
+    let url = `${this.PAYMENT_COMPLETE}?responseCode=${responseCode}&orderId=${orderId}`
+    if (dataBody && !orderId) {
+      url =  `${this.PAYMENT_COMPLETE}?responseCode=${responseCode}`
+    }
+    return this.http.post<any>(url ,dataBody , { headers });
   }
 
 

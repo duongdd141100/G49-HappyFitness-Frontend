@@ -22,7 +22,10 @@ export class ErrorInterceptor implements HttpInterceptor {
     '/order-checkout-ticket',
     '/profile',
     '/product-customer-order',
-    '/ticket-customer-order'
+    '/ticket-customer-order',
+    '/training-pakage',
+    '/order-success',
+    '/order-ticket-succes'
   ]
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

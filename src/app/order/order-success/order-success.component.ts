@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/services/api.service';
 
@@ -10,25 +10,62 @@ import { ApiService } from 'src/app/services/services/api.service';
 })
 export class OrderSuccessComponent implements OnInit {
   responseCode: any;
-  constructor(private route: ActivatedRoute, private apiService: ApiService, private toast: ToastrService) { }
+  constructor(private route: ActivatedRoute, private apiService: ApiService, private toast: ToastrService,private router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       // Lấy giá trị của param từ URL
       const orderId = params['id']; // Đây là giá trị '38' trong URL http://localhost:4200/order-success/38
-  
+        this.route.queryParams.subscribe(queryParams => {
+          this.responseCode = queryParams['vnp_ResponseCode']; // Đây là giá trị '00' trong URL
+          
+          if (this.responseCode === '00') {
+            this.toast.success('Thanh toán thành công!');
+          } else {
+            this.toast.error('Thanh toán thất bại!');
+          }
+          if(this.responseCode !== '00') return;
+          if(orderId) {
+            this.apiService.completePayment(this.responseCode, orderId).subscribe({
+              next: (res) => {
+                let timeout = setTimeout(() => {
+                  this.router.navigate(['/home']); // Điều hướng đến trang home
+                  clearTimeout(timeout); //
+                }, 2000);
+              }, // nextHandler
+              error: (err) => {
+                return
+              }, // errorHandler
+            })
+          } else { //order pakage
+            let dataOrderPakage = {
+              trainTimeId: queryParams['trainTimeId'],
+              facilityId: queryParams['facilityId'],
+              dayOfWeeks: this.integerToArray(queryParams['dayOfWeeks']),
+              ptId: queryParams['ptId'],
+              packageId: queryParams['packageId']
+            }
+            this.apiService.completePayment(this.responseCode, null, dataOrderPakage).subscribe({
+              next: (res) => {
+                let timeout = setTimeout(() => {
+                  this.router.navigate(['/home']); // Điều hướng đến trang home
+                  clearTimeout(timeout); //
+                }, 2000);
+              }, // nextHandler
+              error: (err) => {
+                return
+              }, // errorHandler
+            })
+          }
+          
+          // Sử dụng orderId và responseCode ở đây
+        });
       // Lấy giá trị của query params từ URL
-      this.route.queryParams.subscribe(queryParams => {
-        this.responseCode = queryParams['vnp_ResponseCode']; // Đây là giá trị '00' trong URL
-        this.apiService.completePayment(this.responseCode, orderId).subscribe()
-        if (this.responseCode === '00') {
-          this.toast.success('Thanh toán thành công!');
-        } else {
-          this.toast.error('Thanh toán thất bại!');
-        }
-        // Sử dụng orderId và responseCode ở đây
-      });
+     
     });
+    
   }
-
+  integerToArray(number):Array<number> {
+    return number.toString().split('').map(Number);
+  }
 }
