@@ -39,7 +39,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let c of classes" (click)="handleViewSchedule(c)">
+                  <tr *ngFor="let c of classes">
                     <td>{{c.name}}</td>
                     <td>{{c.apackage.name}}</td>
                     <td>{{c.pt.fullName}}</td>
@@ -50,20 +50,17 @@
                     <td>{{getDayOfWeeksStr(c.id)}}</td>
                     <td class="text-center">
                      <div class="button-action">
-                        <div>
-                          <button class="btn btn-primary mr-2" aria-label="Update" (click)="update(c.id)">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                          </button>
-                        </div>
-                        <div>
-                          <button *ngIf="c.status === true" class="btn btn-danger" aria-label="Deactivate" (click)="deactivate(c.id)">
-                            <i class="fa-solid fa-trash-can"></i>
-                          </button>
-                          <button *ngIf="c.status === false" class="btn btn-success" aria-label="Active" (click)="active(c.id)">
-                            <i class="fa-solid fa-check"></i>
-                          </button>
-                        </div>
+                      <div>
+                        <button class="btn btn-primary mr-2" aria-label="View schedules" (click)="handleViewStudent(c)">
+                          <i class="fa-solid fa-graduation-cap"></i>
+                        </button>
                       </div>
+                      <div>
+                        <button class="btn btn-primary mr-2" aria-label="View schedules" (click)="handleViewSchedule(c)">
+                          <i class="fa-solid fa-calendar-days"></i>
+                        </button>
+                      </div>
+                    </div>
 
                     </td>
                   </tr>

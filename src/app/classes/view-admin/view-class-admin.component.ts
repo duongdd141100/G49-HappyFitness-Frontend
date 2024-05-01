@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/services/api.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ScheduleComponent } from '../schedules/schedule.component';
+import { StudentComponent } from '../students/students.component';
 
 
 @Component({
@@ -117,5 +118,15 @@ export class ViewClassAdComponent implements OnInit {
     modalRef.result.then(result => {
       this.onLoadClasses();
     }).catch(error => { return error })
+  }
+  handleViewStudent(c) {
+    const modalRef = this._modal.open(StudentComponent, {
+      //scrollable: true,
+      size: 'lg', //'sm' | 'lg' | 'xl' | string;
+      backdropClass: 'service-backdrop',
+      windowClass: 'service-window',
+      centered: true,
+    });
+    modalRef.componentInstance.classStudents = c.classStudents;
   }
 }

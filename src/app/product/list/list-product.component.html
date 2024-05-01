@@ -47,7 +47,7 @@
                     <td class="text-center">{{product.status}}</td>
                     <td class="text-center">
                       <div class="button-action">
-                        <div>
+                        <div *ngIf="roleId === 1 || roleId === 2">
                           <button class="btn btn-primary mr-2" aria-label="Edit" (click)="edit(product.code)">
                             <i class="fa-solid fa-pen-to-square"></i>
                           </button>

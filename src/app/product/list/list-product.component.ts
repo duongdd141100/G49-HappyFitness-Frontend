@@ -46,7 +46,7 @@ export class ListProductComponent implements OnInit {
     this.authService.getOwnInfo().subscribe({
       next: (res) => {
         this.roleId = res.body.role.id
-        if (res.body.role && (res.body.role.id !== 1 && res.body.role.id !== 2)) {
+        if (res.body.role && res.body.role.id === 3) {
           // TODO: handle not allow notification
           this.router.navigate([`/products`])
           return

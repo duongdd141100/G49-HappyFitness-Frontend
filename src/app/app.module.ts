@@ -69,6 +69,7 @@ import { TrainingPakageComponent } from './training-pakage/training-pakage.compo
 import { InfoBuyPakageComponent } from './training-pakage/info-buy-pakage/info-buy-pakage.component';
 import { ViewClassAdComponent } from "./classes/view-admin/view-class-admin.component";
 import { ScheduleComponent } from "./classes/schedules/schedule.component";
+import { StudentComponent } from "./classes/students/students.component";
 
 // import { FormsModule } from '@angular/forms';
 registerLocaleData(localeVi, 'vi-VN');
@@ -124,6 +125,7 @@ registerLocaleData(localeVi, 'vi-VN');
     InfoBuyPakageComponent,
     ViewClassAdComponent,
     ScheduleComponent,
+    StudentComponent,
   ],
   imports: [
     NgbModule,
