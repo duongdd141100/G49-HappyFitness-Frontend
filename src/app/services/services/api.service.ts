@@ -87,7 +87,7 @@ export class ApiService {
   private AI_MENU = 'http://127.0.0.1:8000/submit'; // server AI khác
 
   //PAKAGE
-  private GET_PAKAGE = this.baseUrl + "packages"
+  private GET_PACKAGE = this.baseUrl + "packages"
   private GET_TIME_TRAIN = this.baseUrl + "train-time"
   
   constructor(private http: HttpClient) { }
@@ -123,10 +123,6 @@ export class ApiService {
     let url = orderId ?  `${this.CREATE_PAYMENT}?amount=${amount}&orderId=${orderId}` : `${this.CREATE_PAYMENT}?amount=${amount}&ticketId=${ticketId}`
     if(!orderId && !ticketId) url = this.CREATE_PAYMENT
     return this.http.post<any>(url , dataBody, { headers });
-  }
-  public completePayment(responseCode, orderId):Observable<any>  {
-    const headers = this.getHeadersWithToken();
-    return this.http.get<any>(this.GET_PAKAGE , { headers });
   }
   public getPtFree(data: {trainTimeId: number, facilityId: number, dayOfWeeks: Array<any>}):Observable<any>  {
     const headers = this.getHeadersWithToken();
@@ -439,6 +435,11 @@ export class ApiService {
   public getSchedules(classId: any = null): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.get<any>(`${this.FIND_SCHEDULE}` + (classId ? `?classId=${classId}` : ''), { headers });
+  }
+
+  public getPackage(): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.get<any>(`${this.GET_PACKAGE}`, { headers });
   }
 
   public attend(scheduleId): Observable<any> {
