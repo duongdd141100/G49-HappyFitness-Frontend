@@ -1,0 +1,46 @@
+<div class="order" style="padding: 30px;">
+  <div class="modal-header">
+    <h4>Lịch tập chi tiết</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Close click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Buổi</th>
+          <th>Thứ</th>
+          <th>Ngày tập</th>
+          <th>Thời gian</th>
+          <th>Trạng thái</th>
+          <th>Tác vụ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of schedules; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{s.dayOfWeek}}</td>
+          <td>{{s.trainDate}}</td>
+          <td>{{s.trainTime.startTime + ' - ' + s.trainTime.endTime}}</td>
+          <td [ngClass]="s.status === 'ATTENDED' ? 'text-success' : 'text-warning'">
+            {{s.status === 'ATTENDED' ? 'Đã tập' : 'Chưa tập'}}
+          </td>
+          <td class="text-center">
+            <div class="button-action">
+                <div>
+                  <button *ngIf="s.status === 'NOT_YET'" class="btn btn-success" aria-label="Attend" (click)="attend(s.id)">
+                    <i class="fa-solid fa-check"></i>
+                  </button>
+                </div>
+              </div>
+
+            </td>
+        </tr>
+        <tr *ngIf="schedules?.length <= 0">
+          <td colspan="6" style="text-align: center;">Không có dữ liệu nào!</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

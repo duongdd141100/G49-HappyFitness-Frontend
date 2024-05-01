@@ -76,6 +76,13 @@ export class ApiService {
   private TICKET_CUSTOMER_EXTEND = this.baseUrl + "user-ticket/extend";
   private CHANGE_CUSTOMER_TICKET_USING = this.baseUrl + "user-ticket/using";
 
+  // Schedule
+  private FIND_SCHEDULE = this.baseUrl + "schedules";
+  private ATTEND_SCHEDULE = this.baseUrl + "schedules/attend";
+
+  // Classes
+  private FIND_CLASS = this.baseUrl + "classes";
+
   //AI
   private AI_MENU = 'http://127.0.0.1:8000/submit'; // server AI khác
 
@@ -117,7 +124,7 @@ export class ApiService {
     if(!orderId && !ticketId) url = this.CREATE_PAYMENT
     return this.http.post<any>(url , dataBody, { headers });
   }
-  public getPakage():Observable<any>  {
+  public completePayment(responseCode, orderId):Observable<any>  {
     const headers = this.getHeadersWithToken();
     return this.http.get<any>(this.GET_PAKAGE , { headers });
   }
@@ -422,5 +429,20 @@ export class ApiService {
   public changeCustomerTicketUsing(username: string): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.post<any>(`${this.CHANGE_CUSTOMER_TICKET_USING}/${username}`, null, { headers });
+  }
+
+  public getClasses(): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.get<any>(`${this.FIND_CLASS}`, { headers });
+  }
+
+  public getSchedules(classId: any = null): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.get<any>(`${this.FIND_SCHEDULE}` + (classId ? `?classId=${classId}` : ''), { headers });
+  }
+
+  public attend(scheduleId): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.ATTEND_SCHEDULE}/${scheduleId}`, null, { headers });
   }
 }

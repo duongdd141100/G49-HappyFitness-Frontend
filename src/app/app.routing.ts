@@ -41,6 +41,7 @@ import { TicketCustomerOrderComponent } from "./ticket/ticket-customer-order/tic
 import { ProductCustomerOrderComponent } from "./ticket/product-customer-order/product-customer-order.component";
 import { CustomerTicketAdComponent } from "./ticket/customer-ticket-admin/list-ticket-admin.component";
 import { TrainingPakageComponent } from "./training-pakage/training-pakage.component";
+import { ViewClassAdComponent } from "./classes/view-admin/view-class-admin.component";
 
 
 const routes: Routes = [
@@ -61,6 +62,7 @@ const routes: Routes = [
   { path: 'admin/create-voucher', component: CreateVoucherComponent },
   { path: 'admin/update-voucher/:id', component: UpdateVoucherComponent },
   { path: 'admin/customer-ticket', component: CustomerTicketAdComponent },
+  { path: 'admin/classes', component: ViewClassAdComponent },
 
 
 
