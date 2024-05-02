@@ -1,7 +1,8 @@
+import { formatDate } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from 'src/app/services/services/api.service';
+import { AttendanceComponent } from '../attendance/attendance.component';
 
 @Component({
   selector: 'app-view-schedule',
@@ -11,13 +12,14 @@ import { ApiService } from 'src/app/services/services/api.service';
 export class ScheduleComponent implements OnInit {
   @Input() classId:any;
   constructor(private apiService: ApiService,
-    private toastr: ToastrService,
-    public activeModal: NgbActiveModal,) { }
+    public activeModal: NgbActiveModal,
+    private _modal: NgbModal,
+    ) { }
   schedules:any
   ngOnInit(): void {
-    if (this.classId) this.onLoadOrderDetail()
+    if (this.classId) this.onLoadSchedules()
   }
-  onLoadOrderDetail() {
+  onLoadSchedules() {
     this.apiService.getSchedules(this.classId).subscribe({
       next: (res) => {
         this.schedules = res.body
@@ -28,21 +30,21 @@ export class ScheduleComponent implements OnInit {
       }, // errorHandler
     })
   }
-  attend(scheduleId) {
-    this.apiService.attend(scheduleId).subscribe({
-      next: (res) => {
-        this.schedules.map(x => {
-          if (x.id === scheduleId) {
-            x.status = 'ATTENDED';
-          }
-          return x;
-        });
-        this.toastr.success("Cập nhật thành công!")
-      }, // nextHandler
-      error: (err) => {
-        
-        return
-      }, // errorHandler
-    })
+  attend(s) {
+    const modalRef = this._modal.open(AttendanceComponent, {
+      //scrollable: true,
+      size: 'lg', //'sm' | 'lg' | 'xl' | string;
+      backdropClass: 'service-backdrop',
+      windowClass: 'service-window',
+      centered: true,
+      backdrop : 'static',
+      keyboard : false
+    });
+    modalRef.componentInstance.scheduleId = s.id;
+    modalRef.componentInstance.classStudents = s.clazz.classStudents;
+    modalRef.result.then(() => this.onLoadSchedules());
+  }
+  trainDateIsToday(s) {
+    return s.trainDate === formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
   }
 }

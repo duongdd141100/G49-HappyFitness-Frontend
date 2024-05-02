@@ -33,7 +33,6 @@
                     <th scope="col">Gói</th>
                     <th scope="col">Huấn luyện viên</th>
                     <th scope="col">Trạng thái</th>
-                    <th scope="col">Số buổi còn lại</th>
                     <th scope="col">Thứ</th>
                     <th scope="col">Tác vụ</th>
                   </tr>
@@ -46,7 +45,6 @@
                     <td [ngClass]="c.status === 'ACTIVE' ? 'text-success' : 'text-danger'">
                       {{c.status === 'ACTIVE' ? 'Hoạt động' : 'Kết thúc'}}
                     </td>
-                    <td>{{c.remainSlot}}</td>
                     <td>{{getDayOfWeeksStr(c.id)}}</td>
                     <td class="text-center">
                      <div class="button-action">

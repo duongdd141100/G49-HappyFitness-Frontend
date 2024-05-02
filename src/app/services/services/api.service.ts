@@ -80,6 +80,10 @@ export class ApiService {
   private FIND_SCHEDULE = this.baseUrl + "schedules";
   private ATTEND_SCHEDULE = this.baseUrl + "schedules/attend";
 
+  // Attendance
+  private FIND_ATTENDANCE = this.baseUrl + "attendance";
+  private UPDATE_ATTENDANCE = this.baseUrl + "attendance/update";
+
   // Classes
   private FIND_CLASS = this.baseUrl + "classes";
 
@@ -442,8 +446,18 @@ export class ApiService {
     return this.http.get<any>(`${this.GET_PACKAGE}`, { headers });
   }
 
-  public attend(scheduleId): Observable<any> {
+  public attend(scheduleId, studentId): Observable<any> {
     const headers = this.getHeadersWithToken();
-    return this.http.post<any>(`${this.ATTEND_SCHEDULE}/${scheduleId}`, null, { headers });
+    return this.http.post<any>(`${this.ATTEND_SCHEDULE}/${scheduleId}?studentId=${studentId}`, null, { headers });
+  }
+
+  public getAttendance(scheduleId): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.get<any>(`${this.FIND_ATTENDANCE}/${scheduleId}`, { headers });
+  }
+
+  public updateAttend(attendances: any): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.UPDATE_ATTENDANCE}`, attendances, { headers });
   }
 }
