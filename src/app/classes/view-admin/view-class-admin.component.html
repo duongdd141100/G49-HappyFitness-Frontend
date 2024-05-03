@@ -40,7 +40,7 @@
                 <tbody>
                   <tr *ngFor="let c of classes">
                     <td>{{c.name}}</td>
-                    <td>{{c.apackage.name}}</td>
+                    <td>{{c.apackage?.name}}</td>
                     <td>{{c.pt.fullName}}</td>
                     <td [ngClass]="c.status === 'ACTIVE' ? 'text-success' : 'text-danger'">
                       {{c.status === 'ACTIVE' ? 'Hoạt động' : 'Kết thúc'}}
