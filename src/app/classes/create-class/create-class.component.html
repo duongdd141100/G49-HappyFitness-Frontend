@@ -1,0 +1,89 @@
+<main>
+  <section class="section">
+    <div class="px-5">
+      <div class="row row-grid align-items-center">
+        <div class="col px-0">
+          
+          <div class="mt-3 mb-3">
+            <div class="row">
+              <div class="col-12 create-sticket">
+                <div class="card shadow shadow-lg--hover">
+                  <div class="d-flex justify-content-center">
+                    <h5 class="display-3">Thêm lớp mới</h5>
+                  </div>
+                  <div class="card-body" [formGroup]="classForm">
+                    <div class="form-group">
+                      <label for="">*Tên lớp</label>
+                      <input type="text" id="" class="form-control"  [formControlName]="'name'" placeholder="Tên của lớp" aria-describedby="helpId">
+                      <div class="regexTel">
+                        <ng-container *ngIf="validateForm(classForm,'name')">
+                            <p class="text-danger"> Nhập vào tên lớp</p>
+                        </ng-container>
+                      </div>
+                    </div>  
+                    <div class="form-group">
+                      <label for="">*Ca tập</label>
+                        <select class="form-control" [formControlName]="'trainTimeId'" name="" id="">
+                          <option *ngFor="let t of trainTimes" [value]="t.id">
+                            {{t.startTime + ' - ' + t.endTime}}
+                          </option>
+                        </select>
+                        <div class="regexTel">
+                          <ng-container *ngIf="validateForm(classForm,'trainTimeId')">
+                              <p class="text-danger">Chọn cơ sở</p>
+                          </ng-container>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                      <label for="">*Cơ sở</label>
+                        <select class="form-control" [formControlName]="'facilityId'" name="" id="">
+                          <option *ngFor="let facility of facilities" [value]="facility.id">
+                            {{facility.name}}
+                          </option>
+                        </select>
+                        <div class="regexTel">
+                          <ng-container *ngIf="validateForm(classForm,'facilityId')">
+                              <p class="text-danger">Chọn cơ sở</p>
+                          </ng-container>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="!validateForm(classForm,'trainTimeId') && !validateForm(classForm,'facilityId')">
+                      <label for="">*Huấn luyện viên</label>
+                        <select class="form-control" [formControlName]="'ptId'" name="" id="">
+                          <option *ngFor="let facility of facilities" [value]="facility.id">
+                            {{facility.name}}
+                          </option>
+                        </select>
+                        <div class="regexTel">
+                          <ng-container *ngIf="validateForm(classForm,'facilityId')">
+                              <p class="text-danger">Chọn cơ sở</p>
+                          </ng-container>
+                        </div>
+                    </div>
+
+                    <!-- Phần text -->
+                    
+                  </div>
+                  <div class="card-footer">
+                    <button class="btn btn-primary" (click)="saveForm()">Lưu</button>
+                    <button class="btn btn-outline" (click)="location.back()">Quay lại</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SVG separator -->
+    <!-- <div class="separator separator-bottom separator-skew zindex-100">
+      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+        xmlns="http://www.w3.org/2000/svg">
+        <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div> -->
+  </section>
+
+  <!-- <div class="elfsight-app-2bb20d90-b4b8-4f52-b90a-a2fc00eac7d1" data-elfsight-app-lazy></div> -->
+
+</main>

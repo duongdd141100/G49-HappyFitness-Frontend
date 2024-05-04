@@ -42,6 +42,7 @@ import { ProductCustomerOrderComponent } from "./ticket/product-customer-order/p
 import { CustomerTicketAdComponent } from "./ticket/customer-ticket-admin/list-ticket-admin.component";
 import { TrainingPakageComponent } from "./training-pakage/training-pakage.component";
 import { ViewClassAdComponent } from "./classes/view-admin/view-class-admin.component";
+import { CreateClassComponent } from "./classes/create-class/create-class.component";
 import { PakageHistoryComponent } from "./pakage-history/pakage-history.component";
 
 
@@ -64,6 +65,7 @@ const routes: Routes = [
   { path: 'admin/update-voucher/:id', component: UpdateVoucherComponent },
   { path: 'admin/customer-ticket', component: CustomerTicketAdComponent },
   { path: 'admin/classes', component: ViewClassAdComponent },
+  { path: 'admin/create-class', component: CreateClassComponent },
 
 
 

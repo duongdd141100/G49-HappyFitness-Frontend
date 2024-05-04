@@ -19,6 +19,7 @@ export class ViewClassAdComponent implements OnInit {
   facilityList: any = [];
   facilitySelect: string;
   trainSchedules: any = [];
+  me: any = [];
   constructor(
     private router: Router,
     private apiService: ApiService,
@@ -28,6 +29,17 @@ export class ViewClassAdComponent implements OnInit {
   ngOnInit() {
     this.onLoadClasses();
     this.onLoadAllFacility();
+    this.onLoadMe();
+  }
+  onLoadMe() {
+    this.apiService.me().subscribe({
+      next: (res) => {
+        this.me = res.body
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+      }, // errorHandler
+    })
   }
   onLoadClasses() {
     this.apiService.getClasses().subscribe({
@@ -91,11 +103,11 @@ export class ViewClassAdComponent implements OnInit {
   }
 
   update(id: any) {
-    this.router.navigate([`/admin/update-ticket/${id}`]);
+    this.router.navigate([`/admin/update-class/${id}`]);
   }
 
   add() {
-    this.router.navigate(['/admin/create-ticket']);
+    this.router.navigate(['/admin/create-class']);
   }
 
   getDayOfWeeksStr(id) {
