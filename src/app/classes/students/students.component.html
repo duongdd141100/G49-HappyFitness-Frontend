@@ -14,6 +14,7 @@
           <th>Giới tính</th>
           <th>Email</th>
           <th>SĐT</th>
+          <th>Số buổi còn lại</th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +24,7 @@
           <td>{{s.student.gender ? 'Nam' : 'Nữ'}}</td>
           <td>{{s.student.email}}</td>
           <td>{{s.student.phoneNumber}}</td>
+          <td>{{s.remainSlot}}</td>
         </tr>
         <tr *ngIf="classStudents?.length <= 0">
           <td colspan="6" style="text-align: center;">Không có dữ liệu nào!</td>
