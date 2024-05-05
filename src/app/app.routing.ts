@@ -42,6 +42,7 @@ import { ProductCustomerOrderComponent } from "./ticket/product-customer-order/p
 import { CustomerTicketAdComponent } from "./ticket/customer-ticket-admin/list-ticket-admin.component";
 import { TrainingPakageComponent } from "./training-pakage/training-pakage.component";
 import { ViewClassAdComponent } from "./classes/view-admin/view-class-admin.component";
+import { PakageHistoryComponent } from "./pakage-history/pakage-history.component";
 
 
 const routes: Routes = [
@@ -93,6 +94,7 @@ const routes: Routes = [
   { path: 'ticket-customer-order', component: TicketCustomerOrderComponent },
   { path: 'product-customer-order', component: ProductCustomerOrderComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'pakage-history', component: PakageHistoryComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

@@ -50,12 +50,20 @@ export class OrderCheckoutTicketComponent implements OnInit , OnDestroy{
               window.open(res.body, '_blank');
             }, // nextHandler
             error: (err) => {
+              if(err.status  === 401) {
+                this.toast.error('Vui lòng đăng nhập!');
+                this.router.navigate(['/login']);
+              }
               return 
             }, // errorHandler
           })
           
         }, // nextHandler
         error: (err) => {
+          if(err.status  === 401) {
+            this.toast.error('Vui lòng đăng nhập!');
+            this.router.navigate(['/login']);
+          }
           return 
         }, // errorHandler
       })
