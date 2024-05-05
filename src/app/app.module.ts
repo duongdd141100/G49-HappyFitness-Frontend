@@ -71,6 +71,8 @@ import { ViewClassAdComponent } from "./classes/view-admin/view-class-admin.comp
 import { ScheduleComponent } from "./classes/schedules/schedule.component";
 import { StudentComponent } from "./classes/students/students.component";
 import { AttendanceComponent } from "./classes/attendance/attendance.component";
+import { PakageHistoryComponent } from './pakage-history/pakage-history.component';
+import { ViewScheduleByPakageComponent } from './pakage-history/view-schedule-by-pakage/view-schedule-by-pakage.component';
 
 // import { FormsModule } from '@angular/forms';
 registerLocaleData(localeVi, 'vi-VN');
@@ -128,6 +130,8 @@ registerLocaleData(localeVi, 'vi-VN');
     ScheduleComponent,
     StudentComponent,
     AttendanceComponent,
+    PakageHistoryComponent,
+    ViewScheduleByPakageComponent,
   ],
   imports: [
     NgbModule,
