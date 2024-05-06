@@ -3,6 +3,9 @@ import { ApiService } from '../services/services/api.service';
 import { sortIntoWeeks } from '../functions/function-helper';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ViewScheduleByPakageComponent } from './view-schedule-by-pakage/view-schedule-by-pakage.component';
+import { AuthService } from '../services/services/auth.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pakage-history',
@@ -10,11 +13,22 @@ import { ViewScheduleByPakageComponent } from './view-schedule-by-pakage/view-sc
   styleUrls: ['./pakage-history.component.scss']
 })
 export class PakageHistoryComponent implements OnInit {
-
-  constructor(private apiService: ApiService, private _modal: NgbModal) { }
+  user: any;
+  constructor(private apiService: ApiService, private _modal: NgbModal, private authService: AuthService, private router: Router, private toast: ToastrService) { }
   pakageHistorys: any;
   ngOnInit(): void {
-    this.onLoadPakageHistorys();
+    this.authService.getOwnInfo().subscribe({
+      next: (res) => {
+        this.user = res.body;
+        this.onLoadPakageHistorys();
+      },
+      error: (err) => {
+        if(err.status  === 401) {
+          this.toast.error('Vui lòng đăng nhập!');
+          this.router.navigate(['/login']);
+        }
+      }
+    });       
   }
   handeViewSchedule(p) {
     const modalRef = this._modal.open(ViewScheduleByPakageComponent, {
@@ -25,6 +39,7 @@ export class PakageHistoryComponent implements OnInit {
       centered: true
     })
     modalRef.componentInstance.pakage = p
+    modalRef.componentInstance.user = this.user
     modalRef.result.then(result => {
       if (!result) { return }
     }).catch(error => { return error })
@@ -71,7 +86,10 @@ export class PakageHistoryComponent implements OnInit {
 
   //   return weeks;
   // }
-  
+  onLoadSlotPakage(p):string {
+    let remainSlot = p.classStudents.filter(stu => stu.student.id == this.user.id)[0].remainSlot
+    return `${remainSlot}/${p.apackage.totalSlot}`;
+  }
   onLoadPakageHistorys() {
     this.apiService.getClasses().subscribe({
       next: (res) => {

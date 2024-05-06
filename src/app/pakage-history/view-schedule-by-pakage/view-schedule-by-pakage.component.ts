@@ -22,39 +22,30 @@ export class ViewScheduleByPakageComponent implements OnInit {
   }
   scheduleWeeks: any;
   dayByWeek:any;
-  user: any;
+  @Input() user: any;
   constructor(private apiService: ApiService, private authService: AuthService, private modal:NgbActiveModal, private toast: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
-    this.authService.getOwnInfo().subscribe({
+    this.apiService.getSchedules(this.pakage.id).subscribe({
       next: (res) => {
-        this.user = res.body;
-        this.apiService.getSchedules(this.pakage.id).subscribe({
-          next: (res) => {
-            this.scheduleWeeks = sortIntoWeeks(res.body, new Date(this.pakage.createdDate), new Date());
-            if(!this.scheduleWeeks[0]) {
-              this.scheduleWeeks = this.scheduleWeeks.filter(week => week);
-            }
-            this.scheduleWeeksOne = this.getCurrentWeek() ? this.getCurrentWeek() : this.scheduleWeeks[0] || this.scheduleWeeks[1];
-    
-            this.getWeekAndDayByWeek();
-           
-          }, // nextHandler
-          error: (err) => {
-            return 
-          }, // errorHandler
-        });
-        this.onLoadTimeTrain();
-      },
+        this.scheduleWeeks = sortIntoWeeks(res.body, new Date(this.pakage.createdDate), new Date());
+        if(!this.scheduleWeeks[0]) {
+          this.scheduleWeeks = this.scheduleWeeks.filter(week => week);
+        }
+        this.scheduleWeeksOne = this.getCurrentWeek() ? this.getCurrentWeek() : this.scheduleWeeks[0] || this.scheduleWeeks[1];
+        this.getWeekAndDayByWeek();
+       
+      }, // nextHandler
       error: (err) => {
         if(err.status  === 401) {
           this.modal.close();
           this.toast.error('Vui lòng đăng nhập!');
           this.router.navigate(['/login']);
         }
-      }
-    });       
- 
+        return 
+      }, // errorHandler
+    });
+    this.onLoadTimeTrain();
   }
   onStatusOneOnOne(schedule) {
     if (schedule.clazz.type == this.typeClass.one_on_one) {

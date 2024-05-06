@@ -13,6 +13,7 @@
                 <th>Thời gian tạo</th>
                 <th>Tiền đã thanh toán</th>
                 <th>Huấn luận viên</th>
+                <th>Buổi(còn/tổng)</th>
                 <th>Tác vụ</th>
               </tr>
             </thead>
@@ -23,6 +24,7 @@
                 <td>{{p.createdDate | date : 'dd/MM/yyyy ' : "GMT"}}</td>
                 <td>{{p.apackage.price | currency:'VND':'symbol':null:'vi-VN'}}</td>
                 <td><b>{{p.pt.fullName}}</b></td>
+                <td>{{onLoadSlotPakage(p)}}</td>
                 <td><button type="button" class="btn btn-primary" (click)="handeViewSchedule(p)">Lịch tập</button></td>
               </tr>
               <tr *ngIf="pakageHistorys?.length <= 0">
