@@ -44,6 +44,7 @@ import { TrainingPakageComponent } from "./training-pakage/training-pakage.compo
 import { ViewClassAdComponent } from "./classes/view-admin/view-class-admin.component";
 import { CreateClassComponent } from "./classes/create-class/create-class.component";
 import { PakageHistoryComponent } from "./pakage-history/pakage-history.component";
+import { ScheduleAdminPTComponent } from "./schedule-admin-pt/schedule-admin-pt.component";
 
 
 const routes: Routes = [
@@ -66,6 +67,7 @@ const routes: Routes = [
   { path: 'admin/customer-ticket', component: CustomerTicketAdComponent },
   { path: 'admin/classes', component: ViewClassAdComponent },
   { path: 'admin/create-class', component: CreateClassComponent },
+  { path: 'admin/schedule', component: ScheduleAdminPTComponent },
 
 
 
