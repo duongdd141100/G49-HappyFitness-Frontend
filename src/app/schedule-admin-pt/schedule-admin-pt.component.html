@@ -1,0 +1,51 @@
+<div class="title col-12" style="padding-block: 20px">
+  <div class="table-responsive">
+    <table class="table" *ngIf="dayByWeek && timeTrain && scheduleWeeksOne">
+      <thead>
+        <tr>
+          <th>
+            <form class="form-group">
+              <label for=""><b>Tuần</b></label>
+              <select class="form-control" name="weeks" id="weeks" (change)="onChangeWeek($event.target.value)">
+                <option *ngFor="let week of scheduleWeeks; let i = index" [value]="i" [selected]="onCheckCurrentDay(week)">
+                  {{getDayWithWeek(week)[0] | date : "dd/MM" : "GMT"}} - {{getDayWithWeek(week)[1] | date : "dd/MM" : "GMT"}} <span *ngIf="onCheckCurrentDay(week)"> (hiện tại)</span>
+                </option>
+              </select>
+            </form>
+          </th>
+          <th style="text-align: center" *ngFor="let day of dayByWeek">
+            {{ day.rank + 1 == 8 ? "Chủ nhật" : "Thứ " + (day.rank + 1) }}
+            <p style="font-size: 12px">
+              ({{ day.dayTime | date : "dd/MM" : "GMT" }})
+            </p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let time of timeTrain">
+          <td><b>{{formatTime(time.startTime) + ' - ' + formatTime(time.endTime)}}</b></td>
+          <td *ngFor="let schedule of scheduleWeeksOne">
+            <span *ngIf="!schedule || schedule.length == 0">
+              --
+            </span>
+            <div *ngIf="schedule && schedule.length > 0">
+              <!-- *ngIf="schedule && schedule.length > 0 && schedule.trainTime.id == time.id"  -->
+                <ng-container *ngIf="onCheckTimeTrain(time.id, schedule) else noSchedule">
+                  <span  class="item-schedule">
+                    <b title="Lớp học">{{onCheckTimeTrain(time.id, schedule).clazz.name}}</b>
+                    <i>{{onCheckTimeTrain(time.id, schedule).clazz.pt.fullName}}</i>
+                    <i title="Trạng thái"> ({{onCheckTimeTrain(time.id, schedule).status == 'NOT_YET' ? 'Chưa đến' : 'Đã đến'}})</i>
+                  </span>
+                </ng-container>
+                <ng-template #noSchedule><span>--</span></ng-template>
+              </div>
+          </td>
+          <td>--</td>
+        </tr>
+        <tr *ngFor="let item of [1, 2]">
+          <td *ngFor="let item of [1, 2,3,4,5,6,7,8]">--</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

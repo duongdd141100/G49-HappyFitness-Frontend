@@ -110,6 +110,58 @@ hiddenModal = (action: boolean) => {
 /**
  * check valid date
  */
+export const sortIntoWeeksMultipleTrain  = (items: any[], startDate: Date, currentDate: Date): any[] =>{
+  // Khởi tạo mảng kết quả
+  const weeks = [];
+
+  // Sắp xếp các buổi tập theo ngày tăng dần
+  items.sort((a, b) => {
+    return new Date(a.trainDate).getTime() - new Date(b.trainDate).getTime();
+  });
+
+  // Tính toán ngày bắt đầu của tuần
+  const startOfWeek = new Date(startDate);
+  startOfWeek.setHours(0, 0, 0, 0);
+  startOfWeek.setDate(startDate.getDate() - startDate.getDay());
+
+  // Tính toán số ngày chênh lệch từ ngày bắt đầu đến ngày hiện tại
+  const diffDaysCurrent = Math.floor((currentDate.getTime() - startOfWeek.getTime()) / (1000 * 3600 * 24));
+
+  // Tính toán tuần chứa ngày hiện tại
+  const currentWeekIndex = Math.floor(diffDaysCurrent / 7);
+
+  // Duyệt qua từng buổi tập
+  items.forEach(item => {
+    // Lấy ngày của buổi tập
+    const trainDate = new Date(item.trainDate);
+    
+    // Tính toán số ngày chênh lệch từ ngày bắt đầu đến ngày của buổi tập
+    const diffDays = Math.floor((trainDate.getTime() - startOfWeek.getTime()) / (1000 * 3600 * 24));
+    
+    // Tính toán vị trí trong mảng tuần
+    const weekIndex = Math.floor(diffDays / 7);
+    
+    // Tính toán vị trí trong mảng ngày trong tuần
+    const dayIndex = trainDate.getDay();
+
+    // Kiểm tra xem tuần hiện tại có phải là tuần chứa ngày của buổi tập không
+    if (currentWeekIndex === weekIndex) {
+      // Nếu là tuần chứa ngày của buổi tập, đánh dấu tuần đó
+      item.currentWeek = true;
+    }
+
+    // Kiểm tra xem tuần hiện tại đã được tạo chưa
+    if (!weeks[weekIndex]) {
+      // Nếu tuần chưa được tạo, tạo mảng tuần mới
+      weeks[weekIndex] = Array(7).fill(null).map(() => []);
+    }
+
+    // Thêm buổi tập vào tuần tương ứng
+    weeks[weekIndex][dayIndex].push(item);
+  });
+
+  return weeks;
+}
 export const sortIntoWeeks = (items: any[], startDate: Date, currentDate: Date): any[] =>{
   // Khởi tạo mảng kết quả
   const weeks = [];

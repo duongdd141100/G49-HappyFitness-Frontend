@@ -19,7 +19,8 @@ export const ROUTES2: RouteInfoManager[] = [
   { path: '/admin/customer-ticket', title: 'Vé khách hàng', icon: 'fa-solid fa-ticket', class: '' },
   { path: '/admin/vouchers', title: 'Mã giảm giá', icon: 'fa-solid fa-ticket-simple', class: '' },
   { path: '/admin/classes', title: 'Lớp', icon: 'fa-solid fa-school', class: '' },
-  { path: '/term', title: 'Điều khoản', icon: 'ni-tv-2', class: '' },
+  { path: '/admin/term', title: 'Điều khoản', icon: 'ni-tv-2', class: '' },
+  { path: '/admin/schedule', title: 'Lịch tập', icon: 'ni-tv-2', class: '' },
 ];
 
 export const ROUTES_PT: RouteInfoManager[] = [
@@ -29,7 +30,8 @@ export const ROUTES_PT: RouteInfoManager[] = [
   { path: '/admin/tickets', title: 'Vé', icon: 'fa-solid fa-ticket', class: '' },
   { path: '/admin/vouchers', title: 'Mã giảm giá', icon: 'fa-solid fa-ticket-simple', class: '' },
   { path: '/admin/classes', title: 'Lớp', icon: 'fa-solid fa-school', class: '' },
-  { path: '/term', title: 'Điều khoản', icon: 'ni-tv-2', class: '' },
+  { path: '/admin/term', title: 'Điều khoản', icon: 'ni-tv-2', class: '' },
+  { path: '/admin/schedule', title: 'Lịch tập', icon: 'ni-tv-2', class: '' },
 ];
 
 
