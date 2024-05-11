@@ -1,3 +1,4 @@
+import { PopStateEvent } from '@angular/common';
 import { filter } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/services/api.service';
@@ -13,9 +14,8 @@ export class InfoBuyPakageComponent implements OnInit {
   @Input() package:any;
   facilities: any = [];
   data: any = {
-    trainTimeId: null,
     facilityId: null,
-    dayOfWeeks: [],
+    mapDayOfWeekWithTrainTimeId: {},
     ptId: null,
     packageId: null
   }
@@ -49,6 +49,8 @@ export class InfoBuyPakageComponent implements OnInit {
       label: 'Thứ 7'
     }
   ]
+  mapDayOfWeekWithTrainTimeId:any = {};
+  thingSelect: any;
   timeSelect:Array<any> = [];
   PtFree: Array<any> = [];
   constructor(private apiService: ApiService, private toast: ToastrService, public activeModal: NgbActiveModal) { }
@@ -67,7 +69,8 @@ export class InfoBuyPakageComponent implements OnInit {
     this.onLoadTimeTrain();
   }
   handleCheckSelectTime(id): boolean {
-    return this.timeSelect.some(item => item == id);
+    if (this.mapDayOfWeekWithTrainTimeId[id]) return true;
+    return false;
   }
   onFacilityChange(e) {
     if(e == 'null') {
@@ -77,9 +80,8 @@ export class InfoBuyPakageComponent implements OnInit {
       
     }
   }
-  handleLoadPtFree() {
-    if(this.checkDataRequired()) {
-      this.apiService.getPtFree(this.data).subscribe({
+  handleLoadPtFree(data) {
+      this.apiService.getPtFree(data).subscribe({
         next: (res) => {
           if (res.body.length <= 0) return this.toast.error('Hiện tại không có huấn luận viên nào rãnh với thời gian trên.');
           this.nextPT = true;
@@ -90,14 +92,6 @@ export class InfoBuyPakageComponent implements OnInit {
           return
         }, // errorHandler
       })
-    }
-  }
-  checkDataRequired() {
-    if(!this.facilitySelect || this.timeSelect.length <= 0 || !this.timeTrainSelect) {
-      return false;
-    }  else {
-      return true;
-    }
   }
   handleBuyPakage() {
     if(!this.data.ptId) return this.toast.error('Vui lòng chọn huấn luận viên!');
@@ -118,33 +112,59 @@ export class InfoBuyPakageComponent implements OnInit {
     this.data.ptId = pt.id;
   }
   handleNextPt() {
-    if(!this.facilitySelect || this.timeSelect.length <= 0 || !this.timeTrainSelect) {
+    if(!this.facilitySelect || !this.onCheckListTimes()) {
       return this.toast.error('Vui lòng chọn đầy đủ thông tin!');
     }
-      this.data.trainTimeId = this.timeTrainSelect;
-      this.data.facilityId = this.facilitySelect;
-      this.data.dayOfWeeks = this.timeSelect;
-      this.handleLoadPtFree();
+    this.data.facilityId = this.facilitySelect;
+    this.data.mapDayOfWeekWithTrainTimeId = this.mapDayOfWeekWithTrainTimeId
+    let data = {
+      facilityId: this.facilitySelect,
+      mapDayOfWeekWithTrainTimeId: this.mapDayOfWeekWithTrainTimeId
+    }
+    this.handleLoadPtFree(data);
   }
   handleBack() {
     this.nextPT = false;
   }
   handleSelectTime(id) {
-    if(this.handleCheckSelectTime(id)) {
-      this.timeSelect = this.timeSelect.filter(idTime => idTime !== id)
+    if (this.mapDayOfWeekWithTrainTimeId[id]) {
+      delete this.mapDayOfWeekWithTrainTimeId[id]
+      if (this.thingSelect) {
+        this.thingSelect = null;
+      }
     } else {
-      this.timeSelect.push(id)
+      this.thingSelect = id;
     }
-    this.timeSelect = this.timeSelect.sort((a, b) => a - b)
-    
+  }
+  checkSelectThing(id) {
+    if (this.mapDayOfWeekWithTrainTimeId[id] || this.thingSelect == id) {
+      return true;
+    } 
+    return false;
   }
   handleCheckSelectTimeTrain(id) {
-    return id === this.timeTrainSelect;
+    if (this.mapDayOfWeekWithTrainTimeId[this.thingSelect] == id) {
+      return true;
+    }
+    return false;
+  }
+  showTimeTrain(value) {
+    let time = this.timeTrain.filter(time => time.id == value)[0];
+    return this.formatTime(time.startTime) + ' - ' + this.formatTime(time.endTime);
+  }
+  formatObjectToArray(): Array<{key:number, value: number}> {
+    return Object.keys(this.mapDayOfWeekWithTrainTimeId).map(key => {
+      return { key: +key, value: this.mapDayOfWeekWithTrainTimeId[key] };
+    });
+  }
+  onCheckListTimes() {
+    if (Object.keys(this.mapDayOfWeekWithTrainTimeId).length > 0) {
+      return true;
+    }
+    return false;
   }
   handleSelectTimeTrain(id) {
-    if(this.timeTrainSelect == id) return this.timeTrainSelect = null;
-    this.timeTrainSelect = id;
-    
+    this.mapDayOfWeekWithTrainTimeId[this.thingSelect] = id; 
   }
   formatTime(time) {
     const timeString = time //"08:00:00";

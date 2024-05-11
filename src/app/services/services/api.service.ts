@@ -128,7 +128,7 @@ export class ApiService {
     if(!orderId && !ticketId) url = this.CREATE_PAYMENT
     return this.http.post<any>(url , dataBody, { headers });
   }
-  public getPtFree(data: {trainTimeId: number, facilityId: number, dayOfWeeks: Array<any>}):Observable<any>  {
+  public getPtFree(data: {facilityId: number, mapDayOfWeekWithTrainTimeId: any}):Observable<any>  {
     const headers = this.getHeadersWithToken();
     return this.http.post<any>(this.GET_PT_FREE , data, { headers });
   }
