@@ -38,12 +38,15 @@ export class OrderSuccessComponent implements OnInit {
               }, // errorHandler
             })
           } else { //order pakage
+            const decodedString = decodeURIComponent(queryParams['mapDayOfWeekWithTrainTimeId']);
+            // Loại bỏ dấu ngoặc kép từ các key
+            const modifiedString = JSON.parse(decodedString);
+            
             let dataOrderPakage = {
-              trainTimeId: queryParams['trainTimeId'],
-              facilityId: queryParams['facilityId'],
-              dayOfWeeks: this.integerToArray(queryParams['dayOfWeeks']),
-              ptId: queryParams['ptId'],
-              packageId: queryParams['packageId']
+              facilityId: +queryParams['facilityId'],
+              ptId: +queryParams['ptId'],
+              packageId: +queryParams['packageId'],
+              mapDayOfWeekWithTrainTimeId: modifiedString
             }
             this.apiService.completePayment(this.responseCode, null, dataOrderPakage).subscribe({
               next: (res) => {
@@ -65,7 +68,5 @@ export class OrderSuccessComponent implements OnInit {
     });
     
   }
-  integerToArray(number):Array<number> {
-    return number.toString().split('').map(Number);
-  }
+ 
 }
