@@ -30,11 +30,11 @@
             </span>
             <div *ngIf="schedule && schedule.length > 0">
               <!-- *ngIf="schedule && schedule.length > 0 && schedule.trainTime.id == time.id"  -->
-                <ng-container *ngIf="onCheckTimeTrain(time.id, schedule) else noSchedule">
-                  <span  class="item-schedule">
-                    <b title="Lớp học">{{onCheckTimeTrain(time.id, schedule).clazz.name}}</b>
-                    <i>{{onCheckTimeTrain(time.id, schedule).clazz.pt.fullName}}</i>
-                    <i title="Trạng thái"> ({{onCheckTimeTrain(time.id, schedule).status == 'NOT_YET' ? 'Chưa đến' : 'Đã đến'}})</i>
+                <ng-container *ngIf="onCheckTimeTrain(time.id, schedule).length > 0 else noSchedule">
+                  <span  class="item-schedule" style="border: 1px solid #ccc;padding: 5px;" *ngFor="let item of onCheckTimeTrain(time.id, schedule)">
+                    <b title="Lớp học">{{item.clazz.name}}</b>
+                    <i>{{item.clazz.pt.fullName}}</i>
+                    <i title="Trạng thái"> ({{item.status == 'NOT_YET' ? 'Chưa đến' : 'Đã đến'}})</i>
                   </span>
                 </ng-container>
                 <ng-template #noSchedule><span>--</span></ng-template>
