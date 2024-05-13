@@ -1,3 +1,4 @@
+import { filter } from 'rxjs';
 import { sortIntoWeeksMultipleTrain } from './../functions/function-helper';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/services/api.service';
@@ -37,12 +38,12 @@ export class ScheduleAdminPTComponent implements OnInit {
     this.onLoadTimeTrain();
   }
   onCheckTimeTrain(id, schedules) {
-    for (const s of schedules) {
-      if (s && s.trainTime.id == id) {
-        return s;
-      }
+    let scheduleList = schedules.filter(s => s && s.trainTime.id == id);
+    if (scheduleList.length <= 0 || !scheduleList) {
+      return [];
+    } else {
+      return scheduleList
     }
-    return null;
   }
   getDayByWeek(week) {
     return week.filter(item => item !== null && item && item.length > 0)[0][0].trainDate;
