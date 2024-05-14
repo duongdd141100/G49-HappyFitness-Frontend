@@ -64,8 +64,11 @@ export class ViewScheduleByPakageComponent implements OnInit {
     this.dayByWeek = this.getWeekSchedule(this.getDayByWeek(this.scheduleWeeksOne));
   }
   handleUpdateSchedule(s) {
+    if (s.status != 'NOT_YET') {
+      return this.toast.error('Buổi tập đã tham gia! Không thể cập nhật');
+    }
     const modalRef = this._modal.open(UpdateScheduleModalComponent, {
-      //scrollable: true,
+      //scrollable: true
       size: 'md', //'sm' | 'lg' | 'xl' | string;
       backdropClass: 'service-backdrop',
       windowClass: 'service-window',
