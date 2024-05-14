@@ -21,9 +21,7 @@ export class ScheduleAdminPTComponent implements OnInit {
     this.apiService.getSchedules().subscribe({
       next: (res) => {
         this.scheduleWeeks = sortIntoWeeksMultipleTrain(res.body, new Date(res.body[0].createdDate), new Date());
-        if(!this.scheduleWeeks[0]) {
-          this.scheduleWeeks = this.scheduleWeeks.filter(week => week);
-        }
+        this.scheduleWeeks = this.scheduleWeeks.filter(week => week);
         this.scheduleWeeksOne = this.getCurrentWeek() ? this.getCurrentWeek() : this.scheduleWeeks[0] || this.scheduleWeeks[1];
         this.getWeekAndDayByWeek();
       }, // nextHandler

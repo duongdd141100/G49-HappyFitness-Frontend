@@ -78,6 +78,7 @@ export class ApiService {
 
   // Schedule
   private FIND_SCHEDULE = this.baseUrl + "schedules";
+  private UPDATE_SCHEDULE = this.baseUrl + "schedules/update";
   private ATTEND_SCHEDULE = this.baseUrl + "schedules/attend";
 
   // Attendance
@@ -439,6 +440,10 @@ export class ApiService {
   public getSchedules(classId: any = null): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.get<any>(`${this.FIND_SCHEDULE}` + (classId ? `?classId=${classId}` : ''), { headers });
+  }
+  public updateSchedule(data:any): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.UPDATE_SCHEDULE}`,data, { headers });
   }
 
   public getPackage(): Observable<any> {
