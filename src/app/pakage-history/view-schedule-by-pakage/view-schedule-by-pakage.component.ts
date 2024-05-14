@@ -5,7 +5,8 @@ import { ApiService } from 'src/app/services/services/api.service';
 import { AuthService } from 'src/app/services/services/auth.service';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UpdateScheduleModalComponent } from '../update-schedule-modal/update-schedule-modal.component';
 
 @Component({
   selector: 'app-view-schedule-by-pakage',
@@ -23,15 +24,17 @@ export class ViewScheduleByPakageComponent implements OnInit {
   scheduleWeeks: any;
   dayByWeek:any;
   @Input() user: any;
-  constructor(private apiService: ApiService, private authService: AuthService, private modal:NgbActiveModal, private toast: ToastrService, private router: Router) { }
+  constructor(private apiService: ApiService,private _modal: NgbModal, private authService: AuthService, private modal:NgbActiveModal, private toast: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
+    this.onLoadSchedule();
+    this.onLoadTimeTrain();
+  }
+  onLoadSchedule() {
     this.apiService.getSchedules(this.pakage.id).subscribe({
       next: (res) => {
         this.scheduleWeeks = sortIntoWeeks(res.body, new Date(this.pakage.createdDate), new Date());
-        if(!this.scheduleWeeks[0]) {
-          this.scheduleWeeks = this.scheduleWeeks.filter(week => week);
-        }
+        this.scheduleWeeks = this.scheduleWeeks.filter(week => week);
         this.scheduleWeeksOne = this.getCurrentWeek() ? this.getCurrentWeek() : this.scheduleWeeks[0] || this.scheduleWeeks[1];
         this.getWeekAndDayByWeek();
        
@@ -45,7 +48,6 @@ export class ViewScheduleByPakageComponent implements OnInit {
         return 
       }, // errorHandler
     });
-    this.onLoadTimeTrain();
   }
   onStatusOneOnOne(schedule) {
     if (schedule.clazz.type == this.typeClass.one_on_one) {
@@ -60,6 +62,21 @@ export class ViewScheduleByPakageComponent implements OnInit {
   getWeekAndDayByWeek() {
     this.scheduleWeeksOne = this.scheduleWeeksOne.slice(1);
     this.dayByWeek = this.getWeekSchedule(this.getDayByWeek(this.scheduleWeeksOne));
+  }
+  handleUpdateSchedule(s) {
+    const modalRef = this._modal.open(UpdateScheduleModalComponent, {
+      //scrollable: true,
+      size: 'md', //'sm' | 'lg' | 'xl' | string;
+      backdropClass: 'service-backdrop',
+      windowClass: 'service-window',
+      centered: true
+    })
+    modalRef.componentInstance.schedule = s
+    modalRef.result.then(result => {
+      if (!result) { return }
+      this.onLoadSchedule();
+      this.toast.success('Cập nhật lịch hẹn thành công!');
+    }).catch(error => { return error })
   }
   getDayByWeek(week) {
     return week.filter(item => item !== null)[0].trainDate;

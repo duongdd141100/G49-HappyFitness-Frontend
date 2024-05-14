@@ -1,0 +1,25 @@
+<div class="title col-12" style="padding-block: 20px;">
+  <h4>Cập nhật lịch tập</h4>
+  <div class="date">
+    <div class="form-group">
+      <label for="">Ngày hiện tại</label>
+      <input type="date"
+        class="form-control" name="" [value]="schedule.trainDate" disabled id="" aria-describedby="helpId" placeholder="">
+    </div>
+    <div class="form-group">
+      <label for="">Ngày chuyển đến</label>
+      <input type="date"
+        class="form-control" [min]="minDate" name="" [value]="schedule.trainDate" id="" aria-describedby="helpId" placeholder="" (change)="changeDate($event.target.value)">
+    </div>
+    <div class="form-group" *ngIf="timeTrain">
+      <label for="">Ca tập</label>
+        <select class="form-control" name="" id="" (change)="handleSelectTimeTrain($event.target.value)">
+          <option *ngFor="let time of timeTrain" [value]="time.id" [selected]="time.id == timeTrainSelect">{{formatTime(time.startTime) + ' - ' + formatTime(time.endTime)}}</option>
+        </select>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-primary" (click)="handleSaveForm()">Lưu</button>
+    </div>
+  </div>
+</div>
+

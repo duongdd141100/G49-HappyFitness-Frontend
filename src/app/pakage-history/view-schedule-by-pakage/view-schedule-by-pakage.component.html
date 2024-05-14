@@ -14,7 +14,7 @@
               <label for=""><b>Tuần</b></label>
               <select class="form-control" name="weeks" id="weeks" (change)="onChangeWeek($event.target.value)">
                 <option *ngFor="let week of scheduleWeeks; let i = index" [value]="i" [selected]="onCheckCurrentDay(week)">
-                  {{getDayWithWeek(week)[0] | date : "dd/MM" : "GMT"}} - {{getDayWithWeek(week)[1] | date : "dd/MM" : "GMT"}} <span *ngIf="onCheckCurrentDay(week)"> (hiện tại)</span>
+                  <span *ngIf="week">{{getDayWithWeek(week)[0] | date : "dd/MM" : "GMT"}} - {{getDayWithWeek(week)[1] | date : "dd/MM" : "GMT"}} <span *ngIf="onCheckCurrentDay(week)"> (hiện tại)</span></span>
                 </option>
               </select>
             </form>
@@ -34,7 +34,7 @@
             <span *ngIf="!schedule || schedule == null || schedule.trainTime.id != time.id">
               --
             </span>
-            <span *ngIf="schedule && schedule.trainTime.id == time.id" class="item-schedule">
+            <span *ngIf="schedule && schedule.trainTime.id == time.id" style="cursor: pointer;" class="item-schedule" (click)="handleUpdateSchedule(schedule)">
               <b title="Lớp học">{{pakage.name}}</b>
               <i title="Trạng thái">({{onStatusOneOnOne(schedule) == 'NOT_YET' ? 'Chưa đến' : 'Đã đến'}})</i>
             </span>
