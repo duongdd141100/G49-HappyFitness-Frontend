@@ -94,6 +94,12 @@ export class PakageHistoryComponent implements OnInit {
     this.apiService.getClasses().subscribe({
       next: (res) => {
         this.pakageHistorys = res.body
+        this.pakageHistorys = this.pakageHistorys.map(x => {
+          if (x.type === 'ONE_ON_MANY') {
+            x.apackage = x.classStudents.filter(classStudent => classStudent.student.id === this.user.id)[0].apackage;
+          }
+          return x;
+        })
       }, // nextHandler
       error: (err) => {
         return 
