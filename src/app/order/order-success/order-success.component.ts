@@ -38,15 +38,23 @@ export class OrderSuccessComponent implements OnInit {
               }, // errorHandler
             })
           } else { //order pakage
-            const decodedString = decodeURIComponent(queryParams['mapDayOfWeekWithTrainTimeId']);
-            // Loại bỏ dấu ngoặc kép từ các key
-            const modifiedString = JSON.parse(decodedString);
-            
-            let dataOrderPakage = {
-              facilityId: +queryParams['facilityId'],
-              ptId: +queryParams['ptId'],
-              packageId: +queryParams['packageId'],
-              mapDayOfWeekWithTrainTimeId: modifiedString
+            let dataOrderPakage
+            if (!queryParams['classId']) {
+              const decodedString = decodeURIComponent(queryParams['mapDayOfWeekWithTrainTimeId']);
+              // Loại bỏ dấu ngoặc kép từ các key
+              const modifiedString = JSON.parse(decodedString);
+              
+              dataOrderPakage = {
+                facilityId: +queryParams['facilityId'],
+                ptId: +queryParams['ptId'],
+                packageId: +queryParams['packageId'],
+                mapDayOfWeekWithTrainTimeId: modifiedString
+              }
+            } else {
+              dataOrderPakage = {
+                classId: +queryParams['classId'],
+                packageId: +queryParams['packageId']
+              }
             }
             this.apiService.completePayment(this.responseCode, null, dataOrderPakage).subscribe({
               next: (res) => {
@@ -60,6 +68,7 @@ export class OrderSuccessComponent implements OnInit {
               }, // errorHandler
             })
           }
+          
           
           // Sử dụng orderId và responseCode ở đây
         });

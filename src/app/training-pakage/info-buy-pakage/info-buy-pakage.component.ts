@@ -19,10 +19,16 @@ export class InfoBuyPakageComponent implements OnInit {
     ptId: null,
     packageId: null
   }
+  dataClass1n: any = {
+    classId: null,
+    packageId: null,
+  }
   nextPT: boolean = false
+  classBy1n:any;
   timeTrain: any = [];
   facilitySelect: any;
   timeTrainSelect: any;
+  classDetail:any;
   Things: any = [
     {
       id: 2,
@@ -56,17 +62,48 @@ export class InfoBuyPakageComponent implements OnInit {
   constructor(private apiService: ApiService, private toast: ToastrService, public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
-    this.data.packageId = this.package.id;
-    this.apiService.getAllFacility().subscribe({
+    if (this.package.type == 'ONE_ON_ONE') {
+      this.data.packageId = this.package.id;
+      this.apiService.getAllFacility().subscribe({
+        next: (res) => {
+          this.facilities = res.body
+        }, // nextHandler
+        error: (err) => {
+          console.info(err)
+          return
+        }, // errorHandler
+      })
+    } else {
+      this.dataClass1n.packageId = this.package.id;
+      this.onLoadClass1ns();
+    }
+    this.onLoadTimeTrain();
+  }
+  handleConfirmClass() {
+    if(!this.dataClass1n.classId) return this.toast.error('Vui lòng chọn lớp học!');
+    if(!this.dataClass1n.packageId) return this.toast.error('Gọi không tồn tại!');
+    this.apiService.createPayment(this.package.price, null, null ,this.dataClass1n).subscribe({
       next: (res) => {
-        this.facilities = res.body
+        window.open(res.body, '_blank');
+        this.activeModal.close();
       }, // nextHandler
       error: (err) => {
-        console.info(err)
+        
         return
       }, // errorHandler
     })
-    this.onLoadTimeTrain();
+  }
+  onLoadClass1ns() {  
+    this.apiService.getClasses('ONE_ON_MANY').subscribe({
+      next: (res) => {
+        if (res.body?.length <= 0) return 
+        console.log(res.body);
+        this.classBy1n = res.body
+      }, // nextHandler
+      error: (err) => {
+        console.info(err)
+      }, // errorHandler
+    })
   }
   handleCheckSelectTime(id): boolean {
     if (this.mapDayOfWeekWithTrainTimeId[id]) return true;
@@ -110,6 +147,14 @@ export class InfoBuyPakageComponent implements OnInit {
   handleSelectPT(pt) {
     if(this.data.ptId == pt.id) return this.data.ptId = null;
     this.data.ptId = pt.id;
+  }
+  handleSelectClass(clazz) {
+    if(this.dataClass1n.classId == clazz.id) { 
+      this.classDetail = null;
+      return this.dataClass1n.classId = null;
+    }
+    this.dataClass1n.classId = clazz.id;
+    this.classDetail = clazz.trainSchedules;
   }
   handleNextPt() {
     if(!this.facilitySelect || !this.onCheckListTimes()) {

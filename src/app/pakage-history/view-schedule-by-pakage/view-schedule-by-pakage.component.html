@@ -5,8 +5,8 @@
       >Ngày tạo: {{ pakage.createdDate | date : "dd/MM/yyyy" : "GMT" }}</span
     >
   </div>
-  <div class="table-responsive">
-    <table class="table" *ngIf="dayByWeek && timeTrain && scheduleWeeksOne">
+  <div class="table-responsive" *ngIf="dayByWeek && timeTrain && scheduleWeeksOne && scheduleWeeks && scheduleWeeks.length > 0">
+    <table class="table">
       <thead>
         <tr>
           <th>
@@ -14,7 +14,7 @@
               <label for=""><b>Tuần</b></label>
               <select class="form-control" name="weeks" id="weeks" (change)="onChangeWeek($event.target.value)">
                 <option *ngFor="let week of scheduleWeeks; let i = index" [value]="i" [selected]="onCheckCurrentDay(week)">
-                  <span *ngIf="week">{{getDayWithWeek(week)[0] | date : "dd/MM" : "GMT"}} - {{getDayWithWeek(week)[1] | date : "dd/MM" : "GMT"}} <span *ngIf="onCheckCurrentDay(week)"> (hiện tại)</span></span>
+                  <span *ngIf="week">{{getDayWithWeek(week)[0] | date : "dd/MM" : "GMT"}} - {{getDayWithWeek(week)[1] | date : "dd/MM" : "GMT"}} <span *ngIf="onCheckCurrentDay(week, true)"> (hiện tại)</span></span>
                 </option>
               </select>
             </form>
@@ -31,13 +31,23 @@
         <tr *ngFor="let time of timeTrain">
           <td><b>{{formatTime(time.startTime) + ' - ' + formatTime(time.endTime)}}</b></td>
           <td *ngFor="let schedule of scheduleWeeksOne">
-            <span *ngIf="!schedule || schedule == null || schedule.trainTime.id != time.id">
+            <span *ngIf="!schedule || schedule.length == 0">
               --
             </span>
-            <span *ngIf="schedule && schedule.trainTime.id == time.id" style="cursor: pointer;" class="item-schedule" (click)="handleUpdateSchedule(schedule)">
+            <!-- <span *ngIf="schedule && schedule.trainTime.id == time.id" style="cursor: pointer;" class="item-schedule" (click)="handleUpdateSchedule(schedule)">
               <b title="Lớp học">{{pakage.name}}</b>
               <i title="Trạng thái">({{onStatusOneOnOne(schedule) == 'NOT_YET' ? 'Chưa đến' : 'Đã đến'}})</i>
-            </span>
+            </span> -->
+            <div *ngIf="schedule && schedule.length > 0">
+              <!-- *ngIf="schedule && schedule.length > 0 && schedule.trainTime.id == time.id"  -->
+                <ng-container *ngIf="onCheckTimeTrain(time.id, schedule).length > 0 else noSchedule">
+                  <span  class="item-schedule" style="border: 1px solid #ccc;padding: 5px; cursor: pointer;" *ngFor="let item of onCheckTimeTrain(time.id, schedule)" (click)="handleUpdateSchedule(item)">
+                    <b title="Lớp học">{{pakage.name}}</b>
+                    <i title="Trạng thái">({{onStatusOneOnOne(item) == 'NOT_YET' ? 'Chưa đến' : 'Đã đến'}})</i>
+                  </span>
+                </ng-container>
+                <ng-template #noSchedule><span>--</span></ng-template>
+              </div>
           </td>
           <td>--</td>
         </tr>
@@ -46,5 +56,9 @@
         </tr>
       </tbody>
     </table>
+  </div>
+  <div class="d-flex justify-content-center align-items-center" style="padding: 100px;" *ngIf="scheduleWeeks && scheduleWeeks.length == 0">
+
+      <h4>Lớp hiện tại chưa có lịch tập!</h4>
   </div>
 </div>

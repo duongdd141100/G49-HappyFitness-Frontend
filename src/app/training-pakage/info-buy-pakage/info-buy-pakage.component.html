@@ -1,4 +1,4 @@
-<div class="title col-12" style="padding-block: 20px;">
+<div class="title col-12" style="padding-block: 20px;" *ngIf="package.type == 'ONE_ON_ONE'">
   <h4><i class="fa-solid fa-arrow-left"  style="font-size: 20px; cursor: pointer;" *ngIf="nextPT" (click)="handleBack()"></i> <span style="margin-left: 7px;">Thông tin lịch trình gói tập</span></h4>
   <form *ngIf="!nextPT">
     <div class="facility">
@@ -69,3 +69,48 @@
   </form>
 </div>
 
+<div class="title col-12" style="padding-block: 20px;" *ngIf="package.type == 'ONE_ON_MANY'">
+  <ng-container *ngIf="!classBy1n || classBy1n.length <= 0 else class">
+    <div class="d-flex justify-content-center">
+       Hiện tại không có lớp học nào diễn ra!
+    </div>
+  </ng-container>
+  <ng-template #class>
+    <div class="facility">
+      <div class="form-group">
+        <h4 for="facility" class="title-filter">Lớp học</h4>
+        <div class="pt-block" style="justify-content: center; gap: 25px;">
+          <div class="pt-item" style="width: 250px;" *ngFor="let class of classBy1n" (click)="handleSelectClass(class)" [ngClass]="{'select': class.id == dataClass1n.classId}">
+            <i class="fa-solid fa-house" *ngIf="class.id != dataClass1n.classId"></i>
+            <i class="fa-solid fa-house-circle-check" *ngIf="class.id == dataClass1n.classId"></i>
+            <p class="name-pt" style="text-align: center;">{{class.name}}</p>
+            <p class="name-pt" style="text-align: center; font-size: 13px;">Cơ sở: {{class.pt.facility.name}}</p>
+            <p class="name-pt" style="text-align: center; font-size: 13px;">Huấn luân viên: {{class.pt.fullName}} ({{class.pt.gender ? 'nam' : 'nữ'}})</p>
+          </div>
+        </div>
+      </div>
+      <div class="detail-class">
+        <div class="train-time" *ngIf="classDetail">
+          <h6 for="facility" class="title-filter">Lịch tập 1 tuần của lớp (gồm 50 buổi)</h6>
+          <table class="table" >
+            <thead>
+              <th>Thứ tập</th>
+              <th>Ca tập</th>
+            </thead>
+            <tbody>
+              <tr  *ngFor="let item of classDetail" >
+                  <td>Thứ {{item.dayOfWeek}}</td>
+                  <td>{{showTimeTrain(item.trainTime.id)}}</td>
+              </tr>
+            </tbody>
+    
+          </table>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-primary" (click)="handleConfirmClass()">Xác nhận</button>
+      </div>
+    </div>
+  </ng-template>
+  
+</div>

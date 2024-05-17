@@ -32,7 +32,7 @@ export class TrainingPakageComponent implements OnInit {
 
   }
   handleBuyPakage(pakage) {
-    if (pakage.type == this.type.many) return this.toast.error('Gói này chưa hoạt động!');
+    // if (pakage.type == this.type.many) return this.toast.error('Gói này chưa hoạt động!');
     this.authService.getOwnInfo().subscribe({
       next: (res) => {
         const modalRef = this._modal.open(InfoBuyPakageComponent, {
