@@ -1,6 +1,6 @@
 import { filter } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
-import { sortIntoWeeks } from 'src/app/functions/function-helper';
+import { sortIntoWeeks, sortIntoWeeksMultipleTrain } from 'src/app/functions/function-helper';
 import { ApiService } from 'src/app/services/services/api.service';
 import { AuthService } from 'src/app/services/services/auth.service';
 import { Toast, ToastrService } from 'ngx-toastr';
@@ -21,6 +21,7 @@ export class ViewScheduleByPakageComponent implements OnInit {
     one_on_one: 'ONE_ON_ONE',
     one_on_many: 'ONE_ON_MANY'
   }
+  selectWeekIndex: number;
   scheduleWeeks: any;
   dayByWeek:any;
   @Input() user: any;
@@ -33,9 +34,18 @@ export class ViewScheduleByPakageComponent implements OnInit {
   onLoadSchedule() {
     this.apiService.getSchedules(this.pakage.id).subscribe({
       next: (res) => {
-        this.scheduleWeeks = sortIntoWeeks(res.body, new Date(this.pakage.createdDate), new Date());
+        this.scheduleWeeks = sortIntoWeeksMultipleTrain(res.body, new Date(this.pakage.createdDate), new Date())
         this.scheduleWeeks = this.scheduleWeeks.filter(week => week);
-        this.scheduleWeeksOne = this.getCurrentWeek() ? this.getCurrentWeek() : this.scheduleWeeks[0] || this.scheduleWeeks[1];
+        if ((this.selectWeekIndex && this.scheduleWeeksOne.length > 0) || (this.selectWeekIndex == 0 && this.scheduleWeeksOne.length > 0)) {
+          if(this.scheduleWeeksOne.filter(schedule => schedule.length > 0).length >= 1) {
+            this.scheduleWeeksOne = this.scheduleWeeks[this.selectWeekIndex]
+          } else {
+            this.scheduleWeeksOne = this.getCurrentWeek() ? this.getCurrentWeek() : this.scheduleWeeks[0] || this.scheduleWeeks[1];
+          }
+        } else {
+          this.scheduleWeeksOne = this.getCurrentWeek() ? this.getCurrentWeek() : this.scheduleWeeks[0] || this.scheduleWeeks[1];
+        }
+        if(!this.selectWeekIndex) this.selectWeekIndex = this.scheduleWeeks.indexOf(this.scheduleWeeksOne)
         this.getWeekAndDayByWeek();
        
       }, // nextHandler
@@ -59,11 +69,22 @@ export class ViewScheduleByPakageComponent implements OnInit {
     }
     return 'Có vấn đề!'
   }
+  onCheckTimeTrain(id, schedules) {
+    let scheduleList = schedules.filter(s => s && s.trainTime.id == id);
+    if (scheduleList.length <= 0 || !scheduleList) {
+      return [];
+    } else {
+      return scheduleList
+    }
+  }
   getWeekAndDayByWeek() {
     this.scheduleWeeksOne = this.scheduleWeeksOne.slice(1);
     this.dayByWeek = this.getWeekSchedule(this.getDayByWeek(this.scheduleWeeksOne));
   }
   handleUpdateSchedule(s) {
+    if (s.clazz.type != 'ONE_ON_ONE') {
+      return
+    }
     if (s.status != 'NOT_YET') {
       return this.toast.error('Buổi tập đã tham gia! Không thể cập nhật');
     }
@@ -82,7 +103,7 @@ export class ViewScheduleByPakageComponent implements OnInit {
     }).catch(error => { return error })
   }
   getDayByWeek(week) {
-    return week.filter(item => item !== null)[0].trainDate;
+    return week.filter(item => item !== null && item && item.length > 0)[0][0].trainDate;
   }
   getDayWithWeek(week) {
     let dayWeek = this.getWeekSchedule(this.getDayByWeek(week));
@@ -121,22 +142,36 @@ export class ViewScheduleByPakageComponent implements OnInit {
 
     return schedule;
 }
-  onCheckCurrentDay(week) {
-      if (week && week.some(item => item && item.currentWeek)) {
+  onCheckCurrentDay(week, current?:boolean) {
+    if (!current && this.selectWeekIndex && this.scheduleWeeks.indexOf(week) == this.selectWeekIndex) {
+      return true;
+    } else {
+      if (!current) {
+        return false;
+      }
+    }
+    for (const train of week) {
+      if (train && train.length > 0 && train.some(item => item && item.currentWeek)) {
         // Nếu có, trả về tuần này
         return true;
       }
+    }
     // Nếu không tìm thấy tuần nào có thuộc tính currentWeek, trả về null hoặc thực hiện xử lý phù hợp với trường hợp này
     return false;
   }
   getCurrentWeek(): any {
     // Duyệt qua mảng các tuần đã tạo
     for (const week of this.scheduleWeeks) {
-      // Kiểm tra xem tuần này có thuộc tính currentWeek không
-      if (week && week.some(item => item && item.currentWeek)) {
-        // Nếu có, trả về tuần này
-        return week;
+      if (week && week.length > 0) {
+        for (const train of week) {
+          if (train && train.some(item => item && item.currentWeek)) {
+            // Nếu có, trả về tuần này
+            return week;
+          }
+        }
       }
+      // Kiểm tra xem tuần này có thuộc tính currentWeek không
+     
     }
     // Nếu không tìm thấy tuần nào có thuộc tính currentWeek, trả về null hoặc thực hiện xử lý phù hợp với trường hợp này
     return null;
@@ -149,6 +184,7 @@ export class ViewScheduleByPakageComponent implements OnInit {
     return hour+':'+minute
   }
   onChangeWeek(index){  
+    this.selectWeekIndex = index;
     this.scheduleWeeksOne = this.scheduleWeeks[index];
     this.getWeekAndDayByWeek();
   }

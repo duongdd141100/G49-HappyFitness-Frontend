@@ -432,9 +432,10 @@ export class ApiService {
     return this.http.post<any>(`${this.CHANGE_CUSTOMER_TICKET_USING}/${username}`, null, { headers });
   }
 
-  public getClasses(): Observable<any> {
+  public getClasses(type?: string): Observable<any> {
     const headers = this.getHeadersWithToken();
-    return this.http.get<any>(`${this.FIND_CLASS}`, { headers });
+    let url = !type ? this.FIND_CLASS : `${this.FIND_CLASS}?type=${type}`
+    return this.http.get<any>(url, { headers });
   }
 
   public getSchedules(classId: any = null): Observable<any> {
