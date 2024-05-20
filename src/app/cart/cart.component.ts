@@ -42,6 +42,27 @@ export class CartComponent implements OnInit {
       this.productActives = []
     }
   }
+  handleUpdateCart(product, type) {
+    if (type == 'add') {
+      product.quantity += 1;
+    } else {
+      if (product.quantity == 1) return;
+      product.quantity -= 1;
+    }
+    let data = [
+      {
+        id: product.id,
+        quantity: product.quantity
+      }
+    ]
+    this.apiService.updateCart(data).subscribe({
+      next: (res) => {
+      }, // nextHandler
+      error: (err) => {
+        return 
+      }, // errorHandler
+    });
+  }
   handleActiveProduct(e, productActive) {
     if(e.target.checked) {
       this.productActives.push(productActive)

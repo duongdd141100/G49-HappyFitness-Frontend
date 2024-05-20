@@ -27,6 +27,7 @@ export class ApiService {
   private VIEWCART = this.baseUrl + "cart";
   private ADDCART = this.baseUrl + "cart/add";
   private DELETECART = this.baseUrl + "cart/delete";
+  private UPDATE_CART = this.baseUrl + "cart/change-quantity";
 
   // Product
   private GET_PRODUCT = this.baseUrl + "products";
@@ -167,6 +168,10 @@ export class ApiService {
   public deleteCart(cart): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.post<any>(`${this.DELETECART}`, cart , { headers });
+  }
+  public updateCart(data): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.UPDATE_CART}`, data , { headers });
   }
   register(fullName: string, username: string, email: string, password: string, phoneNumber: string, role: any, gender: string, dob: string): Observable<any> {
     return this.http.post<any>(this.REGISTER, { fullName, username, email, password, phoneNumber, role, gender, dob });
