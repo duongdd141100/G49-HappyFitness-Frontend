@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/services/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UpdatePtClassComponent } from './update-pt-class/update-pt-class.component';
 
 @Component({
   selector: 'app-schedule-admin-pt',
@@ -15,9 +17,13 @@ export class ScheduleAdminPTComponent implements OnInit {
   scheduleWeeksOne:any;
   timeTrain:any;
   dayByWeek: any;
-  constructor(private apiService: ApiService, private toast:ToastrService, private router: Router) { }
+  constructor(private apiService: ApiService, private toast:ToastrService, private router: Router, private _modal: NgbModal) { }
 
   ngOnInit(): void {
+    this.onLoadSchedule();
+    this.onLoadTimeTrain();
+  }
+  onLoadSchedule() {
     this.apiService.getSchedules().subscribe({
       next: (res) => {
         this.scheduleWeeks = sortIntoWeeksMultipleTrain(res.body, new Date(res.body[0].createdDate), new Date());
@@ -33,7 +39,6 @@ export class ScheduleAdminPTComponent implements OnInit {
         return 
       }, // errorHandler
     });
-    this.onLoadTimeTrain();
   }
   onCheckTimeTrain(id, schedules) {
     let scheduleList = schedules.filter(s => s && s.trainTime.id == id);
@@ -71,6 +76,21 @@ export class ScheduleAdminPTComponent implements OnInit {
     // Nếu không tìm thấy tuần nào có thuộc tính currentWeek, trả về null hoặc thực hiện xử lý phù hợp với trường hợp này
     return false;
 }
+  handleUpdatePT1N(schedule) {
+    if (schedule.clazz.type !== 'ONE_ON_MANY') return;
+    const modalRef = this._modal.open(UpdatePtClassComponent, {
+      //scrollable: true,
+      size: 'md', //'sm' | 'lg' | 'xl' | string;
+      backdropClass: 'service-backdrop',
+      windowClass: 'service-window',
+      centered: true
+    })
+    modalRef.componentInstance.schedule = schedule
+    modalRef.result.then(result => {
+      if (!result) { return }
+      this.onLoadSchedule();
+    }).catch(error => { return error })
+  }
   onChangeWeek(index){  
     this.scheduleWeeksOne = this.scheduleWeeks[index];
     this.getWeekAndDayByWeek();

@@ -32,7 +32,7 @@
                 gap: 15px;">
                   <i class="fa-solid fa-minus" style="cursor: pointer;" (click)="handleUpdateCart(product, 'minus')"></i>
                   <input type="text"
-                    class="form-control" name="" disabled [value]="product.quantity" style=" width: 50px;height: 30px; text-align: center;" aria-describedby="helpId" placeholder="">
+                    class="form-control" min="1" [type]="number" max="500" name=""  [value]="product.quantity" style=" width: 50px;height: 30px; text-align: center;" (input)="handleUpdateCart(product, null, $event)" aria-describedby="helpId" placeholder="">
                     <i class="fa-solid fa-plus" style="cursor: pointer;" (click)="handleUpdateCart(product, 'add')"></i>
                 </td>
                 <td><i class="fa-solid fa-trash" (click)="handleDeleteProduct(product)"  style="cursor: pointer;"></i></td>

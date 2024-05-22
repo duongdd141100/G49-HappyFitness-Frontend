@@ -76,6 +76,7 @@ import { ViewScheduleByPakageComponent } from './pakage-history/view-schedule-by
 import { CreateClassComponent } from "./classes/create-class/create-class.component";
 import { ScheduleAdminPTComponent } from './schedule-admin-pt/schedule-admin-pt.component';
 import { UpdateScheduleModalComponent } from './pakage-history/update-schedule-modal/update-schedule-modal.component';
+import { UpdatePtClassComponent } from './schedule-admin-pt/update-pt-class/update-pt-class.component';
 
 // import { FormsModule } from '@angular/forms';
 registerLocaleData(localeVi, 'vi-VN');
@@ -138,6 +139,7 @@ registerLocaleData(localeVi, 'vi-VN');
     CreateClassComponent,
     ScheduleAdminPTComponent,
     UpdateScheduleModalComponent,
+    UpdatePtClassComponent,
   ],
   imports: [
     NgbModule,
