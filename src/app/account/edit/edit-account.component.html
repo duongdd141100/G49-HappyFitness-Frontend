@@ -39,7 +39,7 @@
                       <input type="radio" id="femaleRdio" value="false" [formControlName]="'gender'" aria-describedby="helpId">
                       <label class="form-check-label" for="femaleRdio">Nữ</label>
                       <div class="regexTel">
-                        <ng-container *ngIf="validateForm(userForm,'phoneNumber')">
+                        <ng-container *ngIf="validateForm(userForm,'gender')">
                             <p class="text-danger">Chọn giới tính</p>
                         </ng-container>
                       </div>

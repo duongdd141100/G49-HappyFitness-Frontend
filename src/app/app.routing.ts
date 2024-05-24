@@ -20,7 +20,6 @@ import { ListAccountComponent } from "./account/list/list-account.component";
 import { OrderCheckoutComponent } from "./order/checkout/order-checkout.component";
 import { OrderDetailComponent } from "./order/detail/order-detail.component";
 import { OrderHomeComponent } from "./order/home/order-home.component";
-import { OrderHistoryComponent } from "./order/history/order-history.component";
 import { TicketListComponent } from "./ticket/ticket-list/ticket-list.component";
 import { TicketDetailComponent } from "./ticket/ticket-detail/ticket-detail.component";
 import { ListTicketAdComponent } from "./ticket/list-admin/list-ticket-admin.component";
@@ -40,6 +39,12 @@ import { OrderCheckoutTicketComponent } from "./order/checkout-ticket/checkout-t
 import { OrderTicketSuccessComponent } from "./order/order-ticket-success/order-ticket-success.component";
 import { TicketCustomerOrderComponent } from "./ticket/ticket-customer-order/ticket-customer-order.component";
 import { ProductCustomerOrderComponent } from "./ticket/product-customer-order/product-customer-order.component";
+import { CustomerTicketAdComponent } from "./ticket/customer-ticket-admin/list-ticket-admin.component";
+import { TrainingPakageComponent } from "./training-pakage/training-pakage.component";
+import { ViewClassAdComponent } from "./classes/view-admin/view-class-admin.component";
+import { CreateClassComponent } from "./classes/create-class/create-class.component";
+import { PakageHistoryComponent } from "./pakage-history/pakage-history.component";
+import { ScheduleAdminPTComponent } from "./schedule-admin-pt/schedule-admin-pt.component";
 
 
 const routes: Routes = [
@@ -59,6 +64,10 @@ const routes: Routes = [
   { path: 'admin/orders', component: OrderAdminViewComponent },
   { path: 'admin/create-voucher', component: CreateVoucherComponent },
   { path: 'admin/update-voucher/:id', component: UpdateVoucherComponent },
+  { path: 'admin/customer-ticket', component: CustomerTicketAdComponent },
+  { path: 'admin/classes', component: ViewClassAdComponent },
+  { path: 'admin/create-class', component: CreateClassComponent },
+  { path: 'admin/schedule', component: ScheduleAdminPTComponent },
 
 
 
@@ -66,6 +75,7 @@ const routes: Routes = [
 
   //customer
   { path: 'register', component: SignupComponent },
+  { path: 'training-pakage', component: TrainingPakageComponent },
   { path: 'home', component: IntroductionComponent },
   { path: 'product-detail/:code', component: ProductDetailComponent},
   { path: 'login', component: LoginComponent },
@@ -79,15 +89,16 @@ const routes: Routes = [
   { path: 'order-checkout-ticket', component: OrderCheckoutTicketComponent },
   { path: 'order-detail', component: OrderDetailComponent },
   { path: 'order-home', component: OrderHomeComponent },
-  { path: 'order-history', component: OrderHistoryComponent },
   { path: 'tickets', component: TicketListComponent },
   { path: 'ticket-detail', component: TicketDetailComponent },
   { path: 'cart', component: CartComponent },
+  { path: 'order-success', component: OrderSuccessComponent },
   { path: 'order-success/:id', component: OrderSuccessComponent },
   { path: 'order-ticket-succes/:id', component: OrderTicketSuccessComponent },
   { path: 'ticket-customer-order', component: TicketCustomerOrderComponent },
   { path: 'product-customer-order', component: ProductCustomerOrderComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'pakage-history', component: PakageHistoryComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

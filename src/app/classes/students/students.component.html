@@ -1,0 +1,35 @@
+<div class="order" style="padding: 30px;">
+  <div class="modal-header">
+    <h4>Dang sách học viên</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Close click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Họ tên</th>
+          <th>Giới tính</th>
+          <th>Email</th>
+          <th>SĐT</th>
+          <th>Số buổi còn lại</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of classStudents; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{s.student.fullName}}</td>
+          <td>{{s.student.gender ? 'Nam' : 'Nữ'}}</td>
+          <td>{{s.student.email}}</td>
+          <td>{{s.student.phoneNumber}}</td>
+          <td>{{s.remainSlot}}</td>
+        </tr>
+        <tr *ngIf="classStudents?.length <= 0">
+          <td colspan="6" style="text-align: center;">Không có dữ liệu nào!</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

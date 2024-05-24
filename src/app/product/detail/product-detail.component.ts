@@ -89,7 +89,7 @@ export class ProductDetailComponent implements OnInit {
       return this.router.navigate(['/login']);
     }
     //check quantity
-    if (!this.quantity || +this.quantity <= 0) return; // số lượng sản phẩm không hợp lệ
+    if (!this.quantity || +this.quantity <= 0 || this.quantity > this.productByCode.stockQuantity) return; // số lượng sản phẩm không hợp lệ
 
     // check status product
     if(this.productByCode.status != this.statusProduct[3].code) return this.toastr.error(`Sản phẩm ${this.getStatusStr(this.productByCode.status)}`); 

@@ -47,6 +47,7 @@
                 <div class="voucher-item"  *ngFor="let voucher of vouchers" (click)="handleActiveVoucher(voucher)" [ngClass]="{'check': voucherSelect?.id == voucher.id}">
                   <div class="info-voucher" >
                     <p class="name">{{voucher.name}}</p>
+                    <p class="value">Áp dụng: {{voucher.startDate | date: 'dd/MM/yyyy'}} - {{voucher.endDate | date: 'dd/MM/yyyy'}}</p>
                     <p class="value">Giảm {{voucher.percentAmount}}% tối đa {{voucher.maxMoneyAmount | currency:'VND':'symbol':null:'vi-VN'}}</p>
                   </div>
                   <i class="fa-solid fa-check check-voucher" *ngIf="voucherSelect?.id == voucher.id"></i>

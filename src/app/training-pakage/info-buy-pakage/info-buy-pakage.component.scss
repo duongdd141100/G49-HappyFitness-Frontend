@@ -1,0 +1,54 @@
+.things {
+  display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.thing-item {
+  padding: 10px;
+  position: relative;
+  cursor: pointer;
+  /* color: rebeccapurple; */
+  background-color: #776c6c;
+  color: #fff;
+  width: auto;
+  &.select {
+    background-color: #3a2f2f;;
+    
+  }
+  i {
+    position: absolute;
+    font-size: 9px;
+    color: #fff;
+    top: 2px;
+    right: 5px;
+  }
+}
+.pt-block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  .pt-item {
+    display: flex;
+    cursor: pointer;
+    flex-direction: column;
+    width: 150px;
+    align-items: center;
+    padding: 10px;
+    /* border: 1px solid; */
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    &.select {
+      background-color: #f6f6f6;
+    }
+    i {
+      font-size: 50px;
+    }
+    .name-pt {
+      margin-bottom: -4px;
+      font-weight: 500;
+    }
+    .gender {
+      margin-bottom: 0;
+      font-size: 13px;
+    }
+  }
+}

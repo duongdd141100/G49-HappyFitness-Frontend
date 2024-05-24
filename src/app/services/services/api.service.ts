@@ -21,11 +21,13 @@ export class ApiService {
   private USER_INFOR = this.baseUrl + "users";
   private RESET_PASSWORD = this.baseUrl + "users/reset-password";
   private CREATE_USER = this.baseUrl + "users/create";
+  private GET_PT_FREE = this.baseUrl + 'users/free-pt'
   
   // Cart
   private VIEWCART = this.baseUrl + "cart";
   private ADDCART = this.baseUrl + "cart/add";
   private DELETECART = this.baseUrl + "cart/delete";
+  private UPDATE_CART = this.baseUrl + "cart/change-quantity";
 
   // Product
   private GET_PRODUCT = this.baseUrl + "products";
@@ -73,9 +75,27 @@ export class ApiService {
   private CREATE_ORDER_TICKET = this.baseUrl + "user-ticket/buy";
   private TICKET_CUSTOMER = this.baseUrl + "user-ticket";
   private TICKET_CUSTOMER_EXTEND = this.baseUrl + "user-ticket/extend";
+  private CHANGE_CUSTOMER_TICKET_USING = this.baseUrl + "user-ticket/using";
+
+  // Schedule
+  private FIND_SCHEDULE = this.baseUrl + "schedules";
+  private UPDATE_SCHEDULE = this.baseUrl + "schedules/update";
+  private ATTEND_SCHEDULE = this.baseUrl + "schedules/attend";
+
+  // Attendance
+  private FIND_ATTENDANCE = this.baseUrl + "attendance";
+  private UPDATE_ATTENDANCE = this.baseUrl + "attendance/update";
+
+  // Classes
+  private FIND_CLASS = this.baseUrl + "classes";
 
   //AI
   private AI_MENU = 'http://127.0.0.1:8000/submit'; // server AI khác
+
+  //PAKAGE
+  private GET_PACKAGE = this.baseUrl + "packages"
+  private GET_TIME_TRAIN = this.baseUrl + "train-time"
+  
   constructor(private http: HttpClient) { }
 
   private getHeadersWithToken(): HttpHeaders {
@@ -104,15 +124,27 @@ export class ApiService {
     const url = !voucherCode ? `${this.CREATE_ORDER_TICKET}/${ticketId}` : `${this.CREATE_ORDER_TICKET}/${ticketId}?voucherCode=${voucherCode}`
     return this.http.post<any>(url, null, { headers })
   }
-  public createPayment(amount, orderId?, ticketId?):Observable<any>  {
+  public createPayment(amount, orderId?, ticketId?, dataBody?):Observable<any>  {
     const headers = this.getHeadersWithToken();
-    const url = orderId ?  `${this.CREATE_PAYMENT}?amount=${amount}&orderId=${orderId}` : `${this.CREATE_PAYMENT}?amount=${amount}&ticketId=${ticketId}`
-    return this.http.get<any>(url , { headers });
+    let url = orderId ?  `${this.CREATE_PAYMENT}?amount=${amount}&orderId=${orderId}` : `${this.CREATE_PAYMENT}?amount=${amount}&ticketId=${ticketId}`
+    if(!orderId && !ticketId) url = this.CREATE_PAYMENT
+    return this.http.post<any>(url , dataBody, { headers });
   }
-  public completePayment(responseCode, orderId):Observable<any>  {
+  public getPtFree(data: {facilityId: number, mapDayOfWeekWithTrainTimeId: any}):Observable<any>  {
     const headers = this.getHeadersWithToken();
-    const url = `${this.PAYMENT_COMPLETE}?responseCode=${responseCode}&orderId=${orderId}`
-    return this.http.get<any>(url , { headers });
+    return this.http.post<any>(this.GET_PT_FREE , data, { headers });
+  }
+  public getTimeTrain():Observable<any>  {
+    const headers = this.getHeadersWithToken();
+    return this.http.get<any>(this.GET_TIME_TRAIN, { headers });
+  }
+  public completePayment(responseCode, orderId?, dataBody?):Observable<any>  {
+    const headers = this.getHeadersWithToken();
+    let url = `${this.PAYMENT_COMPLETE}?responseCode=${responseCode}&orderId=${orderId}`
+    if (dataBody && !orderId) {
+      url =  `${this.PAYMENT_COMPLETE}?responseCode=${responseCode}`
+    }
+    return this.http.post<any>(url ,dataBody , { headers });
   }
 
 
@@ -137,6 +169,10 @@ export class ApiService {
     const headers = this.getHeadersWithToken();
     return this.http.post<any>(`${this.DELETECART}`, cart , { headers });
   }
+  public updateCart(data): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.UPDATE_CART}`, data , { headers });
+  }
   register(fullName: string, username: string, email: string, password: string, phoneNumber: string, role: any, gender: string, dob: string): Observable<any> {
     return this.http.post<any>(this.REGISTER, { fullName, username, email, password, phoneNumber, role, gender, dob });
   }
@@ -145,9 +181,20 @@ export class ApiService {
     const headers = this.getHeadersWithToken();
     return this.http.get(`${this.baseUrl}/${endpoint}`, { headers });
   }
-  public getTicketCustomerHistory(): Observable<any> {
+  public getTicketCustomerHistory(facilityId: string = null, isActive: string = null, isUsing: string = null): Observable<any> {
     const headers = this.getHeadersWithToken();
-    return this.http.get(`${this.TICKET_CUSTOMER}`, { headers });
+    let params = [];
+    if (facilityId) {
+      params.push(`facilityId=${facilityId}`);
+    }
+    if (isActive != null) {
+      params.push(`isActive=${isActive}`);
+    }
+    if (isUsing != null) {
+      params.push(`isUsing=${isUsing}`)
+    }
+    let paramsStr = params.length > 0 ? params.join('&') : '';
+    return this.http.get(`${this.TICKET_CUSTOMER}` + (paramsStr ? `?${paramsStr}` : ''), { headers });
   }
   public getProductCustomerHistory(): Observable<any> {
     const headers = this.getHeadersWithToken();
@@ -384,5 +431,44 @@ export class ApiService {
   public updateVoucher(voucher, id = null): Observable<any> {
     const headers = this.getHeadersWithToken();
     return this.http.post<any>(`${this.UPDATE_VOUCHER}/${id}`, voucher, { headers });
+  }
+  public changeCustomerTicketUsing(username: string): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.CHANGE_CUSTOMER_TICKET_USING}/${username}`, null, { headers });
+  }
+
+  public getClasses(type?: string): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    let url = !type ? this.FIND_CLASS : `${this.FIND_CLASS}?type=${type}`
+    return this.http.get<any>(url, { headers });
+  }
+
+  public getSchedules(classId: any = null): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.get<any>(`${this.FIND_SCHEDULE}` + (classId ? `?classId=${classId}` : ''), { headers });
+  }
+  public updateSchedule(data:any): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.UPDATE_SCHEDULE}`,data, { headers });
+  }
+
+  public getPackage(): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.get<any>(`${this.GET_PACKAGE}`, { headers });
+  }
+
+  public attend(scheduleId, studentId): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.ATTEND_SCHEDULE}/${scheduleId}?studentId=${studentId}`, null, { headers });
+  }
+
+  public getAttendance(scheduleId): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.get<any>(`${this.FIND_ATTENDANCE}/${scheduleId}`, { headers });
+  }
+
+  public updateAttend(attendances: any): Observable<any> {
+    const headers = this.getHeadersWithToken();
+    return this.http.post<any>(`${this.UPDATE_ATTENDANCE}`, attendances, { headers });
   }
 }

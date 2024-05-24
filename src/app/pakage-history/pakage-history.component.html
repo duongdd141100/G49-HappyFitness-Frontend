@@ -1,0 +1,43 @@
+<main>
+  <div class="position-relative">
+    <!-- shape Hero -->
+    <section class="section">
+      <div class="section-intro">
+        <div class="container py-lg-md" >
+          <h4>Các gói đã mua</h4>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Tên gói</th>
+                <th>Cơ sở</th>
+                <th>Thời gian tạo</th>
+                <th>Tiền đã thanh toán</th>
+                <th>Huấn luận viên</th>
+                <th>Buổi(còn/tổng)</th>
+                <th>Tác vụ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of pakageHistorys">
+                <td>{{p.apackage.name}}</td>
+                <td>{{p.pt.facility.name}}</td>
+                <td>{{p.createdDate | date : 'dd/MM/yyyy ' : "GMT"}}</td>
+                <td>{{p.apackage.price | currency:'VND':'symbol':null:'vi-VN'}}</td>
+                <td><b>{{p.pt.fullName}}</b></td>
+                <td>{{onLoadSlotPakage(p)}}</td>
+                <td><button type="button" class="btn btn-primary" (click)="handeViewSchedule(p)">Lịch tập</button></td>
+              </tr>
+              <tr *ngIf="pakageHistorys?.length <= 0">
+                <td colspan="6" style="text-align: center;">Không có gói tập nào!</td>
+              </tr>
+            </tbody>
+          </table>
+          
+        </div>
+      </div>
+    </section>
+    <!-- 1st Hero Variation -->
+  </div>
+
+
+</main>

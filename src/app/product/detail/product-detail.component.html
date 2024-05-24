@@ -32,7 +32,7 @@
                       <input type="number"
                         class="form-control" name="" min="1" [(ngModel)]="quantity" [value]="1" id="quantity-buy" aria-describedby="helpId" placeholder="">
                         <div class="regexTel">
-                          <ng-container *ngIf="!quantity || +quantity <= 0">
+                          <ng-container *ngIf="!quantity || +quantity <= 0 || +quantity > productByCode.stockQuantity">
                               <p class="text-danger" style="font-size: 13px;">Số lượng không hợp lệ</p>
                           </ng-container>
                         </div>

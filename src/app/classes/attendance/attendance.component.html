@@ -1,0 +1,55 @@
+<div class="order" style="padding: 30px;">
+  <div class="modal-header">
+    <h4>Dang sách học viên</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Close click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="text-center">STT</th>
+          <th class="text-center">Họ tên</th>
+          <th class="text-center">Giới tính</th>
+          <th class="text-center">Email</th>
+          <th class="text-center">SĐT</th>
+          <th class="text-center">Số buổi còn lại</th>
+          <th class="text-center">Trạng thái</th>
+          <th class="text-center">Điểm danh</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of attendances; let i = index">
+          <td class="text-center">{{i + 1}}</td>
+          <td class="text-center">{{s.classStudent.student.fullName}}</td>
+          <td class="text-center">{{s.classStudent.student.gender ? 'Nam' : 'Nữ'}}</td>
+          <td class="text-center">{{s.classStudent.student.email}}</td>
+          <td class="text-center">{{s.classStudent.student.phoneNumber}}</td>
+          <td class="text-center">{{s.classStudent.remainSlot}}</td>
+          <td class="text-center" [ngClass]="s.status === 'ATTENDED' ? 'text-success' : (s.status === 'ABSENT' ? 'text-danger' : 'text-warning')">
+            {{s.status === 'ATTENDED' ? 'Đã tập' : (s.status === 'ABSENT' ? 'Vắng' : 'Chưa tới')}}
+          </td>
+          <td class="text-center">
+            <div class="button-action">
+                <div>
+                  <!-- <button class="btn btn-success" aria-label="Attend" (click)="attend(s)">
+                    <i class="fa-solid fa-check"></i>
+                  </button> -->
+                  <input type="checkbox" class="checkbox" [(ngModel)]="s.statusCheckbox">
+                </div>
+              </div>
+            </td>
+        </tr>
+        <tr *ngIf="classStudents?.length <= 0">
+          <td colspan="6" style="text-align: center;">Không có dữ liệu nào!</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary Save" aria-label="Save" (click)="save()">
+      Cập nhật
+    </button>
+  </div>
+</div>

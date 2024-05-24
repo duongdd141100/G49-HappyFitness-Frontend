@@ -26,8 +26,16 @@
                 <td>{{product.name}}</td>
                 <td>{{product.price | currency:'VND':'symbol':null:'vi-VN'}}</td>
                 <td>{{product.category}}</td>
-                <td>{{product.quantity}}</td>
-                <td><i class="fa-solid fa-trash" (click)="handleDeleteProduct(product)" style="cursor: pointer;"></i></td>
+                <td style="    display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 15px;">
+                  <i class="fa-solid fa-minus" style="cursor: pointer;" (click)="handleUpdateCart(product, 'minus')"></i>
+                  <input type="text"
+                    class="form-control" min="1" type="number" max="500" name=""  [value]="product.quantity" style=" width: 80px;height: 30px; text-align: center;" (input)="handleUpdateCart(product, null, $event)" aria-describedby="helpId" placeholder="">
+                    <i class="fa-solid fa-plus" style="cursor: pointer;" (click)="handleUpdateCart(product, 'add')"></i>
+                </td>
+                <td><i class="fa-solid fa-trash" (click)="handleDeleteProduct(product)"  style="cursor: pointer;"></i></td>
               </tr>
               <tr *ngIf="productCarts?.length <= 0">
                 <td colspan="6" style="text-align: center;">Không có sản phẩm nào!</td>

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/services/auth.service';
 
 declare interface RouteInfoManager {
   path: string;
@@ -15,10 +16,20 @@ export const ROUTES2: RouteInfoManager[] = [
   { path: '/admin/products', title: 'Sản phẩm', icon: 'fa-solid fa-dumbbell', class: '' },
   { path: '/admin/facilities', title: 'Cơ sở', icon: 'fa-solid fa-house', class: '' },
   { path: '/admin/tickets', title: 'Vé', icon: 'fa-solid fa-ticket', class: '' },
+  { path: '/admin/customer-ticket', title: 'Vé khách hàng', icon: 'fa-solid fa-ticket', class: '' },
   { path: '/admin/vouchers', title: 'Mã giảm giá', icon: 'fa-solid fa-ticket-simple', class: '' },
-  { path: '/term', title: 'Điều khoản', icon: 'ni-tv-2', class: '' },
-  // { path: '/list-customer', title: 'Danh sách nhân viên', icon: 'ni-bullet-list-67 text-red', class: '' },
-  // { path: '/booking-management', title: 'Quản lý dịch vụ', icon: 'ni-bullet-list-67 text-red', class: '' },
+  { path: '/admin/classes', title: 'Lớp', icon: 'fa-solid fa-school', class: '' },
+  { path: '/admin/schedule', title: 'Lịch tập', icon: 'ni-tv-2', class: '' },
+];
+
+export const ROUTES_PT: RouteInfoManager[] = [
+  { path: '/admin/dashboard', title: 'Thống kê', icon: 'fa-solid fa-chart-line', class: '' },
+  { path: '/admin/products', title: 'Sản phẩm', icon: 'fa-solid fa-dumbbell', class: '' },
+  { path: '/admin/facilities', title: 'Cơ sở', icon: 'fa-solid fa-house', class: '' },
+  { path: '/admin/tickets', title: 'Vé', icon: 'fa-solid fa-ticket', class: '' },
+  { path: '/admin/vouchers', title: 'Mã giảm giá', icon: 'fa-solid fa-ticket-simple', class: '' },
+  { path: '/admin/classes', title: 'Lớp', icon: 'fa-solid fa-school', class: '' },
+  { path: '/admin/schedule', title: 'Lịch tập', icon: 'ni-tv-2', class: '' },
 ];
 
 
@@ -36,16 +47,21 @@ export class SidebarComponent implements OnInit {
   public menuItemsAdmin: any[];
   public menuItemsLead: any[];
   public isCollapsed = true;
+  public me: any;
   @Input() public adminNavbar: any;
   @Input() public cleanerNavbar: any;
   @Input() public leadNavbar: any;
   @Input() public managerNavbar: any;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    ) {
     this.menuItemsManager = this.setActiveClassManager(ROUTES2);
   }
 
   ngOnInit() {
+    this.onLoadMe();
     // if (this.cacheService.getHasClearedCache()) {
     //   this.refresh();
 
@@ -93,6 +109,20 @@ export class SidebarComponent implements OnInit {
       this.isCollapsed = true;
     });
 
+  }
+  onLoadMe() {
+    this.authService.getOwnInfo().subscribe({
+      next: (res) => {
+        this.me = res.body
+        if (this.me.role.id === 5) {
+          this.menuItemsManager = this.setActiveClassManager(ROUTES_PT);
+        }
+      }, // nextHandler
+      error: (err) => {
+      
+        return
+      }, // errorHandler
+    })
   }
 
   private setActiveClassManager(routes: RouteInfoManager[], currentUrl: string = ''): RouteInfoManager[] {

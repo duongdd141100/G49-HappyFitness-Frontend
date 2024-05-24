@@ -10,12 +10,18 @@
     width: 100%;
 }
 
-
-
+.background-fitness {
+    height: auto !important;
+}
+.form-group {
+    margin-bottom: 0 !important;
+}
+.gender {
+    gap: 10px;
+}
 .column-center {
     display: flex;
     align-items: center;
-    height: 100vh;
     margin-left: -10rem;
 }
 
@@ -62,4 +68,11 @@
 
 .form-group{
     margin-bottom: 0.5rem;
+}
+.container {
+    max-width: 1200px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: 15rem;
+    margin-left: 9rem;
 }

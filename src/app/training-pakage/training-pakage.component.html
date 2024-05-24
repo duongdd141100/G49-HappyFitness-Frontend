@@ -1,0 +1,19 @@
+<main>
+  <section class="section">
+    <div class="container">
+      <h2  class="d-flex justify-content-center title-page mt-5 mb-5">Gói tập</h2>
+      <div class="row">
+        <div class="pakage-block col-12 d-flex mb-5">
+          <div class="pakage-item col-12 col-md-6 mt-4" *ngFor="let p of pakages">
+            <figure><img [src]="p.type == type.one ? '/assets/img/pakage02.png' : '/assets/img/pakage01.jpg'" class="img-fluid" alt=""></figure>
+            <h5 style="font-weight: 600; margin-top: 10px; margin-bottom: 0;">{{p.name}} {{p.type == type.one ? '(Kèm 1-1)' : '(Lớp học)'}}</h5>
+            <p style="font-size: 18px; font-weight: 600; color: #aaac3b; margin-bottom: 7px;">{{p.price | currency:'VND':'symbol':null:'vi-VN'}}</p>
+            <button class="btn btn-primary" (click)="handleBuyPakage(p)">Mua ngay</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+</main>

@@ -19,10 +19,12 @@ export class ErrorInterceptor implements HttpInterceptor {
   arrayUrlCheckAuth = [
     '/cart',
     '/order-checkout',
-    '/order-checkout-ticket',
     '/profile',
     '/product-customer-order',
-    '/ticket-customer-order'
+    '/ticket-customer-order',
+    '/order-success',
+    '/order-ticket-succes',
+    '/pakage-history'
   ]
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -43,10 +45,10 @@ export class ErrorInterceptor implements HttpInterceptor {
         }
 
         // Nếu muốn tiếp tục xử lý lỗi ở các interceptor khác hoặc components/services khác, có thể sử dụng throwError(error)
-        // return throwError(error);
+        return throwError(error);
 
         // Nếu không muốn tiếp tục xử lý lỗi ở các interceptor khác hoặc components/services khác, return một Observable rỗng
-        return new Observable<HttpEvent<any>>();
+        // return new Observable<HttpEvent<any>>();
       })
     );
   }

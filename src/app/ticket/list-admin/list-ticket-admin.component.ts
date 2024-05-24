@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Import CommonModule ở đây
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/services/api.service';
+import { AuthService } from 'src/app/services/services/auth.service';
 
 
 @Component({
@@ -15,14 +16,28 @@ export class ListTicketAdComponent implements OnInit {
   listTickets: any = [];
   facilityList: any = [];
   facilitySelect: string;
+  me: any;
   constructor(
     private router: Router,
     private apiService: ApiService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
     this.onLoadSticks();
     this.onLoadAllFacility();
+    this.onLoadMe();
+  }
+  onLoadMe() {
+    this.authService.getOwnInfo().subscribe({
+      next: (res) => {
+        this.me = res.body
+      }, // nextHandler
+      error: (err) => {
+      
+        return
+      }, // errorHandler
+    })
   }
   onLoadSticks(facility: number = null) {
     this.apiService.getSticketAdmin(facility).subscribe({

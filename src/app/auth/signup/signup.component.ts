@@ -2,6 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { AuthService } from "src/app/services/services/auth.service";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { regexEmail, regexFormEmail, scrollToFirstInvalidControl, validateAllFormFields, validateForm } from "src/app/functions/function-helper";
 
 @Component({
   selector: "app-signup",
@@ -21,6 +23,7 @@ export class SignupComponent implements OnInit {
 
   isChecked: boolean = false;
   isRegistered: boolean = false;
+  registerForm:FormGroup;
   errorMessage = "";
   tel: string;
   pwd: string;
@@ -43,11 +46,15 @@ export class SignupComponent implements OnInit {
   accountBlur: boolean;
   emailBlur: boolean;
   emailExist = false;
+  validateForm = validateForm;
+  regexEmail = regexEmail;
   constructor(private router: Router,
     private authService: AuthService,
-    private toast: ToastrService,) { }
+    private toast: ToastrService, private formBuilder: FormBuilder) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.registerForm = this.createFormRegister(); 
+  }
 
   // TODO: verify password match re-password
   // TODO: Check if 'toi dong y voi dieu khoan' is checked to allow sign-up
@@ -60,31 +67,40 @@ export class SignupComponent implements OnInit {
     const repassword = this.repwd;
     return password === repassword;
   }
-
+  createFormRegister():FormGroup {
+      return this.formBuilder.group({
+        fullName: [null, [Validators.required]],
+        username: [null, [Validators.required]],
+        email: [null, [Validators.required, regexFormEmail]],
+        password: [null, [Validators.required]],
+        phoneNumber: [null, [Validators.required]],
+        gender: [true, [Validators.required]],
+        address: [null, [Validators.required]],
+        dob: [null, [Validators.required]],
+      });
+  }
   signUp() {
-    if (!this.isChecked) {
-      this.toast.error("Vui lòng đồng ý với điều khoản");
-      return;
-    }
-    const registerInfo = {
-      fullName: this.first_name,
-      username: this.account_name,
-      email: this.account_email,
-      password: this.pwd,
-      phoneNumber: this.phone,
-      gender: this.gender === 'Nam',
-      address: this.address,
-      dob: this.bod
-    }
-    this.authService.register(registerInfo).subscribe({
-      next: (res) => {
-        this.toast.success("Tạo tài khoản thành công");
-        this.router.navigate(["/login"]);
-      }, // nextHandler
-      error: (err) => {
-        this.errorMessage = err.error.body
-      }, // errorHandler
-    });
+   
+    if (this.registerForm.valid) {
+      if (!this.isChecked) {
+        this.toast.error("Vui lòng đồng ý với điều khoản");
+        return;
+      }
+      console.log( this.registerForm.value);
+      const registerInfo = this.registerForm.value;
+      this.authService.register(registerInfo).subscribe({
+        next: (res) => {
+          this.toast.success("Tạo tài khoản thành công");
+          this.router.navigate(["/login"]);
+        }, // nextHandler
+        error: (err) => {
+          this.errorMessage = err.error.body
+        }, // errorHandler
+      });
+    } else {
+      validateAllFormFields(this.registerForm);
+      scrollToFirstInvalidControl(this.registerForm);
+    }   
   }
 
   signIn() {
